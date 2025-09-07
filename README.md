@@ -1,9 +1,16 @@
 # Jalte Diye Foundation - Official website source code
-##### Repository that contains source code for Web logs (Blogs) of Jalte Diye Foundation
-##### For more information read the Wiki page
+Repository that contains source code for Web logs (Blogs) of Jalte Diye Foundation. For more information read the Wiki page
 
-- [Official Website](https://reallyrealeducation.org)
+----------------
+
+### Official web links
+- [Website](https://reallyrealeducation.org)
+- [Twitter page](https://x.com/reallyrealed)
 - [LinkedIn Page](https://www.linkedin.com/company/jalte-diye-foundation)
+- [Facebook page](https://www.facebook.com/JalteDiyeFoundation)
+- [Instagram page](https://www.instagram.com/jalte_diye_foundation)
+- [WhatsApp account](https://wa.me/916376930632)
+- [New website - (Underdevelopment)](https://reallyrealeducation.org)
 
 ----------------
 
