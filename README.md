@@ -10,7 +10,7 @@ Repository that contains source code for Web logs (Blogs) of Jalte Diye Foundati
 - [Facebook page](https://www.facebook.com/JalteDiyeFoundation)
 - [Instagram page](https://www.instagram.com/jalte_diye_foundation)
 - [WhatsApp account](https://wa.me/916376930632)
-- [New website - (Underdevelopment)](https://reallyrealeducation.org)
+- [New website - (Underdevelopment)](https://jalte-diye-foundation.github.io)
 
 ----------------
 
