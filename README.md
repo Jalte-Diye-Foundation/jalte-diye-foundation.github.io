@@ -5,11 +5,13 @@ Repository that contains source code for Web logs (Blogs) of Jalte Diye Foundati
 
 ### Official web links
 - [Website](https://reallyrealeducation.org)
-- [Twitter page](https://x.com/reallyrealed)
-- [LinkedIn Page](https://www.linkedin.com/company/jalte-diye-foundation)
+- [X page](https://x.com/JalteDiyeNPO)
+- [LinkedIn page](https://www.linkedin.com/company/jalte-diye-foundation)
 - [Facebook page](https://www.facebook.com/JalteDiyeFoundation)
 - [Instagram page](https://www.instagram.com/jalte_diye_foundation)
-- [WhatsApp account](https://wa.me/916376930632)
+- [YouTube channel](https://www.youtube.com/@JalteDiyeNPO)
+- [WhatsApp account](https://wa.me/message/XSTSJ3NR7SL6E1)
+
 - [New website - (Underdevelopment)](https://jalte-diye-foundation.github.io)
 
 ----------------
