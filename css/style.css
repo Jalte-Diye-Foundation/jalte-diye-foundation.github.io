@@ -185,7 +185,6 @@ h3 {
 }
 
 .philosophy-cards-container,
-.cards-container,
 .cta-cards-container {
 	display: flex;
 	justify-content: center;
@@ -199,10 +198,63 @@ h3 {
 	gap: 30px;
 }
 
-.cards-container,
 .cta-cards-container {
 	gap: 30px;
 }
+
+/* Carousel Styling */
+.carousel-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+#activitiesCarousel {
+	display: flex;
+	overflow-x: auto;
+	overflow-y: hidden;
+	gap: 30px;
+	scroll-behavior: smooth;
+	flex-wrap: nowrap;
+	width: 100%;
+	padding: 0;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+}
+
+#activitiesCarousel::-webkit-scrollbar {
+	height: 0;
+}
+
+.carousel-btn {
+	background: var(--accent-green);
+	color: white;
+	border: none;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: 0.3s;
+	flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+	background: var(--accent-green-dark);
+	transform: scale(1.1);
+}
+
+.carousel-btn:active {
+	transform: scale(0.95);
+}
+
+/* End Carousel Styling */
 
 .philosophy-card,
 .activity-card,
@@ -313,11 +365,11 @@ h3 {
 }
 
 .activity-card {
-	flex: 1;
-	min-width: 280px;
-	max-width: 100%;
-	width: 100%;
+	flex: 0 0 100%;
+	min-width: 100%;
 	padding: 20px;
+	scroll-snap-align: start;
+	scroll-snap-stop: always;
 }
 
 .activity-card:hover {
