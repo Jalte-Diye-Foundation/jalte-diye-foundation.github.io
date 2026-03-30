@@ -817,6 +817,23 @@ h3 {
 	color: #666;
 }
 
+.project-title-link {
+	color: #4b4238;
+	text-decoration: none;
+	display: inline-block;
+	padding-bottom: 4px;
+	border-bottom: 2px solid rgba(208, 103, 29, 0.22);
+	transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.project-title-link:hover,
+.project-title-link:focus-visible {
+	color: #d0671d;
+	border-bottom-color: #d0671d;
+	transform: translateY(-1px);
+	outline: none;
+}
+
 .donate-section p {
 	margin-bottom: 12px;
 	color: var(--text-muted);
