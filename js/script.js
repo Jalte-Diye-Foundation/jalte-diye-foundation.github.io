@@ -73,3 +73,35 @@ if (carousel && prevBtn && nextBtn) {
 }
 
 // Add any additional website functionality here
+
+// Shared footer loader
+const footerFallbackHtml = `
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <p>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</p>
+            <p><span style="font-size: 12px; color: #999;">This website contains AI-generated images used for illustration.</span></p>
+        </div>
+        <div class="footer-links">
+            <a href="work-policy.html">Work Policy</a> | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-use.html">Terms of Use</a>
+        </div>
+    </div>
+</footer>`;
+
+const injectFooter = (html) => {
+    const placeholder = document.getElementById('site-footer');
+    if (placeholder) placeholder.outerHTML = html;
+};
+
+fetch('footer.html')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Footer request failed');
+        }
+        return response.text();
+    })
+    .then(injectFooter)
+    .catch(() => {
+        // Fallback keeps footer visible when opened directly from file://
+        injectFooter(footerFallbackHtml);
+    });
