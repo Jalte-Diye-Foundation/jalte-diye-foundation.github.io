@@ -88,9 +88,20 @@ const footerFallbackHtml = `
     </div>
 </footer>`;
 
+const ensureMerchandiseLink = (html) => {
+    if (html.includes('href="merchandise.html"')) {
+        return html;
+    }
+
+    return html.replace(
+        '<a href="privacy-policy.html">Privacy Policy</a>',
+        '<a href="merchandise.html">Merchandise</a> | <a href="privacy-policy.html">Privacy Policy</a>'
+    );
+};
+
 const injectFooter = (html) => {
     const placeholder = document.getElementById('site-footer');
-    if (placeholder) placeholder.outerHTML = html;
+    if (placeholder) placeholder.outerHTML = ensureMerchandiseLink(html);
 };
 
 fetch('footer.html')
