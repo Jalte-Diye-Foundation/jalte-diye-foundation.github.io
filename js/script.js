@@ -122,7 +122,7 @@ const upiAmountContainer = document.getElementById('upiAmountButtons');
 
 if (upiAmountContainer) {
     const upiConfig = {
-        payeeAddress: '20250302',
+        payeeAddress: '9602431619@pz',
         payeeName: 'Jalte Diye Foundation',
         currency: 'INR',
         note: 'Donation to Jalte Diye Foundation',
