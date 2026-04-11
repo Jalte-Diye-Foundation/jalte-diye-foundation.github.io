@@ -116,3 +116,37 @@ fetch('footer.html')
         // Fallback keeps footer visible when opened directly from file://
         injectFooter(footerFallbackHtml);
     });
+
+// Donate page: quick UPI amount buttons
+const upiAmountContainer = document.getElementById('upiAmountButtons');
+
+if (upiAmountContainer) {
+    const upiConfig = {
+        payeeAddress: '20250302',
+        payeeName: 'Jalte Diye Foundation',
+        currency: 'INR',
+        note: 'Donation to Jalte Diye Foundation',
+        amounts: [50, 100, 200, 500, 1000, 2000, 5000]
+    };
+
+    const buildUpiLink = (amount) => {
+        const params = new URLSearchParams({
+            pa: upiConfig.payeeAddress,
+            pn: upiConfig.payeeName,
+            am: String(amount),
+            cu: upiConfig.currency,
+            tn: upiConfig.note
+        });
+
+        return `upi://pay?${params.toString()}`;
+    };
+
+    upiConfig.amounts.forEach((amount) => {
+        const link = document.createElement('a');
+        link.className = 'upi-amount-btn';
+        link.href = buildUpiLink(amount);
+        link.textContent = `₹ ${amount}`;
+        link.setAttribute('aria-label', `Pay ₹ ${amount} via UPI app`);
+        upiAmountContainer.appendChild(link);
+    });
+}

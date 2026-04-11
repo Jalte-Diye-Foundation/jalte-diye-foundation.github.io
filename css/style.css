@@ -911,6 +911,43 @@ h3 {
 	color: var(--text-main);
 }
 
+.upi-amount-grid {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	gap: 8px;
+	margin: 10px 0 12px;
+	overflow-x: auto;
+	padding-bottom: 2px;
+}
+
+.upi-amount-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 6px 10px;
+	border-radius: 999px;
+	border: 1px solid rgba(12, 109, 60, 0.28);
+	background: rgba(12, 109, 60, 0.08);
+	color: var(--accent-green-dark);
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	white-space: nowrap;
+	flex: 0 0 auto;
+	transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.upi-amount-btn:hover,
+.upi-amount-btn:focus-visible {
+	background: rgba(12, 109, 60, 0.16);
+	border-color: rgba(12, 109, 60, 0.45);
+	transform: translateY(-1px);
+	outline: none;
+}
+
 .upi-title {
 	font-weight: 600;
 	color: var(--text-main);
@@ -1319,6 +1356,10 @@ h3 {
 
 	.upi-details {
 		padding: 20px 16px;
+	}
+
+	.upi-amount-grid {
+		gap: 6px;
 	}
 
 	.qr-placeholder {
