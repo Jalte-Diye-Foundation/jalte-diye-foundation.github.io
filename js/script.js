@@ -131,21 +131,30 @@ if (upiAmountContainer) {
 
     const buildUpiLink = (amount) => {
         const numericAmount = Number(amount);
+        if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
+            return null;
+        }
+
+        const amountString = Number.isInteger(numericAmount)
+            ? String(numericAmount)
+            : numericAmount.toFixed(2);
+
         const parts = [
             `pa=${encodeURIComponent(upiConfig.payeeAddress)}`,
-            `pn=${encodeURIComponent(upiConfig.payeeName)}`,
-            `am=${numericAmount.toFixed(2)}`,
-            `cu=${encodeURIComponent(upiConfig.currency)}`,
-            `tn=${encodeURIComponent(upiConfig.note)}`
+            `am=${amountString}`,
+            `cu=${encodeURIComponent(upiConfig.currency)}`
         ];
 
         return `upi://pay?${parts.join('&')}`;
     };
 
     upiConfig.amounts.forEach((amount) => {
+        const upiLink = buildUpiLink(amount);
+        if (!upiLink) return;
+
         const link = document.createElement('a');
         link.className = 'upi-amount-btn';
-        link.href = buildUpiLink(amount);
+        link.href = upiLink;
         link.textContent = `₹ ${amount}`;
         link.setAttribute('aria-label', `Pay ₹ ${amount} via UPI app`);
         upiAmountContainer.appendChild(link);
