@@ -123,7 +123,7 @@ const upiAmountContainer = document.getElementById('upiAmountButtons');
 if (upiAmountContainer) {
     const upiConfig = {
         payeeAddress: '9602431619@pz',
-        payeeName: 'Jalte Diye Foundation',
+        payeeName: 'NARSINGH LAL SHARMA',
         currency: 'INR',
         note: 'Donation to Jalte Diye Foundation',
         amounts: [50, 100, 200, 500, 1000, 2000, 5000]
