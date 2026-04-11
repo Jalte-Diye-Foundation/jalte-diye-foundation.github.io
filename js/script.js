@@ -130,15 +130,16 @@ if (upiAmountContainer) {
     };
 
     const buildUpiLink = (amount) => {
-        const params = new URLSearchParams({
-            pa: upiConfig.payeeAddress,
-            pn: upiConfig.payeeName,
-            am: String(amount),
-            cu: upiConfig.currency,
-            tn: upiConfig.note
-        });
+        const numericAmount = Number(amount);
+        const parts = [
+            `pa=${encodeURIComponent(upiConfig.payeeAddress)}`,
+            `pn=${encodeURIComponent(upiConfig.payeeName)}`,
+            `am=${numericAmount.toFixed(2)}`,
+            `cu=${encodeURIComponent(upiConfig.currency)}`,
+            `tn=${encodeURIComponent(upiConfig.note)}`
+        ];
 
-        return `upi://pay?${params.toString()}`;
+        return `upi://pay?${parts.join('&')}`;
     };
 
     upiConfig.amounts.forEach((amount) => {
