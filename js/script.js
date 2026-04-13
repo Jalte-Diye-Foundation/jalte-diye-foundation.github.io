@@ -150,9 +150,7 @@ if (upiAmountContainer) {
             return null;
         }
 
-        const amountString = Number.isInteger(numericAmount)
-            ? String(numericAmount)
-            : numericAmount.toFixed(2);
+        const amountString = numericAmount.toFixed(2);
 
         const parts = [
             // Keep required UPI fields simple for widest app compatibility.

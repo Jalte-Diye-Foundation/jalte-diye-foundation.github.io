@@ -1231,11 +1231,41 @@ h3 {
 
 @media (max-width: 480px) {
 	.site-header {
-		padding: 8px 0 0 0;
+		padding: 8px 12px 0;
+		grid-template-columns: 60px 1fr;
+		grid-template-rows: auto auto auto;
+		gap: 0 10px;
+		align-items: start;
 	}
 
 	.logo {
-		width: 70%;
+		width: 60px;
+		height: 60px;
+		margin: 0;
+		grid-column: 1;
+		grid-row: 1 / 3;
+	}
+
+	.site-header h1 {
+		grid-column: 2;
+		grid-row: 1;
+		font-size: 18px;
+		margin: 6px 0 0 0;
+		text-align: left;
+	}
+
+	.tagline {
+		grid-column: 2;
+		grid-row: 2;
+		font-size: 11px;
+		margin: 2px 0 0 0;
+		text-align: left;
+	}
+
+	.main-nav {
+		grid-column: 2;
+		grid-row: 3;
+		justify-content: flex-start;
 	}
 
 	.section-title {
