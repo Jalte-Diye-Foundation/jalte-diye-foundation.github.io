@@ -83,7 +83,12 @@ const footerFallbackHtml = `
             <p><span style="font-size: 12px; color: #999;">This website contains AI-generated images used for illustration.</span></p>
         </div>
         <div class="footer-links">
-            <a href="work-policy.html">Work Policy</a> | <a href="merchandise.html">Merchandise</a> | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-use.html">Terms of Use</a>
+            <a href="work-policy.html">Work Policy</a>
+            <a href="merchandise.html">Merchandise</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-use.html">Terms of Use</a>
+            <a href="social-media-guide.html">Social Media Guide</a>
+            <a href="banner.html">Banner</a>
         </div>
     </div>
 </footer>`;
@@ -129,9 +134,19 @@ if (upiAmountContainer) {
         amounts: [50, 100, 200, 500, 1000, 2000, 5000]
     };
 
+    const isValidUpiVpa = (value) => {
+        const vpa = String(value || '').trim();
+        return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+$/.test(vpa);
+    };
+
     const buildUpiLink = (amount) => {
         const numericAmount = Number(amount);
         if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
+            return null;
+        }
+
+        const payeeAddress = String(upiConfig.payeeAddress || '').trim();
+        if (!isValidUpiVpa(payeeAddress)) {
             return null;
         }
 
@@ -140,9 +155,12 @@ if (upiAmountContainer) {
             : numericAmount.toFixed(2);
 
         const parts = [
-            `pa=${encodeURIComponent(upiConfig.payeeAddress)}`,
+            // Keep required UPI fields simple for widest app compatibility.
+            `pa=${payeeAddress}`,
+            `pn=${encodeURIComponent(upiConfig.payeeName)}`,
             `am=${amountString}`,
-            `cu=${encodeURIComponent(upiConfig.currency)}`
+            `cu=${encodeURIComponent(upiConfig.currency)}`,
+            `tn=${encodeURIComponent(upiConfig.note)}`
         ];
 
         return `upi://pay?${parts.join('&')}`;

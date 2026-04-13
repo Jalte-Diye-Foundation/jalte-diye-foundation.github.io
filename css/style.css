@@ -690,14 +690,26 @@ h3 {
 	text-align: right;
 	min-width: 200px;
 	padding-right: 20px;
+	display: flex;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	gap: 0;
 }
 
 .footer-links a {
+	display: inline-flex;
+	align-items: center;
 	color: #666;
 	text-decoration: none;
-	margin: 0 8px;
+	margin: 0;
 	font-weight: 500;
 	transition: color 0.3s ease;
+}
+
+.footer-links a + a::before {
+	content: "|";
+	color: #999;
+	margin: 0 8px;
 }
 
 .footer-links a:hover {
@@ -750,6 +762,22 @@ h3 {
 .policy-content a:hover {
 	color: #555;
 	text-decoration: underline;
+}
+
+.document-page .policy-content {
+	max-width: 1100px;
+	padding: 0 20px 24px;
+}
+
+.document-page .pdf-container {
+	display: block;
+	width: 100%;
+	height: min(78vh, 980px);
+	min-height: 440px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	margin: 20px 0;
+	background: #fff;
 }
 
 .policy-contact {
@@ -963,13 +991,13 @@ h3 {
 
 .learn-more-link {
 	color: #0c6d3c;
-	font-weight: 600;
+	font-weight: 400;
 	text-decoration: none;
 	transition: color 0.3s ease;
 }
 
 .learn-more-link:hover {
-	color: #095429;
+	color: #0c6d3c;
 	text-decoration: underline;
 }
 
@@ -1309,18 +1337,29 @@ h3 {
 	}
 
 	.footer-section {
+		order: 1;
 		min-width: 100%;
 	}
 
 	.footer-links {
-		text-align: center;
+		order: 2;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
 		min-width: 100%;
 		margin-top: 12px;
+		padding: 0;
+		text-align: center;
 	}
 
 	.footer-links a {
-		display: inline-block;
-		margin: 6px 8px;
+		display: inline-flex;
+		margin-bottom: 8px;
+	}
+
+	.footer-links a + a::before {
+		margin: 0 6px;
 	}
 
 	.policy-content {
@@ -1333,6 +1372,16 @@ h3 {
 
 	.policy-content h3 {
 		font-size: 18px;
+	}
+
+	.document-page .policy-content {
+		padding: 0 14px 18px;
+	}
+
+	.document-page .pdf-container {
+		height: 70vh;
+		min-height: 340px;
+		margin: 16px 0;
 	}
 	.donate-hero h2 {
 		font-size: 28px;
@@ -1352,6 +1401,11 @@ h3 {
 
 	.donate-content {
 		padding: 0 16px;
+	}
+
+	.document-page .pdf-container {
+		height: 62vh;
+		min-height: 300px;
 	}
 
 	.upi-details {
