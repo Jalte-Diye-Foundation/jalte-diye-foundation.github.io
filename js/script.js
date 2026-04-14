@@ -78,10 +78,6 @@ if (carousel && prevBtn && nextBtn) {
 const footerFallbackHtml = `
 <footer class="footer">
     <div class="footer-content">
-        <div class="footer-section">
-            <p>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</p>
-            <p><span style="font-size: 12px; color: #999;">This website contains AI-generated images used for illustration.</span></p>
-        </div>
         <div class="footer-links">
             <a href="work-policy.html">Work Policy</a>
             <a href="merchandise.html">Merchandise</a>
@@ -90,23 +86,15 @@ const footerFallbackHtml = `
             <a href="social-media-guide.html">Social Media Guide</a>
             <a href="banner.html">Banner</a>
         </div>
+        <div class="footer-section">
+            <p>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</p>
+        </div>
     </div>
 </footer>`;
 
-const ensureMerchandiseLink = (html) => {
-    if (html.includes('href="merchandise.html"')) {
-        return html;
-    }
-
-    return html.replace(
-        '<a href="privacy-policy.html">Privacy Policy</a>',
-        '<a href="merchandise.html">Merchandise</a> | <a href="privacy-policy.html">Privacy Policy</a>'
-    );
-};
-
 const injectFooter = (html) => {
     const placeholder = document.getElementById('site-footer');
-    if (placeholder) placeholder.outerHTML = ensureMerchandiseLink(html);
+    if (placeholder) placeholder.outerHTML = html;
 };
 
 fetch('footer.html')
@@ -121,58 +109,3 @@ fetch('footer.html')
         // Fallback keeps footer visible when opened directly from file://
         injectFooter(footerFallbackHtml);
     });
-
-// Donate page: quick UPI amount buttons
-const upiAmountContainer = document.getElementById('upiAmountButtons');
-
-if (upiAmountContainer) {
-    const upiConfig = {
-        payeeAddress: '9602431619@pz',
-        payeeName: 'NARSINGH LAL SHARMA',
-        currency: 'INR',
-        note: 'Donation to Jalte Diye Foundation',
-        amounts: [50, 100, 200, 500, 1000, 2000, 5000]
-    };
-
-    const isValidUpiVpa = (value) => {
-        const vpa = String(value || '').trim();
-        return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+$/.test(vpa);
-    };
-
-    const buildUpiLink = (amount) => {
-        const numericAmount = Number(amount);
-        if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
-            return null;
-        }
-
-        const payeeAddress = String(upiConfig.payeeAddress || '').trim();
-        if (!isValidUpiVpa(payeeAddress)) {
-            return null;
-        }
-
-        const amountString = numericAmount.toFixed(2);
-
-        const parts = [
-            // Keep required UPI fields simple for widest app compatibility.
-            `pa=${payeeAddress}`,
-            `pn=${encodeURIComponent(upiConfig.payeeName)}`,
-            `am=${amountString}`,
-            `cu=${encodeURIComponent(upiConfig.currency)}`,
-            `tn=${encodeURIComponent(upiConfig.note)}`
-        ];
-
-        return `upi://pay?${parts.join('&')}`;
-    };
-
-    upiConfig.amounts.forEach((amount) => {
-        const upiLink = buildUpiLink(amount);
-        if (!upiLink) return;
-
-        const link = document.createElement('a');
-        link.className = 'upi-amount-btn';
-        link.href = upiLink;
-        link.textContent = `₹ ${amount}`;
-        link.setAttribute('aria-label', `Pay ₹ ${amount} via UPI app`);
-        upiAmountContainer.appendChild(link);
-    });
-}
