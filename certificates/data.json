@@ -1,0 +1,55 @@
+{
+  "certificates": [
+    {
+      "id": "JDF-FDC-CE01",
+      "volunteerName": "Saniya Tabssum",
+      "eventName": "Founder's Day Celebration 2026",
+      "eventCode": "FDC",
+      "role": "Web Developer",
+      "dateOfIssue": "2026-03-02",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-FDC-CE02",
+      "volunteerName": "Sweta Mahato",
+      "eventName": "Founder's Day Celebration 2026",
+      "eventCode": "FDC",
+      "role": "Graphic Designer",
+      "dateOfIssue": "2026-03-02",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-FDC-CE03",
+      "volunteerName": "Nupur Madaan",
+      "eventName": "Founder's Day Celebration 2026",
+      "eventCode": "FDC",
+      "role": "Coordinator",
+      "dateOfIssue": "2026-03-02",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-MHT-CE04",
+      "volunteerName": "Shikha Joshi",
+      "eventName": "Mental Health Talk 2025",
+      "eventCode": "MHT",
+      "role": "Mental Health Talk Speaker",
+      "dateOfIssue": "2025-09-21",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-SDG16-CE05",
+      "volunteerName": "Rajendra Kumar Dashlaniya",
+      "eventName": "SDG 16 Talk",
+      "eventCode": "SDG16",
+      "role": "SDG 16 Talk Speaker",
+      "dateOfIssue": "2026-04-12",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    }
+
+  ]
+}

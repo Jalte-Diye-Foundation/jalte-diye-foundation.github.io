@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Verify Certificate - Jalte Diye Foundation. Enter your certificate ID to confirm its authenticity.">
+    <title>Verify Certificate - Jalte Diye Foundation</title>
+    <link rel="icon" href="images/icon.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <main class="page" id="verify">
+        <header class="site-header">
+            <img class="logo" src="images/logo.png" alt="Logo Of Our NGO">
+            <h1>Jalte Diye Foundation</h1>
+            <p class="tagline">Empowering individuals through holistic social education to achieve global peace</p>
+            <nav class="main-nav" aria-label="Primary">
+                <a href="index.html">About Us</a>
+                <a href="projects.html">Projects</a>
+                <a href="donate.html">Donate</a>
+            </nav>
+        </header>
+
+        <section class="section section--tint">
+            <div class="section-title section-title--tight">
+                <hr>
+                <span>Certificate Verification</span>
+                <hr>
+            </div>
+
+            <div class="cert-verify-wrapper">
+                <div class="cert-verify-card">
+                    <div class="cert-verify-icon" aria-hidden="true">🔐</div>
+                    <h2>Verify a Certificate</h2>
+                    <p class="cert-verify-desc">
+                        Enter the Certificate ID printed on the certificate to confirm its authenticity.
+                    </p>
+                    <form class="cert-verify-form" id="verifyForm" novalidate>
+                        <label for="certId">Certificate ID</label>
+                        <div class="cert-input-row">
+                            <input
+                                type="text"
+                                id="certId"
+                                name="certId"
+                                placeholder="e.g. JDF-FDC-CE01"
+                                autocomplete="off"
+                                spellcheck="false"
+                                maxlength="30"
+                                aria-required="true"
+                            >
+                            <button type="submit" class="btn-verify">Verify</button>
+                        </div>
+                        <p class="cert-input-hint">
+                            Certificate IDs follow the format <strong>JDF-{EVENT}-CE{NUMBER}</strong> and are printed at the bottom of your certificate.
+                        </p>
+                    </form>
+                    <div id="certFormError" class="cert-form-error" hidden role="alert"></div>
+                </div>
+
+                <div class="cert-result" id="certResult" hidden aria-live="polite">
+                    <!-- Result injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--soft">
+            <div class="cert-info-cards-wrapper">
+                <div class="cert-info-cards">
+                    <div class="cert-info-card">
+                        <span class="cert-info-icon" aria-hidden="true">📋</span>
+                        <h3>What is a Certificate ID?</h3>
+                        <p>A unique identifier in the format <strong>JDF-{EVENT}-CE{NUMBER}</strong> printed on every certificate we issue.</p>
+                    </div>
+                    <div class="cert-info-card">
+                        <span class="cert-info-icon" aria-hidden="true">✅</span>
+                        <h3>What does verification confirm?</h3>
+                        <p>Verification confirms the certificate was officially issued by Jalte Diye Foundation and its details are authentic.</p>
+                    </div>
+                    <div class="cert-info-card">
+                        <span class="cert-info-icon" aria-hidden="true">📧</span>
+                        <h3>Certificate not found?</h3>
+                        <p>If your ID is not recognised, please contact us at <a href="mailto:contact@jaltediyefoundation.org">contact@jaltediyefoundation.org</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="work-policy.html">Work Policy</a>
+                    <a href="merchandise.html">Merchandise</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-use.html">Terms of Use</a>
+                    <a href="social-media-guide.html">Social Media Guide</a>
+                    <a href="banner.html">Banner</a>
+                    <a href="verify.html">Verify Certificate</a>
+                </div>
+                <div class="footer-section">
+                    <p>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="js/certificates.js"></script>
+    <script>
+        const form        = document.getElementById('verifyForm');
+        const resultDiv   = document.getElementById('certResult');
+        const formErrDiv  = document.getElementById('certFormError');
+
+        /* Auto-fill and submit if ?id= is present in URL */
+        window.addEventListener('DOMContentLoaded', function () {
+            const params = new URLSearchParams(window.location.search);
+            const preId  = params.get('id');
+            if (preId) {
+                document.getElementById('certId').value = preId.toUpperCase();
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            formErrDiv.hidden = true;
+
+            const raw = document.getElementById('certId').value.trim().toUpperCase();
+            if (!raw) {
+                formErrDiv.textContent = 'Please enter a Certificate ID.';
+                formErrDiv.hidden = false;
+                return;
+            }
+
+            /* Basic format check: JDF-EVENTCODE-CEXX */
+            if (!/^JDF-[A-Z0-9]+-CE\d{2,}$/i.test(raw)) {
+                formErrDiv.textContent = 'That does not look like a valid Certificate ID. Expected format: JDF-FDC-CE01';
+                formErrDiv.hidden = false;
+                return;
+            }
+
+            resultDiv.hidden = false;
+            resultDiv.innerHTML = '<div class="cert-result-loading" role="status">Verifying&hellip;</div>';
+
+            const certificates = await loadCertificates();
+
+            if (certificates === null) {
+                resultDiv.innerHTML = renderError(
+                    '⚠️',
+                    'Connection Error',
+                    'Unable to reach the certificate database. Please check your internet connection and try again.'
+                );
+                return;
+            }
+
+            const cert = findCertificate(certificates, raw);
+
+            if (!cert) {
+                resultDiv.innerHTML = renderInvalid(raw);
+                return;
+            }
+
+            resultDiv.innerHTML = renderValid(cert);
+        });
+
+        function renderError(icon, title, msg) {
+            return `<div class="cert-result-box cert-result-error">
+                <span class="cert-result-bigicon" aria-hidden="true">${icon}</span>
+                <h3>${title}</h3>
+                <p>${msg}</p>
+            </div>`;
+        }
+
+        function renderInvalid(id) {
+            return `<div class="cert-result-box cert-result-invalid">
+                <span class="cert-result-bigicon" aria-hidden="true">❌</span>
+                <h3>Certificate Not Found</h3>
+                <p>No certificate matching <strong>${escapeHtml(id)}</strong> was found in our records.</p>
+                <p>Please double-check the ID or <a href="mailto:contact@jaltediyefoundation.org">contact us</a> if you believe this is an error.</p>
+            </div>`;
+        }
+
+        function renderValid(cert) {
+            const viewLink = cert.hasPdf
+                ? `<div class="cert-result-actions">
+                    <a href="${getCertificateViewUrl(cert.id)}" class="btn-view-cert">View &amp; Download Certificate</a>
+                   </div>`
+                : '';
+            return `<div class="cert-result-box cert-result-valid">
+                <div class="cert-valid-header">
+                    <span class="cert-valid-badge" aria-label="Certificate verified">✓ Verified</span>
+                    <h3>Certificate Authenticated</h3>
+                    <p class="cert-valid-subtitle">This certificate was officially issued by Jalte Diye Foundation.</p>
+                </div>
+                <div class="cert-details-grid">
+                    ${detailItem('Certificate ID', `<span class="cert-id-mono">${escapeHtml(cert.id)}</span>`)}
+                    ${detailItem('Volunteer Name', escapeHtml(cert.volunteerName))}
+                    ${detailItem('Event',          escapeHtml(cert.eventName))}
+                    ${detailItem('Role',           escapeHtml(cert.role))}
+                    ${detailItem('Date of Issue',  escapeHtml(formatDate(cert.dateOfIssue)))}
+                    ${detailItem('Issued By',      escapeHtml(cert.issuedBy || 'Jalte Diye Foundation'))}
+                </div>
+                ${viewLink}
+            </div>`;
+        }
+
+        function detailItem(label, value) {
+            return `<div class="cert-detail-item">
+                <span class="cert-detail-label">${label}</span>
+                <span class="cert-detail-value">${value}</span>
+            </div>`;
+        }
+    </script>
+</body>
+
+</html>
