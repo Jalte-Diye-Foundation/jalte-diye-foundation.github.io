@@ -1013,6 +1013,117 @@ h3 {
 	text-decoration: underline;
 }
 
+.donor-wall-section {
+	margin-top: 4px;
+}
+
+.donor-wall {
+	background: linear-gradient(145deg, #fffefb 0%, #f6f1e8 100%);
+	border: 1px solid #e7dfd2;
+	border-radius: 14px;
+	padding: 22px 18px;
+	min-height: 110px;
+}
+
+.donor-wall-loading,
+.donor-wall-error {
+	margin: 0;
+	font-size: 15px;
+	line-height: 1.5;
+	color: var(--text-muted);
+}
+
+.donor-wall-error {
+	color: #8b2c2c;
+}
+
+.donor-cloud {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px 14px;
+}
+
+.donor-cloud--bulb {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 5px;
+	position: relative;
+	width: min(100%, 340px);
+	margin: 8px auto 0;
+	padding: 8px 4px;
+	border: none;
+	background: transparent;
+}
+
+.donor-cloud-row {
+	--row-width: 80%;
+	--row-offset: 0;
+	width: var(--row-width);
+	margin-left: var(--row-offset);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: clamp(6px, 1vw, 10px);
+	border: none;
+	border-radius: 0;
+	padding: 0;
+	background: transparent;
+}
+
+.donor-tag {
+	--tag-size: 0.95rem;
+	--tag-weight: 700;
+	--tag-color: #1b4b44;
+	font-size: var(--tag-size);
+	font-weight: var(--tag-weight);
+	line-height: 1.0;
+	color: var(--tag-color);
+	padding: 0;
+	border: none;
+	background: transparent;
+	letter-spacing: 0.01em;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+	transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.donor-tag:hover {
+	transform: translateY(-2px);
+	color: #0f6454;
+}
+
+.donor-cloud--bulb .donor-tag {
+	position: static;
+	transform: none;
+	white-space: nowrap;
+	padding: 0;
+	max-width: none;
+	overflow: visible;
+	text-overflow: clip;
+	z-index: 2;
+}
+
+.donor-cloud--bulb .donor-tag:hover {
+	transform: translateY(-2px);
+}
+
+@media (max-width: 700px) {
+	.donor-cloud--bulb {
+		min-height: 380px;
+		gap: 2px;
+	}
+
+	.donor-cloud-row {
+		gap: clamp(6px, 0.8vw, 10px);
+	}
+
+	.donor-cloud--bulb .donor-tag {
+		font-size: clamp(0.95rem, var(--tag-size), 2.2rem);
+	}
+}
+
 @media (max-width: 850px) {
 	.site-header {
 		padding: 16px 30px;

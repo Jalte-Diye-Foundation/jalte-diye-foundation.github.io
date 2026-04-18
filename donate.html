@@ -84,6 +84,18 @@
             </div>
         </section>
 
+        <section class="section section--soft" aria-labelledby="donor-wall-title">
+            <div class="donate-content">
+                <div class="donate-section donor-wall-section">
+                    <h3 id="donor-wall-title">Donor Wall</h3>
+                    <p>Each donor name appears in a size that approximately reflects contribution level, while keeping donation amounts private.</p>
+                    <div id="donorWall" class="donor-wall" role="list" aria-live="polite">
+                        <p class="donor-wall-loading">Loading donor wall...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="section section--soft">
             <div class="donate-content">
                 <div class="donate-section">
@@ -128,6 +140,57 @@
 
         <div id="site-footer"></div>
     </main>
+        <script id="donorWallData" type="application/json">
+        {
+            "donors": [
+                {
+                    "donor_name": "Pawan",
+                    "amount": 500,
+                    "donation_for_cause": "miyawaki forestation"
+                },
+                {
+                    "donor_name": "Rachit",
+                    "amount": 3000,
+                    "donation_for_cause": "miyawaki forestation"
+                },
+                {
+                    "donor_name": "Rahul",
+                    "amount": 15000,
+                    "donation_for_cause": "miyawaki forestation"
+                },
+                {
+                    "donor_name": "Deepak",
+                    "amount": 50,
+                    "donation_for_cause": "miyawaki forestation"
+                },
+                {
+                    "donor_name": "Jay",
+                    "amount": 5000,
+                    "donation_for_cause": "miyawaki forestation"
+                },
+                {
+                    "donor_name": "Anand",
+                    "amount": 150,
+                    "donation_for_cause": "miyawaki forestation"
+                },
+                {
+                    "donor_name": "Devi",
+                    "amount": 50,
+                    "donation_for_cause": "miyawaki forestation"
+                },
+                {
+                    "donor_name": "Riddhi",
+                    "amount": 5000,
+                    "donation_for_cause": "miyawaki forestation"
+                },
+                {
+                    "donor_name": "Rajarshi",
+                    "amount": 200,
+                    "donation_for_cause": "miyawaki forestation"
+                }
+            ]
+        }
+        </script>
     <script src="js/script.js"></script>
 </body>
 
