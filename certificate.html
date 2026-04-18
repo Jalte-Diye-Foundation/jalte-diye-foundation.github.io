@@ -92,8 +92,9 @@
                 return;
             }
 
-            /* Update page title with volunteer name */
-            document.title = `Certificate — ${cert.volunteerName} — Jalte Diye Foundation`;
+            /* Update page title with volunteer/speaker name */
+            const displayName = cert.speakerName || cert.volunteerName;
+            document.title = `Certificate — ${displayName} — Jalte Diye Foundation`;
 
             const pdfUrl = getCertificatePdfUrl(cert.id);
             const pdfPreviewUrl = `${pdfUrl}#page=1&view=Fit&zoom=page-fit&toolbar=0&navpanes=0`;
@@ -141,7 +142,7 @@
                         </div>
                         <div class="cert-details-list">
                             ${row('Certificate ID',  `<span class="cert-id-mono">${escapeHtml(cert.id)}</span>`)}
-                            ${row('Volunteer Name',  escapeHtml(cert.volunteerName))}
+                            ${cert.speakerName ? row('Speaker Name', escapeHtml(cert.speakerName)) : row('Volunteer Name', escapeHtml(cert.volunteerName))}
                             ${row('Event',           escapeHtml(cert.eventName))}
                             ${row('Role',            escapeHtml(cert.role))}
                             ${row('Date of Issue',   escapeHtml(formatDate(cert.dateOfIssue)))}

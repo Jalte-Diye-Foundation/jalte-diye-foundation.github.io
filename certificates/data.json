@@ -32,7 +32,7 @@
     },
     {
       "id": "JDF-MHT-CE04",
-      "Speaker Name": "Dr. Shikha Joshi",
+      "speakerName": "Dr. Shikha Joshi",
       "eventName": "Mental Health Talk 2025",
       "eventCode": "MHT",
       "role": "Mental Health Talk Speaker",
@@ -42,10 +42,10 @@
     },
     {
       "id": "JDF-SDG16-CE05",
-      "Speaker Name": "Rajendra Kumar Dashlaniya",
-      "eventName": "SDG 16 Interactive session 2026",
+      "speakerName": "Rajendra Kumar Dashlaniya",
+      "eventName": "SDG 16 interactive session 2026",
       "eventCode": "SDG16",
-      "role": "SDG 16 Interactive Session Speaker",
+      "role": "SDG 16 Talk Speaker",
       "dateOfIssue": "2026-04-12",
       "hasPdf": true,
       "issuedBy": "Jalte Diye Foundation"
