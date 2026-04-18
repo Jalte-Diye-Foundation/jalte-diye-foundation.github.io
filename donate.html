@@ -186,14 +186,10 @@
                         <p style="margin-top: 14px;"><strong>Pay Directly Using UPI App</strong></p>
                         <p>
                             <label for="upiAmount" style="font-weight: 600;">Enter donation amount (INR): </label>
-                            <input id="upiAmount" type="number" min="1" step="1" value="100" style="width: 120px; padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; margin-left: 6px;">
-                        </p>
-                        <a href="upi.pe/9602431619@pz/100">upi.pe/9602431619@pz/100</a>
-                        <p>
-                            <a id="upiPayLink" class="learn-more-link" href="upi://pay?pa=9602431619@pz&pn=NARSINGH%20LAL%20SHARMA&am=100&cu=INR&tn=Donation%20for%20Miyawaki%20Forestation">Open UPI App to Pay</a>
+                            <input id="upiAmount" type="number" min="10" step="10" value="100" style="width: 120px; padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; margin-left: 6px;">
                         </p>
                          <p>
-                            <a id="upiPayLink" class="learn-more-link" href="upi://pay?pa=20250302&pn=NARSINGH%20LAL%20SHARMA&am=100&cu=INR&tn=Donation%20for%20Miyawaki%20Forestation">Open UPI App to Pay</a>
+                            <a id="upiPayLink" class="learn-more-link" href="upi://pay?pa=9602431619@pz&pn=NARSINGH%20LAL%20SHARMA&am=100&cu=INR&tn=Donation%20for%20Miyawaki%20Forestation">Open UPI App to Pay</a>
                         </p>
                         <p>Scan the QR code below to complete your donation securely through your UPI app.</p>
                         <div class="qr-code-container">
@@ -370,8 +366,8 @@
             const safeAmount = Number.isFinite(amountValue) && amountValue > 0 ? amountValue.toFixed(2) : '1.00';
 
             const upiParams = new URLSearchParams({
-                pa: '20250302',
-                pn: 'Dr NarSingh Lal Sharma',
+                pa: '9602431619@pz',
+                pn: 'NARSINGH LAL SHARMA',
                 tn: 'Donation for Miyawaki Forestation',
                 am: safeAmount,
                 cu: 'INR'
