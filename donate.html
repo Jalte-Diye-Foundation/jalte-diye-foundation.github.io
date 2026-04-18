@@ -8,6 +8,114 @@
     <title>Donate - Jalte Diye Foundation</title>
     <link rel="icon" href="images/icon.png">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .testimonial {
+            background: #f0fdf4;
+            border-left: 4px solid #059669;
+            padding: 20px;
+            border-radius: 8px;
+            font-style: italic;
+            color: #1f2937;
+            margin: 20px 0;
+        }
+
+        .testimonial .author {
+            text-align: right;
+            font-weight: bold;
+            color: #0f766e;
+            margin-top: 10px;
+        }
+
+        .testimonial .post-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-style: normal;
+        }
+
+        .impact-counter {
+            background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .testimonial-slider {
+            position: relative;
+            max-width: 100%;
+            margin: 20px 0;
+        }
+
+        .testimonial-container {
+            position: relative;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial.slider-item {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            margin: 0;
+        }
+
+        .testimonial.slider-item.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .slider-btn {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .slider-btn:hover {
+            background: #0d7a5a;
+            transform: scale(1.05);
+        }
+
+        .slider-btn:active {
+            transform: scale(0.95);
+        }
+
+        .slider-indicators {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d5db;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: #059669;
+        }
+    </style>
 </head>
 
 <body>
@@ -75,6 +183,14 @@
                             <p>Dr. NarSingh Lal Sharma
                             <br>Director & Treasurer, For Jalte Diye Foundation</p>
                         </div>
+                        <p style="margin-top: 14px;"><strong>Pay Directly Using UPI App</strong></p>
+                        <p>
+                            <label for="upiAmount" style="font-weight: 600;">Enter Amount (INR): </label>
+                            <input id="upiAmount" type="number" min="1" step="1" value="100" style="width: 120px; padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; margin-left: 6px;">
+                        </p>
+                        <p>
+                            <a id="upiPayLink" class="learn-more-link" href="upi://pay?pa=20250302&pn=Dr%20NarSingh%20Lal%20Sharma&am=100&cu=INR&tn=Donation%20for%20Miyawaki%20Forestation">Open UPI App to Pay</a>
+                        </p>
                         <p>Scan the QR code below to complete your donation securely through your UPI app.</p>
                         <div class="qr-code-container">
                             <img width="60%" src="images/QR_for_donation.png" alt="UPI QR Code for Donation">
@@ -88,13 +204,62 @@
             <div class="donate-content">
                 <div class="donate-section donor-wall-section">
                     <h3 id="donor-wall-title">Donor Wall</h3>
-                    <p>Each donor name appears in a size that approximately reflects contribution level, while keeping donation amounts private.</p>
+                    <p>The names of our generous supporters appear here, reflecting their commitment to our cause.</p>
                     <div id="donorWall" class="donor-wall" role="list" aria-live="polite">
                         <p class="donor-wall-loading">Loading donor wall...</p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <section class="section section--soft">
+            <div class="donate-content" style="text-align: left;">
+                <h3>Currently fundraising for Miyawaki Forestation project</h3>
+                <p>Every donation, big or small, plants a seed of hope. Kindly donate 🙏.</p>
+            </div>
+        </section>
+        <section class="section section--tint">
+            <div class="donate-content">
+                <div class="impact-counter">
+                    🌳<strong>18 people</strong> have already supported our Miyawaki Forestation project, let's connect.
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--soft">
+            <div class="donate-content">
+                <h4 style="text-align: left; margin-bottom: 20px;">What Our Supporters Say</h4>
+                <div class="testimonial-slider">
+                    <div class="testimonial-container" id="testimonialContainer">
+                        <div class="testimonial slider-item active">
+                            <p>"Donating to Jalte Diye felt deeply meaningful. Every rupee goes toward building a more peaceful society."</p>
+                            <div class="author">— Nupur Madaan</div>
+                            <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        </div>
+                        <div class="testimonial slider-item">
+                            <p>"I've seen the Miyawaki project firsthand — it's real, measurable, and inspiring. Proud to support."</p>
+                            <div class="author">— Sweta Mahato</div>
+                            <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        </div>
+                        <div class="testimonial slider-item">
+                            <p>"We taken so much from nature, we must give back. Let's do what we can."</p>
+                            <div class="author">— Dr. Jay Pandey</div>
+                            <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        </div>
+                        <div class="testimonial slider-item">
+                            <p>"I think, Earth is our mother, and we must protect her. Ek ped maa ke naam se."</p>
+                            <div class="author">— Saniya Tabssum</div>
+                            <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        </div>
+                    </div>
+                    <div class="slider-controls">
+                        <div class="slider-indicators" id="indicators"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
 
         <section class="section section--soft">
             <div class="donate-content">
@@ -191,6 +356,73 @@
             ]
         }
         </script>
+    <script>
+        // UPI deep link for direct app payment with entered amount
+        const upiAmountInput = document.getElementById('upiAmount');
+        const upiPayLink = document.getElementById('upiPayLink');
+
+        function updateUpiLink() {
+            const amountValue = Number.parseFloat(upiAmountInput.value);
+            const safeAmount = Number.isFinite(amountValue) && amountValue > 0 ? amountValue.toFixed(2) : '1.00';
+
+            const upiParams = new URLSearchParams({
+                pa: '20250302',
+                pn: 'Dr NarSingh Lal Sharma',
+                tn: 'Donation for Miyawaki Forestation',
+                am: safeAmount,
+                cu: 'INR'
+            });
+
+            upiPayLink.href = `upi://pay?${upiParams.toString()}`;
+        }
+
+        upiAmountInput.addEventListener('input', updateUpiLink);
+        updateUpiLink();
+
+        // Testimonial Slider
+        let currentTestimonialIndex = 0;
+        const testimonialItems = document.querySelectorAll('.slider-item');
+        const totalTestimonials = testimonialItems.length;
+        let autoSlideTimeout;
+
+        // Create indicators
+        const indicatorsContainer = document.getElementById('indicators');
+        for (let i = 0; i < totalTestimonials; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => showTestimonial(i);
+            indicatorsContainer.appendChild(dot);
+        }
+
+        function showTestimonial(index) {
+            // Remove active class from all items and dots
+            testimonialItems.forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.slider-dot').forEach(dot => dot.classList.remove('active'));
+
+            // Add active class to current item and dot
+            testimonialItems[index].classList.add('active');
+            document.querySelectorAll('.slider-dot')[index].classList.add('active');
+
+            // Clear existing timeout
+            clearTimeout(autoSlideTimeout);
+
+            // Start auto-slide timer
+            autoSlideTimeout = setTimeout(nextTestimonial, 3000);
+        }
+
+        function nextTestimonial() {
+            currentTestimonialIndex = (currentTestimonialIndex + 1) % totalTestimonials;
+            showTestimonial(currentTestimonialIndex);
+        }
+
+        function prevTestimonial() {
+            currentTestimonialIndex = (currentTestimonialIndex - 1 + totalTestimonials) % totalTestimonials;
+            showTestimonial(currentTestimonialIndex);
+        }
+
+        // Start initial auto-slide
+        autoSlideTimeout = setTimeout(nextTestimonial, 3000);
+    </script>
     <script src="js/script.js"></script>
 </body>
 

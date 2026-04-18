@@ -271,11 +271,14 @@ const loadDonorWall = async () => {
                 const donor = validDonors[donorCursor];
                 donorCursor += 1;
 
-                const donorTag = document.createElement('span');
+                const donorTag = document.createElement('a');
                 donorTag.className = 'donor-tag';
                 donorTag.setAttribute('role', 'listitem');
                 donorTag.textContent = donor.donor_name;
-                donorTag.title = `Supports ${donor.donation_for_cause}`;
+                donorTag.title = `Supports ${donor.donation_for_cause} — click to share!`;
+                const shareParams = new URLSearchParams({ name: donor.donor_name, campaign: donor.donation_for_cause });
+                donorTag.href = `share.html?${shareParams.toString()}`;
+                donorTag.style.textDecoration = 'none';
 
                 // Use per-row font size to fill each row to its width
                 const rowFontSize = rowConfig.fontSize || 1.05;
