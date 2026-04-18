@@ -59,6 +59,59 @@ function getCertificateViewUrl(id) {
   return `certificate.html?id=${encodeURIComponent(id)}`;
 }
 
+/** Return the absolute public view URL for a certificate ID. */
+function getCertificatePublicUrl(id) {
+  const baseUrl = (typeof window !== 'undefined' && window.location)
+    ? window.location.href
+    : 'https://jaltediyefoundation.org/';
+  return new URL(getCertificateViewUrl(id), baseUrl).href;
+}
+
+/** Return the display name for the certificate recipient. */
+function getCertificateRecipientName(certificate) {
+  if (!certificate || typeof certificate !== 'object') return 'N/A';
+  return certificate.speakerName || certificate.volunteerName || certificate.name || 'N/A';
+}
+
+/** Return the most suitable label for the certificate recipient field. */
+function getCertificateRecipientLabel(certificate) {
+  if (!certificate || typeof certificate !== 'object') return 'Name';
+  if (certificate.speakerName) return 'Speaker Name';
+  if (certificate.volunteerName) return 'Volunteer Name';
+  if (certificate.recipientLabel) return certificate.recipientLabel;
+  return /speaker/i.test(certificate.role || '') ? 'Speaker Name' : 'Name';
+}
+
+/** Return a LinkedIn-friendly certificate title. */
+function getLinkedInCertificateName(certificate) {
+  if (!certificate || typeof certificate !== 'object') return 'Certificate of Participation';
+  if (certificate.eventName && certificate.role) return `${certificate.eventName} (${certificate.role})`;
+  return certificate.eventName || certificate.role || 'Certificate of Participation';
+}
+
+/** Return the LinkedIn URL to prefill certificate details. */
+function getLinkedInAddCertificateUrl(certificate) {
+  if (!certificate || typeof certificate !== 'object') return 'https://www.linkedin.com/profile/add';
+
+  const params = new URLSearchParams({
+    startTask: 'CERTIFICATION_NAME',
+    name: getLinkedInCertificateName(certificate),
+    organizationName: certificate.issuedBy || 'Jalte Diye Foundation',
+    certId: certificate.id || '',
+    certUrl: getCertificatePublicUrl(certificate.id || '')
+  });
+
+  if (certificate.dateOfIssue) {
+    const issuedOn = new Date(`${certificate.dateOfIssue}T00:00:00`);
+    if (!Number.isNaN(issuedOn.getTime())) {
+      params.set('issueYear', String(issuedOn.getFullYear()));
+      params.set('issueMonth', String(issuedOn.getMonth() + 1));
+    }
+  }
+
+  return `https://www.linkedin.com/profile/add?${params.toString()}`;
+}
+
 /**
  * Compute the next sequence number for a given event code.
  * Returns zero-padded string, e.g. "01", "02", "10".

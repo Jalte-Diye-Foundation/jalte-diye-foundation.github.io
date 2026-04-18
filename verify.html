@@ -181,6 +181,7 @@
         }
 
         function renderValid(cert) {
+            const displayName = getCertificateRecipientName(cert);
             const viewLink = cert.hasPdf
                 ? `<div class="cert-result-actions">
                     <a href="${getCertificateViewUrl(cert.id)}" class="btn-view-cert">View &amp; Download Certificate</a>
@@ -194,7 +195,7 @@
                 </div>
                 <div class="cert-details-grid">
                     ${detailItem('Certificate ID', `<span class="cert-id-mono">${escapeHtml(cert.id)}</span>`)}
-                    ${detailItem('Volunteer Name', escapeHtml(cert.volunteerName))}
+                    ${detailItem('Name', escapeHtml(displayName))}
                     ${detailItem('Event',          escapeHtml(cert.eventName))}
                     ${detailItem('Role',           escapeHtml(cert.role))}
                     ${detailItem('Date of Issue',  escapeHtml(formatDate(cert.dateOfIssue)))}

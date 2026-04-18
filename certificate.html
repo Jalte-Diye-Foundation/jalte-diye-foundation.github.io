@@ -93,12 +93,14 @@
             }
 
             /* Update page title with volunteer/speaker name */
-            const displayName = cert.speakerName || cert.volunteerName;
+            const displayName = getCertificateRecipientName(cert);
             document.title = `Certificate — ${displayName} — Jalte Diye Foundation`;
 
             const pdfUrl = getCertificatePdfUrl(cert.id);
             const pdfPreviewUrl = `${pdfUrl}#page=1&view=Fit&zoom=page-fit&toolbar=0&navpanes=0`;
             const pdfFullscreenUrl = `${pdfUrl}#page=1&view=FitH&zoom=page-fit`;
+            const linkedinUrl = getLinkedInAddCertificateUrl(cert);
+            const recipientLabel = getCertificateRecipientLabel(cert);
 
             const pdfSection = cert.hasPdf
                 ? `<div class="cert-pdf-panel">
@@ -122,10 +124,12 @@
                 ? `<div class="cert-view-actions">
                     <a href="${escapeHtml(pdfFullscreenUrl)}" class="btn-view-cert" target="_blank" rel="noopener">Open Fullscreen Preview</a>
                     <a href="${escapeHtml(pdfUrl)}" class="btn-view-cert" download>Download PDF</a>
+                    <a href="${escapeHtml(linkedinUrl)}" class="btn-view-cert" target="_blank" rel="noopener">Add to LinkedIn</a>
                     <a href="verify.html" class="btn-verify-alt">Verify Another</a>
                    </div>`
                 : `<div class="cert-view-actions">
                     <p class="cert-no-pdf-note">PDF not yet available. Contact us if you need a copy.</p>
+                    <a href="${escapeHtml(linkedinUrl)}" class="btn-view-cert" target="_blank" rel="noopener">Add to LinkedIn</a>
                     <a href="verify.html" class="btn-verify-alt">Verify Another</a>
                    </div>`;
 
@@ -142,7 +146,7 @@
                         </div>
                         <div class="cert-details-list">
                             ${row('Certificate ID',  `<span class="cert-id-mono">${escapeHtml(cert.id)}</span>`)}
-                            ${cert.speakerName ? row('Speaker Name', escapeHtml(cert.speakerName)) : row('Volunteer Name', escapeHtml(cert.volunteerName))}
+                            ${row(recipientLabel, escapeHtml(displayName))}
                             ${row('Event',           escapeHtml(cert.eventName))}
                             ${row('Role',            escapeHtml(cert.role))}
                             ${row('Date of Issue',   escapeHtml(formatDate(cert.dateOfIssue)))}

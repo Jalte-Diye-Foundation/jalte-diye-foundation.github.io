@@ -2,7 +2,7 @@
   "certificates": [
     {
       "id": "JDF-FDC-CE01",
-      "volunteerName": "Saniya Tabssum",
+      "name": "Saniya Tabssum",
       "eventName": "Founder's Day Celebration 2026",
       "eventCode": "FDC",
       "role": "Web Developer",
@@ -12,7 +12,7 @@
     },
     {
       "id": "JDF-FDC-CE02",
-      "volunteerName": "Sweta Mahato",
+      "name": "Sweta Mahato",
       "eventName": "Founder's Day Celebration 2026",
       "eventCode": "FDC",
       "role": "Graphic Designer",
@@ -22,7 +22,7 @@
     },
     {
       "id": "JDF-FDC-CE03",
-      "volunteerName": "Nupur Madaan",
+      "name": "Nupur Madaan",
       "eventName": "Founder's Day Celebration 2026",
       "eventCode": "FDC",
       "role": "Coordinator",
@@ -32,7 +32,7 @@
     },
     {
       "id": "JDF-MHT-CE04",
-      "speakerName": "Dr. Shikha Joshi",
+      "name": "Dr. Shikha Joshi",
       "eventName": "Mental Health Talk 2025",
       "eventCode": "MHT",
       "role": "Mental Health Talk Speaker",
@@ -42,7 +42,7 @@
     },
     {
       "id": "JDF-SDG16-CE05",
-      "speakerName": "Rajendra Kumar Dashlaniya",
+      "name": "Rajendra Kumar Dashlaniya",
       "eventName": "SDG 16 interactive session 2026",
       "eventCode": "SDG16",
       "role": "SDG 16 Talk Speaker",
