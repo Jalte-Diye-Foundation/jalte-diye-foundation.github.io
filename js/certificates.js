@@ -59,11 +59,29 @@ function getCertificateViewUrl(id) {
   return `certificate.html?id=${encodeURIComponent(id)}`;
 }
 
+/**
+ * Return a canonical public base URL.
+ * You can override this by setting window.CERT_PUBLIC_BASE_URL.
+ */
+function getCertificatePublicBaseUrl() {
+  if (typeof window !== 'undefined' && window.CERT_PUBLIC_BASE_URL) {
+    return window.CERT_PUBLIC_BASE_URL;
+  }
+
+  if (typeof window !== 'undefined' && window.location) {
+    const { origin, hostname } = window.location;
+    if (/^(localhost|127\.0\.0\.1)$/i.test(hostname)) {
+      return 'https://jaltediyefoundation.org/';
+    }
+    return `${origin}/`;
+  }
+
+  return 'https://jaltediyefoundation.org/';
+}
+
 /** Return the absolute public view URL for a certificate ID. */
 function getCertificatePublicUrl(id) {
-  const baseUrl = (typeof window !== 'undefined' && window.location)
-    ? window.location.href
-    : 'https://jaltediyefoundation.org/';
+  const baseUrl = getCertificatePublicBaseUrl();
   return new URL(getCertificateViewUrl(id), baseUrl).href;
 }
 
@@ -85,23 +103,37 @@ function getCertificateRecipientLabel(certificate) {
 /** Return a LinkedIn-friendly certificate title. */
 function getLinkedInCertificateName(certificate) {
   if (!certificate || typeof certificate !== 'object') return 'Certificate of Participation';
-  if (certificate.eventName && certificate.role) return `${certificate.eventName} (${certificate.role})`;
-  return certificate.eventName || certificate.role || 'Certificate of Participation';
+  return 'Certificate of Participation';
 }
 
 /** Return the LinkedIn URL to prefill certificate details. */
 function getLinkedInAddCertificateUrl(certificate) {
   if (!certificate || typeof certificate !== 'object') return 'https://www.linkedin.com/profile/add';
 
+  const name = getLinkedInCertificateName(certificate);
+  const organizationName = certificate.linkedinOrganizationName || certificate.issuedBy || 'Jalte Diye Foundation';
+  const certId = certificate.linkedinCertId || certificate.id || '';
+  const certUrl = certificate.linkedinCertUrl || getCertificatePublicUrl(certificate.id || '');
+
   const params = new URLSearchParams({
-    startTask: 'CERTIFICATION_NAME',
-    name: getLinkedInCertificateName(certificate),
-    organizationName: certificate.issuedBy || 'Jalte Diye Foundation',
-    certId: certificate.id || '',
-    certUrl: getCertificatePublicUrl(certificate.id || '')
+    startTask: 'CERTIFICATION_NAME'
   });
 
-  if (certificate.dateOfIssue) {
+  if (name) params.set('name', String(name));
+  if (organizationName) params.set('organizationName', String(organizationName));
+  if (certId) params.set('certId', String(certId));
+  if (certUrl) params.set('certUrl', String(certUrl));
+
+  const issueYearFromData = Number(certificate.linkedinIssueYear);
+  const issueMonthFromData = Number(certificate.linkedinIssueMonth);
+  if (!Number.isNaN(issueYearFromData) && issueYearFromData > 0) {
+    params.set('issueYear', String(issueYearFromData));
+  }
+  if (!Number.isNaN(issueMonthFromData) && issueMonthFromData >= 1 && issueMonthFromData <= 12) {
+    params.set('issueMonth', String(issueMonthFromData));
+  }
+
+  if (!params.has('issueYear') && !params.has('issueMonth') && certificate.dateOfIssue) {
     const issuedOn = new Date(`${certificate.dateOfIssue}T00:00:00`);
     if (!Number.isNaN(issuedOn.getTime())) {
       params.set('issueYear', String(issuedOn.getFullYear()));
