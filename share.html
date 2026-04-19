@@ -591,7 +591,11 @@
         let currentTestimonialIndex = 0;
         const testimonialItems = document.querySelectorAll('.slider-item');
         const totalTestimonials = testimonialItems.length;
+        const testimonialContainer = document.getElementById('testimonialContainer');
         let autoSlideTimeout;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const swipeThreshold = 40;
 
         // Create indicators
         const indicatorsContainer = document.getElementById('indicators');
@@ -626,6 +630,30 @@
         function prevTestimonial() {
             currentTestimonialIndex = (currentTestimonialIndex - 1 + totalTestimonials) % totalTestimonials;
             showTestimonial(currentTestimonialIndex);
+        }
+
+        function handleSwipeGesture() {
+            const deltaX = touchEndX - touchStartX;
+            if (Math.abs(deltaX) < swipeThreshold) {
+                return;
+            }
+
+            if (deltaX < 0) {
+                nextTestimonial();
+            } else {
+                prevTestimonial();
+            }
+        }
+
+        if (testimonialContainer) {
+            testimonialContainer.addEventListener('touchstart', (event) => {
+                touchStartX = event.changedTouches[0].screenX;
+            }, { passive: true });
+
+            testimonialContainer.addEventListener('touchend', (event) => {
+                touchEndX = event.changedTouches[0].screenX;
+                handleSwipeGesture();
+            }, { passive: true });
         }
 
         // Start initial auto-slide
