@@ -1,0 +1,58 @@
+name: Task
+description: Track a scoped development, deployment, or documentation task
+labels: [todo]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Task title
+      placeholder: Update donate page testimonial slider behavior
+    validations:
+      required: true
+
+  - type: dropdown
+    id: team
+    attributes:
+      label: Team
+      options:
+        - Team 1 (Development)
+        - Team 2 (Deployment)
+        - Team 3 (Documentation)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Describe exactly what is included
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Measurable criteria for completion
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and blockers
+      description: Optional dependency list

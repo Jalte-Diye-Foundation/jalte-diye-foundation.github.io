@@ -1,0 +1,44 @@
+name: Deployment Integration
+
+on:
+  push:
+    branches:
+      - deploy
+      - main
+  pull_request:
+    branches:
+      - main
+      - deploy
+  workflow_dispatch:
+
+jobs:
+  deployment-readiness:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate deployment package integrity
+        run: |
+          node .github/scripts/ci_validate.js
+          node .github/scripts/ci_link_check.js
+
+      - name: Build static bundle archive
+        run: |
+          tar -czf website-build.tgz \
+            --exclude=.git \
+            --exclude=.github \
+            --exclude=.venv \
+            .
+
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-build
+          path: website-build.tgz
