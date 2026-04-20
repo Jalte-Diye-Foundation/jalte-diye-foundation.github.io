@@ -31,12 +31,13 @@ jobs:
 
       - name: Build static bundle archive
         run: |
-          tar -czf website-build.tgz \
-            --exclude=.git \
-            --exclude=.github \
-            --exclude=.venv \
-            --exclude=website-build.tgz \
-            .
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name '.git' \
+            ! -name '.github' \
+            ! -name '.venv' \
+            ! -name 'website-build.tgz' \
+            -print0 \
+            | tar --null -czf website-build.tgz --files-from -
 
       - name: Upload deployment artifact
         uses: actions/upload-artifact@v4
