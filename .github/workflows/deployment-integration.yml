@@ -35,6 +35,7 @@ jobs:
             --exclude=.git \
             --exclude=.github \
             --exclude=.venv \
+            --exclude=website-build.tgz \
             .
 
       - name: Upload deployment artifact
