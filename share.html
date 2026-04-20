@@ -35,7 +35,7 @@
     <style>
         .share-card {
             background: linear-gradient(135deg, #0f4c35 0%, #1b6b4a 35%, #0d7a5a 65%, #1a5276 100%);
-            border-radius: 20px;
+            border-radius: 0;
             overflow: hidden;
             padding: 30px;
             color: white;
@@ -447,7 +447,8 @@
                 logging: false
             });
 
-            const cardRadiusPx = parseFloat(getComputedStyle(card).borderRadius) || 20;
+            const parsedRadius = parseFloat(getComputedStyle(card).borderRadius);
+            const cardRadiusPx = Number.isFinite(parsedRadius) ? parsedRadius : 0;
             const clippedCanvas = document.createElement('canvas');
             clippedCanvas.width = canvas.width;
             clippedCanvas.height = canvas.height;
