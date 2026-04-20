@@ -3,6 +3,7 @@ name: Development Integration
 on:
   push:
     branches:
+      - main
       - dev
       - team1-dev
       - boost
@@ -11,6 +12,7 @@ on:
     branches:
       - dev
       - main
+  workflow_dispatch:
 
 jobs:
   dev-quality-checks:
