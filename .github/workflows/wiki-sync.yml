@@ -1,0 +1,50 @@
+name: Sync Wiki
+
+on:
+  push:
+    branches:
+      - doc
+    paths:
+      - 'docs/wiki/**'
+  workflow_dispatch:
+
+jobs:
+  sync-wiki:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone wiki repo
+        run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git wiki-repo
+          cd wiki-repo
+          ls -la
+
+      - name: Sync wiki files
+        run: |
+          # Copy files from docs/wiki to wiki repo (excluding this script itself)
+          cp -r docs/wiki/* wiki-repo/ 2>/dev/null || true
+          # Remove .gitkeep files if they exist
+          find wiki-repo -name '.gitkeep' -delete
+
+      - name: Commit and push wiki changes
+        run: |
+          cd wiki-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Check if there are changes
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to wiki, skipping commit."
+            exit 0
+          fi
+          
+          git add .
+          git commit -m "Sync wiki from docs/wiki (automated)"
+          git push origin master
