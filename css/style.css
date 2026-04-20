@@ -2026,6 +2026,10 @@ h3 {
 	border-radius: 0;
 }
 
+.cert-pdf-mobile-fallback {
+	display: none;
+}
+
 /* ── Responsive ── */
 @media (max-width: 860px) {
 	.cert-view-wrapper--with-pdf {
@@ -2047,8 +2051,16 @@ h3 {
 	}
 
 	.cert-pdf-viewer {
-		aspect-ratio: 1 / 1.414;
-		min-height: 460px;
+		display: none;
+	}
+
+	.cert-pdf-mobile-fallback {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		align-items: center;
+		text-align: center;
+		padding-top: 8px;
 	}
 
 	.cert-result-box {

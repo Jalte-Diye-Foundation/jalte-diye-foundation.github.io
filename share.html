@@ -186,6 +186,7 @@
             font-size: 1.2rem;
             font-weight: bold;
             margin: 20px auto;
+            text-align: left;
         }
 
         .testimonial-slider {
@@ -209,11 +210,15 @@
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
             margin: 0;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .testimonial.slider-item.active {
             opacity: 1;
             position: relative;
+            pointer-events: auto;
+            z-index: 1;
         }
 
         .slider-controls {
@@ -272,6 +277,13 @@
         }
 
         .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            .impact-counter,
+            .testimonial-slider {
+                width: 92%;
+            }
+        }
     </style>
 </head>
 
@@ -351,24 +363,24 @@
             <div class="testimonial-slider">
                 <div class="testimonial-container" id="testimonialContainer">
                     <div class="testimonial slider-item active">
-                        <p>"Donating to Jalte Diye felt deeply meaningful. Every rupee goes toward building a more peaceful society."</p>
-                        <div class="author">— Nupur Madaan</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        <p>"I still remember the last plantation campaign, putting those small plants into the soil. Today, as I work on a forestation project, it feels good to know that these memories have grown into a bigger purpose."</p>
+                        <div class="author">— Deepak Sharma</div>
+                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
                     </div>
                     <div class="testimonial slider-item">
                         <p>"I've seen the Miyawaki project firsthand — it's real, measurable, and inspiring. Proud to support."</p>
                         <div class="author">— Sweta Mahato</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
                     </div>
                     <div class="testimonial slider-item">
                         <p>"We taken so much from nature, we must give back. Let's do what we can."</p>
                         <div class="author">— Dr. Jay Pandey</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
                     </div>
                     <div class="testimonial slider-item">
                         <p>"I think, Earth is our mother, and we must protect her. Ek ped maa ke naam se."</p>
                         <div class="author">— Saniya Tabssum</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
                     </div>
                 </div>
                 <div class="slider-controls">
