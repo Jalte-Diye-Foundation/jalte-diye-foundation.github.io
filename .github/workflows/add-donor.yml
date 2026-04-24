@@ -1,0 +1,91 @@
+name: Add Donor
+
+# ─────────────────────────────────────────────────────────────────
+# Manual-only trigger.  To protect this with required reviewers:
+#   1. Go to  Settings → Environments → New environment
+#   2. Name it  data-updates
+#   3. Enable "Required reviewers" and add the org admins
+#   4. The workflow will pause for approval before making any changes.
+# ─────────────────────────────────────────────────────────────────
+on:
+  workflow_dispatch:
+    inputs:
+      donor_name:
+        description: "Donor display name (first name or full name)"
+        required: true
+      amount:
+        description: "Donation amount in INR (numbers only, e.g. 500)"
+        required: true
+      donation_for_cause:
+        description: "Campaign / cause this donation supports  (e.g. miyawaki forestation)"
+        required: true
+        default: "miyawaki forestation"
+
+jobs:
+  add-donor:
+    name: Append donor entry to donors.json
+    runs-on: ubuntu-latest
+
+    # ── Manual-approval gate ─────────────────────────────────────────────
+    # In GitHub: Settings → Environments → New environment → "production"
+    # Enable "Required reviewers" there.
+    environment: production
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate amount is a positive number
+        run: |
+          if ! echo "${{ inputs.amount }}" | grep -qE '^[0-9]+(\.[0-9]+)?$'; then
+            echo "::error::amount must be a positive number"
+            exit 1
+          fi
+
+      - name: Append new donor to donors.json
+        env:
+          DONOR_NAME:  ${{ inputs.donor_name }}
+          AMOUNT:      ${{ inputs.amount }}
+          CAUSE:       ${{ inputs.donation_for_cause }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os
+
+          path = 'donors.json'
+          with open(path, 'r', encoding='utf-8') as f:
+              data = json.load(f)
+
+          donors = data.get('donors', [])
+
+          new_donor = {
+              'donor_name':         os.environ['DONOR_NAME'],
+              'amount':             float(os.environ['AMOUNT']),
+              'donation_for_cause': os.environ['CAUSE'],
+          }
+
+          # Store as int when amount has no decimal part
+          if new_donor['amount'] == int(new_donor['amount']):
+              new_donor['amount'] = int(new_donor['amount'])
+
+          donors.append(new_donor)
+          data['donors'] = donors
+
+          with open(path, 'w', encoding='utf-8') as f:
+              json.dump(data, f, indent=2, ensure_ascii=False)
+              f.write('\n')
+
+          print(f'Donor added: {new_donor["donor_name"]} — INR {new_donor["amount"]} for {new_donor["donation_for_cause"]}')
+          print(f'Total donors now: {len(donors)}')
+          PYEOF
+
+      - name: Commit updated donors.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add donors.json
+          git diff --staged --quiet && echo "No changes." && exit 0
+          git commit -m "donors: add ${{ inputs.donor_name }} (INR ${{ inputs.amount }}) for ${{ inputs.donation_for_cause }}"
+          git push

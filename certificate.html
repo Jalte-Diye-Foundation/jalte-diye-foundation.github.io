@@ -5,6 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="View Certificate - Jalte Diye Foundation">
+    <link rel="canonical" href="https://jaltediyefoundation.org/certificate.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Jalte Diye Foundation">
+    <meta property="og:title" content="Certificate - Jalte Diye Foundation">
+    <meta property="og:description" content="View and verify certificate details issued by Jalte Diye Foundation.">
+    <meta property="og:url" content="https://jaltediyefoundation.org/certificate.html">
+    <meta property="og:image" content="https://jaltediyefoundation.org/images/logo.png">
+    <meta property="og:image:secure_url" content="https://jaltediyefoundation.org/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Jalte Diye Foundation logo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Certificate - Jalte Diye Foundation">
+    <meta name="twitter:description" content="View and verify certificate details issued by Jalte Diye Foundation.">
+    <meta name="twitter:image" content="https://jaltediyefoundation.org/images/logo.png">
     <title>Certificate - Jalte Diye Foundation</title>
     <link rel="icon" href="images/icon.png">
     <link rel="stylesheet" href="css/style.css">
@@ -12,21 +26,13 @@
 
 <body>
     <main class="page" id="certificate-view">
-        <header class="site-header">
-            <img class="logo" src="images/logo.png" alt="Logo Of Our NGO">
-            <h1>Jalte Diye Foundation</h1>
-            <p class="tagline">Empowering individuals through holistic social education to achieve global peace</p>
-            <nav class="main-nav" aria-label="Primary">
-                <a href="index.html">About Us</a>
-                <a href="projects.html">Projects</a>
-                <a href="donate.html">Donate</a>
-            </nav>
-        </header>
+        <div id="site-header"></div>
 
         <section class="section section--tint" id="certSection">
             <div id="certViewLoading" class="cert-page-loading" role="status">
                 <p>Loading certificate&hellip;</p>
             </div>
+            <div id="certParamError" class="cert-form-error" hidden role="alert"></div>
             <div id="certViewContent" hidden>
                 <!-- Injected by JS -->
             </div>
@@ -35,141 +41,12 @@
             </div>
         </section>
 
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <a href="work-policy.html">Work Policy</a>
-                    <a href="merchandise.html">Merchandise</a>
-                    <a href="privacy-policy.html">Privacy Policy</a>
-                    <a href="terms-of-use.html">Terms of Use</a>
-                    <a href="social-media-guide.html">Social Media Guide</a>
-                    <a href="banner.html">Banner</a>
-                    <a href="verify.html">Verify Certificate</a>
-                </div>
-                <div class="footer-section">
-                    <p>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</p>
-                </div>
-            </div>
-        </footer>
+        <div id="site-footer"></div>
     </main>
 
+    <script src="js/script.js"></script>
     <script src="js/certificates.js"></script>
-    <script>
-        (async function init() {
-            const params     = new URLSearchParams(window.location.search);
-            const rawId      = params.get('id');
-            const loadingEl  = document.getElementById('certViewLoading');
-            const contentEl  = document.getElementById('certViewContent');
-            const errorEl    = document.getElementById('certViewError');
-
-            function showError(html) {
-                loadingEl.hidden = true;
-                errorEl.hidden   = false;
-                errorEl.innerHTML = `<div class="cert-error-box">
-                    <span class="cert-result-bigicon" aria-hidden="true">❌</span>
-                    <h2>Certificate Not Found</h2>
-                    <p>${html}</p>
-                    <a href="verify.html" class="btn-verify-alt">Go to Verify Page</a>
-                </div>`;
-            }
-
-            if (!rawId || rawId.trim() === '') {
-                showError('No certificate ID was provided in the URL. Please use the verify page to look up a certificate.');
-                return;
-            }
-
-            const id = rawId.trim().toUpperCase();
-
-            const certificates = await loadCertificates();
-            if (!certificates) {
-                showError('Unable to load certificate data. Please try again later.');
-                return;
-            }
-
-            const cert = findCertificate(certificates, id);
-            if (!cert) {
-                showError(`No certificate with ID <strong>${escapeHtml(id)}</strong> was found in our records.`);
-                return;
-            }
-
-            /* Update page title with volunteer/speaker name */
-            const displayName = getCertificateRecipientName(cert);
-            document.title = `Certificate — ${displayName} — Jalte Diye Foundation`;
-
-            const pdfUrl = getCertificatePdfUrl(cert.id);
-            const pdfPreviewUrl = `${pdfUrl}#page=1&view=Fit&zoom=page-fit&toolbar=0&navpanes=0`;
-            const pdfFullscreenUrl = `${pdfUrl}#page=1&view=FitH&zoom=page-fit`;
-            const linkedinUrl = getLinkedInAddCertificateUrl(cert);
-            const recipientLabel = getCertificateRecipientLabel(cert);
-
-            const pdfSection = cert.hasPdf
-                ? `<div class="cert-pdf-panel">
-                    <h3>Certificate Preview</h3>
-                    <div class="cert-pdf-viewer" style="background-color: white !important; color: black !important; color-scheme: light;">
-                        <iframe
-                            src="${escapeHtml(pdfPreviewUrl)}"
-                            width="100%"
-                            style="border:none; background-color: white !important; color: black !important; color-scheme: light;"
-                            title="Certificate PDF"
-                        >
-                            <p>Your browser cannot display PDFs inline.
-                               <a href="${escapeHtml(pdfUrl)}" download>Download the PDF here</a>.
-                            </p>
-                        </iframe>
-                    </div>
-                    <div class="cert-pdf-mobile-fallback">
-                        <p>PDF preview is not supported on this browser.</p>
-                        <a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener" class="btn-view-cert">View Certificate PDF</a>
-                        <a href="${escapeHtml(pdfUrl)}" download class="btn-view-cert">Download PDF</a>
-                    </div>
-                </div>`
-                : '';
-
-            const actionsSection = cert.hasPdf
-                ? `<div class="cert-view-actions">
-                    <a href="${escapeHtml(pdfFullscreenUrl)}" class="btn-view-cert" target="_blank" rel="noopener">Open Fullscreen Preview</a>
-                    <a href="${escapeHtml(pdfUrl)}" class="btn-view-cert" download>Download PDF</a>
-                    <a href="${escapeHtml(linkedinUrl)}" class="btn-view-cert" target="_blank" rel="noopener">Add to LinkedIn</a>
-                    <a href="verify.html" class="btn-verify-alt">Verify Another</a>
-                   </div>`
-                : `<div class="cert-view-actions">
-                    <p class="cert-no-pdf-note">PDF not yet available. Contact us if you need a copy.</p>
-                    <a href="${escapeHtml(linkedinUrl)}" class="btn-view-cert" target="_blank" rel="noopener">Add to LinkedIn</a>
-                    <a href="verify.html" class="btn-verify-alt">Verify Another</a>
-                   </div>`;
-
-            loadingEl.hidden = true;
-            contentEl.hidden = false;
-            contentEl.innerHTML = `
-                <div class="section-title section-title--tight">
-                    <hr><span>Certificate of Participation</span><hr>
-                </div>
-                <div class="cert-view-wrapper${cert.hasPdf ? ' cert-view-wrapper--with-pdf' : ''}">
-                    <div class="cert-meta-panel">
-                        <div class="cert-valid-badge-large" aria-label="Certificate verified">
-                            ✓ Verified Certificate
-                        </div>
-                        <div class="cert-details-list">
-                            ${row('Certificate ID',  `<span class="cert-id-mono">${escapeHtml(cert.id)}</span>`)}
-                            ${row(recipientLabel, escapeHtml(displayName))}
-                            ${row('Event',           escapeHtml(cert.eventName))}
-                            ${row('Role',            escapeHtml(cert.role))}
-                            ${row('Date of Issue',   escapeHtml(formatDate(cert.dateOfIssue)))}
-                            ${row('Issued By',       escapeHtml(cert.issuedBy || 'Jalte Diye Foundation'))}
-                        </div>
-                        ${actionsSection}
-                    </div>
-                    ${pdfSection}
-                </div>`;
-        })();
-
-        function row(label, value) {
-            return `<div class="cert-detail-row">
-                <span class="cdl">${label}</span>
-                <span class="cdv">${value}</span>
-            </div>`;
-        }
-    </script>
+    <script src="js/certificate-page.js"></script>
 </body>
 
 </html>

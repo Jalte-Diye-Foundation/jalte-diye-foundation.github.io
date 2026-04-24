@@ -2,6 +2,16 @@
  * Jalte Diye Foundation — Certificate Utilities
  * Shared functions used by verify.html and certificate.html
  *
+ * READ-ONLY CONTRACT
+ * ------------------
+ * This file only reads certificates/data.json.  It never writes, posts,
+ * or mutates any server-side resource.  Returned certificate objects are
+ * frozen so callers cannot accidentally modify them in memory.
+ *
+ * Admin-only helpers (getNextSequence, generateCertificateId) are exposed
+ * only when window.CERT_ADMIN_MODE === true, which is set exclusively by
+ * admin/index.html on localhost.  They are inert no-ops on public pages.
+ *
  * If included from a subdirectory (e.g. admin/), set:
  *   window.CERT_DATA_URL_OVERRIDE = '../certificates/data.json';
  * before including this script.
@@ -13,14 +23,22 @@ const CERTIFICATES_DATA_URL = (typeof window !== 'undefined' && window.CERT_DATA
 
 /**
  * Fetch all certificates from data.json.
- * Returns the array on success, or null on failure.
+ * Returns a frozen array of frozen certificate objects on success,
+ * or null on failure.  The fetch is explicitly GET with no credentials
+ * and no-store cache to prevent stale or credentialled requests.
  */
 async function loadCertificates() {
   try {
-    const response = await fetch(CERTIFICATES_DATA_URL);
+    const response = await fetch(CERTIFICATES_DATA_URL, {
+      method: 'GET',
+      credentials: 'omit',
+      cache: 'no-store',
+    });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
-    return Array.isArray(data.certificates) ? data.certificates : [];
+    const certs = Array.isArray(data.certificates) ? data.certificates : [];
+    // Freeze each object so callers cannot mutate certificate data in memory
+    return Object.freeze(certs.map(c => Object.freeze(Object.assign(Object.create(null), c))));
   } catch (err) {
     console.error('[JDF Certificates] Failed to load data.json:', err);
     return null;
@@ -147,8 +165,11 @@ function getLinkedInAddCertificateUrl(certificate) {
 /**
  * Compute the next sequence number for a given event code.
  * Returns zero-padded string, e.g. "01", "02", "10".
+ *
+ * ADMIN-ONLY — returns null on public pages.
  */
 function getNextSequence(certificates, eventCode) {
+  if (typeof window === 'undefined' || !window.CERT_ADMIN_MODE) return null;
   const prefix = `JDF-${eventCode.toUpperCase()}-CE`;
   const existing = (Array.isArray(certificates) ? certificates : [])
     .filter(c => c.id.toUpperCase().startsWith(prefix.toUpperCase()))
@@ -158,8 +179,12 @@ function getNextSequence(certificates, eventCode) {
   return String(max + 1).padStart(2, '0');
 }
 
-/** Generate a new certificate ID based on existing data. */
+/** Generate a new certificate ID based on existing data.
+ *
+ * ADMIN-ONLY — returns null on public pages.
+ */
 function generateCertificateId(certificates, eventCode) {
+  if (typeof window === 'undefined' || !window.CERT_ADMIN_MODE) return null;
   const seq = getNextSequence(certificates, eventCode);
   return `JDF-${eventCode.toUpperCase()}-CE${seq}`;
 }

@@ -1,0 +1,328 @@
+.share-card {
+    background: linear-gradient(135deg, #0f4c35 0%, #1b6b4a 35%, #0d7a5a 65%, #1a5276 100%);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    padding: 30px;
+    color: white;
+    text-align: center;
+    max-width: 400px;
+    margin: 30px auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.share-hero {
+    text-align: center;
+}
+
+.share-card-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.share-card-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    padding: 4px;
+}
+
+.share-card-brand-name {
+    font-size: 0.9rem;
+    color: #d1fae5;
+}
+
+.share-role-badge {
+    display: inline-block;
+    background: #a7f3d0;
+    color: #065f46;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.share-card-supporter-text {
+    color: #a7f3d0;
+    font-size: 0.95rem;
+}
+
+.share-quote {
+    font-style: italic;
+    color: #d1fae5;
+    margin: 15px 0;
+    font-size: 0.95rem;
+}
+
+.share-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 15px 0;
+}
+
+.share-qr-code {
+    min-width: 80px;
+}
+
+.share-url {
+    font-size: 0.85rem;
+    margin: 5px 0;
+}
+
+.share-qr-note {
+    font-size: 0.8rem;
+    color: #d1fae5;
+    margin-top: 5px;
+}
+
+.share-card h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 15px 0;
+    color: white;
+}
+
+.share-card .campaign-badge {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    border-radius: 12px;
+    padding: 10px 15px;
+    margin: 15px 0;
+    font-size: 0.85rem;
+}
+
+.share-card .campaign-badge strong {
+    color: #a7f3d0;
+    text-transform: capitalize;
+}
+
+.share-card .qr-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+}
+
+.share-card .qr-section #qr-code {
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.share-card .qr-section div:last-child {
+    text-align: left;
+    font-size: 0.85rem;
+}
+
+.share-card .qr-section .label {
+    color: #a7f3d0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.download-btn,
+.share-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 8px;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+}
+
+.download-btn {
+    background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+}
+
+.share-btn {
+    background: var(--accent-green);
+    color: white;
+    box-shadow: 0 2px 10px rgba(15, 118, 110, 0.3);
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(15, 118, 110, 0.4);
+}
+
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.share-actions {
+    margin-top: 20px;
+}
+
+.share-actions .buttons-container {
+    margin: 10px 0;
+}
+
+.welcome-message {
+    font-size: 1.5rem;
+    color: var(--accent-green);
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.testimonial {
+    background: #f0fdf4;
+    border-left: 4px solid var(--accent-green);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    font-style: italic;
+    color: var(--text-main);
+}
+
+.testimonial .author {
+    text-align: right;
+    font-weight: bold;
+    color: var(--accent-green);
+    margin-top: 10px;
+}
+
+.testimonial .post-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-style: normal;
+}
+
+.impact-counter {
+    background: linear-gradient(135deg, var(--accent-green) 0%, #0d9488 100%);
+    color: white;
+    padding: 20px;
+    width: 60%;
+    border-radius: var(--radius-lg);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 20px auto;
+    box-shadow: var(--shadow-sm);
+}
+
+.testimonial-slider {
+    position: relative;
+    width: 60%;
+    margin: 20px auto;
+}
+
+.testimonial-container {
+    position: relative;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.share-callout {
+    text-align: center;
+}
+
+.donate-now-btn {
+    font-size: 1.1rem;
+    display: inline-block;
+    margin: 20px 0;
+    font-weight: 600;
+}
+
+.share-site-note {
+    color: #999;
+    margin-top: 15px;
+}
+
+.testimonial.slider-item {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    margin: 0;
+}
+
+.testimonial.slider-item.active {
+    opacity: 1;
+    position: relative;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.slider-btn {
+    background: #059669;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.slider-btn:hover {
+    background: #0d7a5a;
+    transform: scale(1.05);
+}
+
+.slider-btn:active {
+    transform: scale(0.95);
+}
+
+.slider-indicators {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d1d5db;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.slider-dot.active {
+    background: #059669;
+}
+
+.donate-now-btn,
+.donate-now-btn:hover,
+.donate-now-btn:focus,
+.donate-now-btn:active {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
+}

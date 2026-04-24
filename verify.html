@@ -5,23 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Verify Certificate - Jalte Diye Foundation. Enter your certificate ID to confirm its authenticity.">
+    <link rel="canonical" href="https://jaltediyefoundation.org/verify.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Jalte Diye Foundation">
+    <meta property="og:title" content="Verify Certificate - Jalte Diye Foundation">
+    <meta property="og:description" content="Enter your certificate ID to confirm authenticity issued by Jalte Diye Foundation.">
+    <meta property="og:url" content="https://jaltediyefoundation.org/verify.html">
+    <meta property="og:image" content="https://jaltediyefoundation.org/images/logo.png">
+    <meta property="og:image:secure_url" content="https://jaltediyefoundation.org/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Jalte Diye Foundation logo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Verify Certificate - Jalte Diye Foundation">
+    <meta name="twitter:description" content="Enter your certificate ID to confirm authenticity issued by Jalte Diye Foundation.">
+    <meta name="twitter:image" content="https://jaltediyefoundation.org/images/logo.png">
     <title>Verify Certificate - Jalte Diye Foundation</title>
     <link rel="icon" href="images/icon.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <main class="page" id="verify">
-        <header class="site-header">
-            <img class="logo" src="images/logo.png" alt="Logo Of Our NGO">
-            <h1>Jalte Diye Foundation</h1>
-            <p class="tagline">Empowering individuals through holistic social education to achieve global peace</p>
-            <nav class="main-nav" aria-label="Primary">
-                <a href="index.html">About Us</a>
-                <a href="projects.html">Projects</a>
-                <a href="donate.html">Donate</a>
-            </nav>
-        </header>
+    <main class="page footer-linked-page" id="verify">
+        <div id="site-header"></div>
 
         <section class="section section--tint">
             <div class="section-title section-title--tight">
@@ -33,7 +38,7 @@
             <div class="cert-verify-wrapper">
                 <div class="cert-verify-card">
                     <div class="cert-verify-icon" aria-hidden="true">🔐</div>
-                    <h2>Verify a Certificate</h2>
+                    <h3>Verify a Certificate</h3>
                     <p class="cert-verify-desc">
                         Enter the Certificate ID printed on the certificate to confirm its authenticity.
                     </p>
@@ -87,131 +92,12 @@
             </div>
         </section>
 
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <a href="work-policy.html">Work Policy</a>
-                    <a href="merchandise.html">Merchandise</a>
-                    <a href="privacy-policy.html">Privacy Policy</a>
-                    <a href="terms-of-use.html">Terms of Use</a>
-                    <a href="social-media-guide.html">Social Media Guide</a>
-                    <a href="banner.html">Banner</a>
-                    <a href="verify.html">Verify Certificate</a>
-                </div>
-                <div class="footer-section">
-                    <p>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</p>
-                </div>
-            </div>
-        </footer>
+        <div id="site-footer"></div>
     </main>
 
+    <script src="js/script.js"></script>
     <script src="js/certificates.js"></script>
-    <script>
-        const form        = document.getElementById('verifyForm');
-        const resultDiv   = document.getElementById('certResult');
-        const formErrDiv  = document.getElementById('certFormError');
-
-        /* Auto-fill and submit if ?id= is present in URL */
-        window.addEventListener('DOMContentLoaded', function () {
-            const params = new URLSearchParams(window.location.search);
-            const preId  = params.get('id');
-            if (preId) {
-                document.getElementById('certId').value = preId.toUpperCase();
-                form.dispatchEvent(new Event('submit'));
-            }
-        });
-
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            formErrDiv.hidden = true;
-
-            const raw = document.getElementById('certId').value.trim().toUpperCase();
-            if (!raw) {
-                formErrDiv.textContent = 'Please enter a Certificate ID.';
-                formErrDiv.hidden = false;
-                return;
-            }
-
-            /* Basic format check: JDF-EVENTCODE-CEXX */
-            if (!/^JDF-[A-Z0-9]+-CE\d{2,}$/i.test(raw)) {
-                formErrDiv.textContent = 'That does not look like a valid Certificate ID. Expected format: JDF-FDC-CE01';
-                formErrDiv.hidden = false;
-                return;
-            }
-
-            resultDiv.hidden = false;
-            resultDiv.innerHTML = '<div class="cert-result-loading" role="status">Verifying&hellip;</div>';
-
-            const certificates = await loadCertificates();
-
-            if (certificates === null) {
-                resultDiv.innerHTML = renderError(
-                    '⚠️',
-                    'Connection Error',
-                    'Unable to reach the certificate database. Please check your internet connection and try again.'
-                );
-                return;
-            }
-
-            const cert = findCertificate(certificates, raw);
-
-            if (!cert) {
-                resultDiv.innerHTML = renderInvalid(raw);
-                return;
-            }
-
-            resultDiv.innerHTML = renderValid(cert);
-        });
-
-        function renderError(icon, title, msg) {
-            return `<div class="cert-result-box cert-result-error">
-                <span class="cert-result-bigicon" aria-hidden="true">${icon}</span>
-                <h3>${title}</h3>
-                <p>${msg}</p>
-            </div>`;
-        }
-
-        function renderInvalid(id) {
-            return `<div class="cert-result-box cert-result-invalid">
-                <span class="cert-result-bigicon" aria-hidden="true">❌</span>
-                <h3>Certificate Not Found</h3>
-                <p>No certificate matching <strong>${escapeHtml(id)}</strong> was found in our records.</p>
-                <p>Please double-check the ID or <a href="mailto:contact@jaltediyefoundation.org">contact us</a> if you believe this is an error.</p>
-            </div>`;
-        }
-
-        function renderValid(cert) {
-            const displayName = getCertificateRecipientName(cert);
-            const viewLink = cert.hasPdf
-                ? `<div class="cert-result-actions">
-                    <a href="${getCertificateViewUrl(cert.id)}" class="btn-view-cert">View &amp; Download Certificate</a>
-                   </div>`
-                : '';
-            return `<div class="cert-result-box cert-result-valid">
-                <div class="cert-valid-header">
-                    <span class="cert-valid-badge" aria-label="Certificate verified">✓ Verified</span>
-                    <h3>Certificate Authenticated</h3>
-                    <p class="cert-valid-subtitle">This certificate was officially issued by Jalte Diye Foundation.</p>
-                </div>
-                <div class="cert-details-grid">
-                    ${detailItem('Certificate ID', `<span class="cert-id-mono">${escapeHtml(cert.id)}</span>`)}
-                    ${detailItem('Name', escapeHtml(displayName))}
-                    ${detailItem('Event',          escapeHtml(cert.eventName))}
-                    ${detailItem('Role',           escapeHtml(cert.role))}
-                    ${detailItem('Date of Issue',  escapeHtml(formatDate(cert.dateOfIssue)))}
-                    ${detailItem('Issued By',      escapeHtml(cert.issuedBy || 'Jalte Diye Foundation'))}
-                </div>
-                ${viewLink}
-            </div>`;
-        }
-
-        function detailItem(label, value) {
-            return `<div class="cert-detail-item">
-                <span class="cert-detail-label">${label}</span>
-                <span class="cert-detail-value">${value}</span>
-            </div>`;
-        }
-    </script>
+    <script src="js/verify-page.js"></script>
 </body>
 
 </html>

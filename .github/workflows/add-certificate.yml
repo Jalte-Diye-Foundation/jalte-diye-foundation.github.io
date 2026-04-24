@@ -1,0 +1,135 @@
+name: Add Certificate
+
+# ─────────────────────────────────────────────────────────────────
+# Manual-only trigger.  To protect this with required reviewers:
+#   1. Go to  Settings → Environments → New environment
+#   2. Name it  data-updates
+#   3. Enable "Required reviewers" and add the org admins
+#   4. The workflow will pause for approval before making any changes.
+# ─────────────────────────────────────────────────────────────────
+on:
+  workflow_dispatch:
+    inputs:
+      volunteer_name:
+        description: "Volunteer full name (as it should appear on the certificate)"
+        required: true
+      event_code:
+        description: "Short event code used in the certificate ID  (e.g. FDC, MHT, SDG16)"
+        required: true
+      event_name:
+        description: "Full event name  (e.g. Founder's Day Celebration 2026)"
+        required: true
+      role:
+        description: "Volunteer role  (e.g. Volunteer, Speaker, Coordinator)"
+        required: true
+      date_of_issue:
+        description: "Date of issue in YYYY-MM-DD format  (e.g. 2026-03-02)"
+        required: true
+      issued_by:
+        description: "Issuing authority"
+        required: false
+        default: "Jalte Diye Foundation"
+      has_pdf:
+        description: "Is the PDF already uploaded / will be uploaded together?"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  add-certificate:
+    name: Add certificate entry to data.json
+    runs-on: ubuntu-latest
+
+    # ── Manual-approval gate ─────────────────────────────────────────────
+    # In GitHub: Settings → Environments → New environment → "production"
+    # Enable "Required reviewers" there. Rename to any name you prefer and
+    # update the value below to match.
+    environment: production
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate date format
+        run: |
+          if ! echo "${{ inputs.date_of_issue }}" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
+            echo "::error::date_of_issue must be in YYYY-MM-DD format"
+            exit 1
+          fi
+
+      - name: Validate event code (letters and numbers only)
+        run: |
+          if ! echo "${{ inputs.event_code }}" | grep -qE '^[A-Za-z0-9]+$'; then
+            echo "::error::event_code must contain only letters and numbers"
+            exit 1
+          fi
+
+      - name: Append new certificate to certificates/data.json
+        env:
+          VOLUNTEER_NAME: ${{ inputs.volunteer_name }}
+          EVENT_CODE:     ${{ inputs.event_code }}
+          EVENT_NAME:     ${{ inputs.event_name }}
+          ROLE:           ${{ inputs.role }}
+          DATE_OF_ISSUE:  ${{ inputs.date_of_issue }}
+          ISSUED_BY:      ${{ inputs.issued_by }}
+          HAS_PDF:        ${{ inputs.has_pdf }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, sys
+
+          path = 'certificates/data.json'
+          with open(path, 'r', encoding='utf-8') as f:
+              data = json.load(f)
+
+          certs = data.get('certificates', [])
+          event_code = os.environ['EVENT_CODE'].upper()
+          prefix = f'JDF-{event_code}-CE'
+
+          existing_nums = []
+          for c in certs:
+              if c.get('id', '').upper().startswith(prefix.upper()):
+                  try:
+                      existing_nums.append(int(c['id'][len(prefix):]))
+                  except ValueError:
+                      pass
+
+          next_num = (max(existing_nums) + 1) if existing_nums else 1
+          cert_id  = f'{prefix}{str(next_num).zfill(2)}'
+
+          new_cert = {
+              'id':          cert_id,
+              'name':        os.environ['VOLUNTEER_NAME'],
+              'eventName':   os.environ['EVENT_NAME'],
+              'eventCode':   event_code,
+              'role':        os.environ['ROLE'],
+              'dateOfIssue': os.environ['DATE_OF_ISSUE'],
+              'hasPdf':      os.environ['HAS_PDF'].lower() == 'true',
+              'issuedBy':    os.environ['ISSUED_BY'],
+          }
+
+          certs.append(new_cert)
+          data['certificates'] = certs
+
+          with open(path, 'w', encoding='utf-8') as f:
+              json.dump(data, f, indent=2, ensure_ascii=False)
+              f.write('\n')
+
+          print(f'Certificate added: {cert_id}')
+          print(f'Recipient: {new_cert["name"]}')
+          print(f'Event: {new_cert["eventName"]}')
+          PYEOF
+
+      - name: Commit updated data.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add certificates/data.json
+          git diff --staged --quiet && echo "No changes." && exit 0
+          git commit -m "cert: add ${{ inputs.event_code }} certificate for ${{ inputs.volunteer_name }}"
+          git push
