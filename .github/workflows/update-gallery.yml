@@ -1,0 +1,40 @@
+name: Update Gallery Manifest
+
+on:
+  push:
+    paths:
+      - "gallery/**"
+
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate gallery/images.json
+        run: |
+          cd gallery
+          files=$(ls -1 | grep -iE '\.(jpe?g|png|gif|webp|avif|svg)$' | sort | python3 -c "
+          import sys, json
+          names = [line.rstrip('\n') for line in sys.stdin]
+          print(json.dumps(names, indent=2))
+          ")
+          echo "$files" > images.json
+          echo "Generated images.json:"
+          cat images.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add gallery/images.json
+          if git diff --cached --quiet; then
+            echo "No changes to images.json, skipping commit."
+          else
+            git commit -m "chore: update gallery/images.json [skip ci]"
+            git push
+          fi

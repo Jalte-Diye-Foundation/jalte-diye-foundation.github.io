@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Prevent indexing of internal admin area
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://jaltediyefoundation.org/sitemap.xml

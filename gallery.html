@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gallery - Jalte Diye Foundation. A photo album of our work, events, and initiatives.">
+    <link rel="canonical" href="https://jaltediyefoundation.org/gallery.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Jalte Diye Foundation">
+    <meta property="og:title" content="Gallery - Jalte Diye Foundation">
+    <meta property="og:description" content="A photo album of our work, events, and initiatives.">
+    <meta property="og:url" content="https://jaltediyefoundation.org/gallery.html">
+    <meta property="og:image" content="https://jaltediyefoundation.org/images/logo.png">
+    <meta property="og:image:secure_url" content="https://jaltediyefoundation.org/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Jalte Diye Foundation logo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gallery - Jalte Diye Foundation">
+    <meta name="twitter:description" content="A photo album of our work, events, and initiatives.">
+    <meta name="twitter:image" content="https://jaltediyefoundation.org/images/logo.png">
+    <title>Gallery - Jalte Diye Foundation</title>
+    <link rel="icon" href="images/icon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gallery.css">
+</head>
+
+<body>
+    <main class="page content-page" id="gallery">
+        <div id="site-header"></div>
+
+        <section class="section section--tint">
+            <div class="section-title section-title--tight">
+                <hr>
+                <span>Photo Gallery</span>
+                <hr>
+            </div>
+
+            
+        </section>
+        <section class="section section--soft" aria-labelledby="mission-clarity-title">
+            <div class="donate-content">
+                <div class="mission-copy">
+                    <h2 id="mission-clarity-title">Helping communities access education, awareness, and climate action support.</h2>
+                    <p>We are Jalte Diye Foundation. We support children, youth, and local communities through social education, outreach programs, and environment-focused initiatives. You can help by donating, volunteering, or partnering with us.</p>
+                    <div class="donate-content donate-content--compact">
+                        <p><a class="learn-more-link" href="success-story.html">Read our success stories and impact journeys</a></p>
+                    </div>
+                    <ul class="quick-stats" aria-label="Quick impact stats">
+                        <li><strong>8+</strong> Active initiatives</li>
+                        <li><strong>100+</strong> Trees planted in community drives</li>
+                        <li><strong>500+</strong> Participants reached through sessions</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--soft">
+            <div class="donate-content">
+                <div id="gallery-container" class="gallery-grid">
+                    <!-- Images are loaded dynamically from gallery/ folder -->
+                </div>
+                <p id="gallery-empty-msg" class="gallery-empty is-hidden">No photos available yet. Check back soon!</p>
+            </div>
+        </section>
+
+        <!-- Lightbox -->
+        <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+            <div class="lightbox-inner">
+                <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+                <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+                <img id="lightbox-img" src="" alt="">
+                <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
+            </div>
+        </div>
+
+        <div id="site-footer"></div>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+
+</html>
