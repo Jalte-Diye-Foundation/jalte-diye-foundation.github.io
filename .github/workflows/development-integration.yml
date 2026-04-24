@@ -1,0 +1,34 @@
+name: Development Integration
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - team1-dev
+      - boost
+      - debug
+  pull_request:
+    branches:
+      - dev
+      - main
+  workflow_dispatch:
+
+jobs:
+  dev-quality-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate repository structure and JSON
+        run: node .github/scripts/ci_validate.js
+
+      - name: Validate local links and assets
+        run: node .github/scripts/ci_link_check.js

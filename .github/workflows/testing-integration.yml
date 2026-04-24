@@ -1,0 +1,45 @@
+name: Testing Integration
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - deploy
+      - team1-dev
+      - team2-deploy
+      - team3-doc
+  pull_request:
+    branches:
+      - main
+      - dev
+      - deploy
+
+jobs:
+  test-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Validate JSON files with Python
+        run: |
+          python -m json.tool donors.json > /dev/null
+          python -m json.tool certificates/data.json > /dev/null
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run structural checks
+        run: node .github/scripts/ci_validate.js
+
+      - name: Run local reference checks
+        run: node .github/scripts/ci_link_check.js
