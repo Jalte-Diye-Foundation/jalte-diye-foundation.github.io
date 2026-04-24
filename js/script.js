@@ -15,6 +15,73 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Reusable testimonial slider used by multiple pages.
+const initTestimonialSlider = ({
+    containerId,
+    indicatorsId,
+    itemSelector = '.slider-item',
+    autoSlideMs = 3000,
+    swipeThreshold = 40
+}) => {
+    const testimonialContainer = document.getElementById(containerId);
+    const indicatorsContainer = document.getElementById(indicatorsId);
+    const testimonialItems = document.querySelectorAll(itemSelector);
+
+    if (!testimonialContainer || !indicatorsContainer || testimonialItems.length === 0) return;
+
+    let currentTestimonialIndex = 0;
+    const totalTestimonials = testimonialItems.length;
+    let autoSlideTimeout;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const showTestimonial = (index) => {
+        testimonialItems.forEach(item => item.classList.remove('active'));
+        document.querySelectorAll('.slider-dot').forEach(dot => dot.classList.remove('active'));
+
+        testimonialItems[index].classList.add('active');
+        document.querySelectorAll('.slider-dot')[index].classList.add('active');
+
+        clearTimeout(autoSlideTimeout);
+        autoSlideTimeout = setTimeout(nextTestimonial, autoSlideMs);
+    };
+
+    const nextTestimonial = () => {
+        currentTestimonialIndex = (currentTestimonialIndex + 1) % totalTestimonials;
+        showTestimonial(currentTestimonialIndex);
+    };
+
+    const prevTestimonial = () => {
+        currentTestimonialIndex = (currentTestimonialIndex - 1 + totalTestimonials) % totalTestimonials;
+        showTestimonial(currentTestimonialIndex);
+    };
+
+    const handleSwipeGesture = () => {
+        const deltaX = touchEndX - touchStartX;
+        if (Math.abs(deltaX) < swipeThreshold) return;
+        if (deltaX < 0) nextTestimonial();
+        else prevTestimonial();
+    };
+
+    for (let i = 0; i < totalTestimonials; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => showTestimonial(i);
+        indicatorsContainer.appendChild(dot);
+    }
+
+    testimonialContainer.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0].screenX;
+    }, { passive: true });
+
+    testimonialContainer.addEventListener('touchend', (event) => {
+        touchEndX = event.changedTouches[0].screenX;
+        handleSwipeGesture();
+    }, { passive: true });
+
+    autoSlideTimeout = setTimeout(nextTestimonial, autoSlideMs);
+};
+
 // Carousel functionality for activities section
 const carousel = document.getElementById('activitiesCarousel');
 const prevBtn = document.querySelector('.carousel-btn-prev');
@@ -23,17 +90,20 @@ const nextBtn = document.querySelector('.carousel-btn-next');
 if (carousel && prevBtn && nextBtn) {
     let currentIndex = 0;
     let totalCards = 0;
+    let autoScrollInterval = null;
+    let scrollSyncTimeout = null;
+    const autoScrollMs = 4000;
     
     const initCarousel = () => {
         const cards = carousel.querySelectorAll('.activity-card');
         totalCards = cards.length;
         currentIndex = 0;
         carousel.scrollLeft = 0;
+        startAutoScroll();
     };
     
     const scrollToCard = (index) => {
-        const cards = carousel.querySelectorAll('.activity-card');
-        if (cards.length === 0) return;
+        if (totalCards === 0) return;
         
         // Use the carousel's client width as each card is 100% of it
         const cardWidth = carousel.clientWidth;
@@ -48,18 +118,70 @@ if (carousel && prevBtn && nextBtn) {
             behavior: 'smooth'
         });
     };
+
+    const syncIndexFromScroll = () => {
+        if (totalCards === 0) return;
+
+        const cardWidth = carousel.clientWidth;
+        const styles = window.getComputedStyle(carousel);
+        const gap = parseFloat(styles.gap) || 30;
+        const unit = cardWidth + gap;
+
+        if (unit <= 0) return;
+
+        currentIndex = Math.round(carousel.scrollLeft / unit);
+        if (currentIndex < 0) currentIndex = 0;
+        if (currentIndex >= totalCards) currentIndex = totalCards - 1;
+    };
+
+    const stopAutoScroll = () => {
+        if (!autoScrollInterval) return;
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = null;
+    };
+
+    const startAutoScroll = () => {
+        stopAutoScroll();
+        if (totalCards <= 1) return;
+
+        autoScrollInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalCards;
+            scrollToCard(currentIndex);
+        }, autoScrollMs);
+    };
+
+    const restartAutoScroll = () => {
+        startAutoScroll();
+    };
     
     prevBtn.addEventListener('click', () => {
         // Move to previous card, wrap around to last card if at beginning
         currentIndex = (currentIndex - 1 + totalCards) % totalCards;
         scrollToCard(currentIndex);
+        restartAutoScroll();
     });
 
     nextBtn.addEventListener('click', () => {
         // Move to next card, wrap around to first card if at end
         currentIndex = (currentIndex + 1) % totalCards;
         scrollToCard(currentIndex);
+        restartAutoScroll();
     });
+
+    // Pause auto-scroll while user is actively interacting.
+    carousel.addEventListener('mouseenter', stopAutoScroll);
+    carousel.addEventListener('mouseleave', startAutoScroll);
+    carousel.addEventListener('touchstart', stopAutoScroll, { passive: true });
+    carousel.addEventListener('touchend', startAutoScroll, { passive: true });
+
+    // Keep internal index aligned with manual horizontal scroll.
+    carousel.addEventListener('scroll', () => {
+        if (scrollSyncTimeout) clearTimeout(scrollSyncTimeout);
+        scrollSyncTimeout = setTimeout(() => {
+            syncIndexFromScroll();
+            startAutoScroll();
+        }, 120);
+    }, { passive: true });
     
     // Initialize on page load
     if (document.readyState === 'loading') {
@@ -82,6 +204,17 @@ const renderDonorWallMessage = (message, className = 'donor-wall-loading') => {
     donorWall.innerHTML = `<p class="${className}">${message}</p>`;
 };
 
+const updateDonorImpactSummary = (donors) => {
+    const donorCountElement = document.getElementById('impactDonorCount');
+
+    if (!donorCountElement) return;
+
+    const donorCount = donors.length;
+
+    const donorLabel = donorCount === 1 ? 'person' : 'people';
+    donorCountElement.textContent = `${donorCount} ${donorLabel}`;
+};
+
 const getInlineDonorData = () => {
     const inlineDataElement = document.getElementById('donorWallData');
     if (!inlineDataElement) return null;
@@ -92,11 +225,6 @@ const getInlineDonorData = () => {
     } catch {
         return null;
     }
-};
-
-const calculateTagSize = (amount, minAmount, maxAmount) => {
-    // Uniform font size — small enough to fill the dome without overflow
-    return 1.05;
 };
 
 const calculateFontWeight = (amount, minAmount, maxAmount) => {
@@ -242,8 +370,11 @@ const loadDonorWall = async () => {
 
         if (validDonors.length === 0) {
             renderDonorWallMessage('No donor data available right now.');
+            updateDonorImpactSummary([]);
             return;
         }
+
+        updateDonorImpactSummary(validDonors);
 
         const amounts = validDonors.map(donor => donor.amount);
         const minAmount = Math.min(...amounts);
@@ -299,6 +430,7 @@ const loadDonorWall = async () => {
         donorWall.appendChild(cloud);
     } catch (error) {
         console.error('[JDF Donor Wall] Failed to load donors.json:', error);
+        updateDonorImpactSummary([]);
         const isFileProtocol = typeof window !== 'undefined' && window.location && window.location.protocol === 'file:';
         const message = isFileProtocol
             ? 'Unable to load donor wall in direct file mode. Open the site through a local server.'
@@ -311,6 +443,56 @@ if (donorWall) {
     loadDonorWall();
 }
 
+// Shared header loader
+const headerFallbackHtml = `
+<header class="site-header">
+    <img class="logo" src="images/logo.png" alt="Logo Of Our NGO">
+    <h1>Jalte Diye Foundation</h1>
+    <p class="tagline">Empowering individuals through holistic social education to achieve global peace</p>
+    <nav class="main-nav" aria-label="Primary">
+        <a href="index.html">About Us</a>
+        <a href="projects.html">Projects</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="transparency.html">Transparency</a>
+        <a href="blog.html">Blog</a><a href="donate.html">Donate</a>
+    </nav>
+</header>`;
+
+const markActiveNavLink = () => {
+    const pageName = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+    document.querySelectorAll('.main-nav a').forEach((anchor) => {
+        const href = (anchor.getAttribute('href') || '').toLowerCase();
+        const isActive = href === pageName || (pageName === '' && href === 'index.html');
+
+        if (isActive) {
+            anchor.setAttribute('aria-current', 'page');
+        } else {
+            anchor.removeAttribute('aria-current');
+        }
+    });
+};
+
+const injectHeader = (html) => {
+    const placeholder = document.getElementById('site-header');
+    if (!placeholder) return;
+    placeholder.outerHTML = html;
+    markActiveNavLink();
+};
+
+fetch('header.html')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Header request failed');
+        }
+        return response.text();
+    })
+    .then(injectHeader)
+    .catch(() => {
+        // Fallback keeps header visible when opened directly from file://
+        injectHeader(headerFallbackHtml);
+    });
+
 // Shared footer loader
 const footerFallbackHtml = `
 <footer class="footer">
@@ -321,11 +503,34 @@ const footerFallbackHtml = `
             <a href="privacy-policy.html">Privacy Policy</a>
             <a href="terms-of-use.html">Terms of Use</a>
             <a href="social-media-guide.html">Social Media Guide</a>
+            <a href="team.html">Team</a>
             <a href="banner.html">Banner</a>
             <a href="verify.html">Verify Certificate</a>
         </div>
         <div class="footer-section">
-            <p>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</p>
+            <p class="footer-signature">
+                <span class="footer-social" aria-label="Social media links">
+                    <a class="footer-social-link" href="https://www.facebook.com/JalteDiyeFoundation/" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on Facebook">
+                        <img src="images/Facebook_Logo_Primary.png" alt="Facebook">
+                    </a>
+                    <a class="footer-social-link" href="https://www.instagram.com/jalte_diye_foundation/" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on Instagram">
+                        <img src="images/Instagram_Glyph_Gradient.png" alt="Instagram">
+                    </a>
+                    <a class="footer-social-link" href="https://www.linkedin.com/company/jalte-diye-foundation/" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on LinkedIn">
+                        <img src="images/LI-In-Bug.png" alt="LinkedIn">
+                    </a>
+                    <a class="footer-social-link" href="https://x.com/JalteDiyeNPO" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on X">
+                        <img src="images/logo-black.png" alt="X">
+                    </a>
+                    <a class="footer-social-link" href="https://www.youtube.com/@JalteDiyeNPO" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on YouTube">
+                        <img src="images/yt_icon_red_digital.png" alt="YouTube">
+                    </a>
+                    <a class="footer-social-link" href="https://wa.me/6376930632" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on WhatsApp">
+                        <img src="images/whatsapp-icon.svg" alt="WhatsApp">
+                    </a>
+                </span>
+                <span>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</span>
+            </p>
         </div>
     </div>
 </footer>`;
@@ -347,3 +552,74 @@ fetch('footer.html')
         // Fallback keeps footer visible when opened directly from file://
         injectFooter(footerFallbackHtml);
     });
+
+// Improve inline PDF compatibility on mobile browsers for document pages.
+const initMobilePdfEmbeds = () => {
+    const pdfFrames = document.querySelectorAll('.document-page iframe.pdf-container');
+    if (!pdfFrames.length) return;
+
+    const userAgent = navigator.userAgent || '';
+    const isMobile = window.matchMedia('(max-width: 900px)').matches
+        || /Android|iPhone|iPad|iPod|Windows Phone|Opera Mini|Mobile/i.test(userAgent);
+
+    if (!isMobile) return;
+
+    const isLocalPreview = window.location.protocol === 'file:'
+        || window.location.hostname === 'localhost'
+        || window.location.hostname === '127.0.0.1';
+
+    pdfFrames.forEach((frame) => {
+        const rawSrc = frame.getAttribute('data-pdf-src') || frame.getAttribute('src');
+        if (!rawSrc) return;
+
+        if (isLocalPreview) {
+            frame.setAttribute('src', rawSrc);
+            return;
+        }
+
+        const absolutePdfUrl = new URL(rawSrc, window.location.href).toString();
+        const mobileViewerUrl = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(absolutePdfUrl)}`;
+
+        frame.setAttribute('src', mobileViewerUrl);
+    });
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobilePdfEmbeds);
+} else {
+    initMobilePdfEmbeds();
+}
+
+// Keep success-story cards visually uniform by matching the tallest card height.
+const syncSuccessStoryCardHeights = () => {
+    const successStoryPage = document.getElementById('success-story');
+    if (!successStoryPage) return;
+
+    const cards = successStoryPage.querySelectorAll('.story-grid .story-card');
+    if (cards.length < 2) return;
+
+    cards.forEach((card) => {
+        card.style.minHeight = '';
+    });
+
+    let tallest = 0;
+    cards.forEach((card) => {
+        tallest = Math.max(tallest, card.offsetHeight);
+    });
+
+    cards.forEach((card) => {
+        card.style.minHeight = `${tallest}px`;
+    });
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncSuccessStoryCardHeights);
+} else {
+    syncSuccessStoryCardHeights();
+}
+
+let successStoryResizeTimeout;
+window.addEventListener('resize', () => {
+    if (successStoryResizeTimeout) clearTimeout(successStoryResizeTimeout);
+    successStoryResizeTimeout = setTimeout(syncSuccessStoryCardHeights, 120);
+});

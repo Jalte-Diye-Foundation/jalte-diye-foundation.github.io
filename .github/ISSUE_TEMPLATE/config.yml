@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report
+    url: https://jaltediyefoundation.org/terms-of-use.html
+    about: Report security vulnerabilities privately by email
+  - name: General support
+    url: https://jaltediyefoundation.org/
+    about: Ask a question or request help

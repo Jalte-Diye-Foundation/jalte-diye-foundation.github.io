@@ -1,0 +1,56 @@
+name: Sync Wiki
+
+on:
+  push:
+    branches:
+      - doc
+    paths:
+      - 'docs/wiki/**'
+  workflow_dispatch:
+
+jobs:
+  sync-wiki:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup wiki repo
+        run: |
+          WIKI_URL="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git"
+          # Try to clone; if wiki doesn't exist yet, initialize a fresh repo
+          if git clone "$WIKI_URL" wiki-repo 2>/dev/null; then
+            echo "Cloned existing wiki."
+          else
+            echo "Wiki not initialized yet — creating fresh repo."
+            mkdir wiki-repo
+            cd wiki-repo
+            git init
+            git remote add origin "$WIKI_URL"
+          fi
+
+      - name: Sync wiki files
+        run: |
+          cp -r docs/wiki/. wiki-repo/
+          find wiki-repo -name '.gitkeep' -delete
+
+      - name: Commit and push wiki changes
+        run: |
+          cd wiki-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to wiki, skipping commit."
+            exit 0
+          fi
+
+          git add .
+          git commit -m "Sync wiki from docs/wiki (automated)"
+          # Push to master (GitHub Wiki default branch); use -u on first push
+          git push --set-upstream origin master

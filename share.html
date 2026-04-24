@@ -32,261 +32,12 @@
     <!-- canvas-confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-    <style>
-        .share-card {
-            background: linear-gradient(135deg, #0f4c35 0%, #1b6b4a 35%, #0d7a5a 65%, #1a5276 100%);
-            border-radius: 0;
-            overflow: hidden;
-            padding: 30px;
-            color: white;
-            text-align: center;
-            max-width: 400px;
-            margin: 30px auto;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .share-card h2 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 15px 0;
-            color: white;
-        }
-
-        .share-card .campaign-badge {
-            display: inline-block;
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            border-radius: 12px;
-            padding: 10px 15px;
-            margin: 15px 0;
-            font-size: 0.85rem;
-        }
-
-        .share-card .campaign-badge strong {
-            color: #a7f3d0;
-            text-transform: capitalize;
-        }
-
-        .share-card .qr-section {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin: 20px 0;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-        }
-
-        .share-card .qr-section #qr-code {
-            background: white;
-            padding: 8px;
-            border-radius: 8px;
-            flex-shrink: 0;
-        }
-
-        .share-card .qr-section div:last-child {
-            text-align: left;
-            font-size: 0.85rem;
-        }
-
-        .share-card .qr-section .label {
-            color: #a7f3d0;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .download-btn, .share-btn {
-            display: inline-block;
-            padding: 12px 24px;
-            margin: 8px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-        }
-
-        .download-btn {
-            background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
-        }
-
-        .share-btn {
-            background: #0f766e;
-            color: white;
-            box-shadow: 0 2px 10px rgba(15, 118, 110, 0.3);
-        }
-
-        .share-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(15, 118, 110, 0.4);
-        }
-
-        .buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .share-actions {
-            margin-top: 20px;
-        }
-
-        .share-actions .buttons-container {
-            margin: 10px 0;
-        }
-
-        .welcome-message {
-            font-size: 1.5rem;
-            color: #059669;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-
-        .testimonial {
-            background: #f0fdf4;
-            border-left: 4px solid #059669;
-            padding: 20px;
-            border-radius: 8px;
-            font-style: italic;
-            color: #1f2937;
-        }
-
-        .testimonial .author {
-            text-align: right;
-            font-weight: bold;
-            color: #0f766e;
-            margin-top: 10px;
-        }
-
-        .testimonial .post-link {
-            display: inline-block;
-            margin-top: 8px;
-            font-style: normal;
-        }
-
-        .impact-counter {
-            background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
-            color: white;
-            padding: 20px;
-            width: 60%;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 20px auto;
-        }
-
-        .testimonial-slider {
-            position: relative;
-            width: 60%;
-            margin: 20px auto;
-        }
-
-        .testimonial-container {
-            position: relative;
-            min-height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .testimonial.slider-item {
-            position: absolute;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            margin: 0;
-        }
-
-        .testimonial.slider-item.active {
-            opacity: 1;
-            position: relative;
-        }
-
-        .slider-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .slider-btn {
-            background: #059669;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
-
-        .slider-btn:hover {
-            background: #0d7a5a;
-            transform: scale(1.05);
-        }
-
-        .slider-btn:active {
-            transform: scale(0.95);
-        }
-
-        .slider-indicators {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .slider-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #d1d5db;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .slider-dot.active {
-            background: #059669;
-        }
-
-        .donate-now-btn,
-        .donate-now-btn:hover,
-        .donate-now-btn:focus,
-        .donate-now-btn:active {
-            text-decoration: none;
-        }
-
-        .hidden { display: none; }
-    </style>
+    <link rel="stylesheet" href="css/share.css">
 </head>
 
 <body>
-    <main class="page" id="share-page">
-        <header class="site-header">
-            <img class="logo" src="images/logo.png" alt="Logo Of Our NGO">
-            <h1>Jalte Diye Foundation</h1>
-            <p class="tagline">Empowering individuals through holistic social education to achieve global peace</p>
-            <nav class="main-nav" aria-label="Primary">
-                <a href="index.html">About Us</a>
-                <a href="projects.html">Projects</a>
-                <a href="donate.html">Donate</a>
-            </nav>
-        </header>
+    <main class="page content-page" id="share-page">
+        <div id="site-header"></div>
 
         <section class="section section--tint">
             <div class="section-title section-title--tight">
@@ -295,7 +46,7 @@
                 <hr>
             </div>
 
-            <div class="donate-hero" style="text-align: center;">
+            <div class="donate-hero share-hero">
                 <h3>Thank You for Supporting Our Cause</h3>
                 <div id="welcome-message" class="welcome-message hidden"></div>
                 <p>Your generosity creates real impact. Share your support and inspire others to donate.</p>
@@ -304,35 +55,35 @@
 
         <section class="section section--soft">
             <div class="donate-content">
-                <h4 style="text-align: center; margin-bottom: 30px;">Your Personal Share Card</h4>
+                <h4 class="section-minor-title section-minor-title--center section-minor-title--spacious">Your Personal Share Card</h4>
 
                 <div class="share-card" id="share-card">
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;">
-                        <img src="images/logo.png" alt="Logo" style="width: 40px; height: 40px; border-radius: 50%; background: white; padding: 4px;">
-                        <span style="font-size: 0.9rem; color: #d1fae5;">Jalte Diye Foundation</span>
+                    <div class="share-card-brand">
+                        <img class="share-card-logo" src="images/logo.png" alt="Logo">
+                        <span class="share-card-brand-name">Jalte Diye Foundation</span>
                     </div>
-                    <span style="display: inline-block; background: #a7f3d0; color: #065f46; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; margin-bottom: 15px;">DONOR</span>
+                    <span class="share-role-badge">DONOR</span>
                     <h2 id="donor-name">Proud Supporter</h2>
-                    <p style="color: #a7f3d0; font-size: 0.95rem;">Proud Supporter of Jalte Diye Foundation</p>
+                    <p class="share-card-supporter-text">Proud Supporter of Jalte Diye Foundation</p>
                     <div class="campaign-badge">
                         <div class="label">Campaign</div>
                         <strong id="campaign-name">Miyawaki Forestation</strong>
                     </div>
-                    <p style="font-style: italic; color: #d1fae5; margin: 15px 0; font-size: 0.95rem;">
+                    <p class="share-quote">
                         "Together we are changing lives."
                     </p>
-                    <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 15px 0;">
+                    <hr class="share-divider">
                     <div class="qr-section">
-                        <div id="qr-code" style="min-width: 80px;"></div>
+                        <div id="qr-code" class="share-qr-code"></div>
                         <div>
                             <div class="label">Scan to Donate</div>
-                            <p style="font-size: 0.85rem; margin: 5px 0;">JalteDiyeFoundation.Org</p>
-                            <p style="font-size: 0.8rem; color: #d1fae5; margin-top: 5px;">Your support powers peace & education.</p>
+                            <p class="share-url">JalteDiyeFoundation.Org</p>
+                            <p class="share-qr-note">Your support powers peace & education.</p>
                         </div>
                     </div>
                 </div>
 
-                <h4 style="text-align: center; margin-bottom: 20px;">Share with Friends</h4>
+                <h4 class="section-minor-title section-minor-title--center">Share with Friends</h4>
                 <div class="share-actions" id="social-buttons">
                     <div class="buttons-container" id="share-row-primary"></div>
                     <div class="buttons-container" id="share-row-social"></div>
@@ -347,28 +98,28 @@
         </section>
 
         <section class="section section--soft">
-            <h4 style="text-align: center; margin-bottom: 20px;">What Our Supporters Say</h4>
+            <h4 class="section-minor-title section-minor-title--center">What Our Supporters Say</h4>
             <div class="testimonial-slider">
                 <div class="testimonial-container" id="testimonialContainer">
                     <div class="testimonial slider-item active">
-                        <p>"Donating to Jalte Diye felt deeply meaningful. Every rupee goes toward building a more peaceful society."</p>
-                        <div class="author">— Nupur Madaan</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        <p>"I still remember the last plantation campaign, putting those small plants into the soil. Today, as I work on a forestation project, it feels good to know that these memories have grown into a bigger purpose."</p>
+                        <div class="author">— Deepak Sharma</div>
+                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
                     </div>
                     <div class="testimonial slider-item">
                         <p>"I've seen the Miyawaki project firsthand — it's real, measurable, and inspiring. Proud to support."</p>
                         <div class="author">— Sweta Mahato</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
                     </div>
                     <div class="testimonial slider-item">
                         <p>"We taken so much from nature, we must give back. Let's do what we can."</p>
                         <div class="author">— Dr. Jay Pandey</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
                     </div>
                     <div class="testimonial slider-item">
                         <p>"I think, Earth is our mother, and we must protect her. Ek ped maa ke naam se."</p>
                         <div class="author">— Saniya Tabssum</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/replace-with-post-link" target="_blank" rel="noopener">View LinkedIn post</a>
+                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
                     </div>
                 </div>
                 <div class="slider-controls">
@@ -378,11 +129,11 @@
         </section>
 
         <section class="section section--soft">
-            <div class="donate-content" style="text-align: center;">
+            <div class="donate-content share-callout">
                 <h3>Support This Cause Today</h3>
                 <p>Every donation, big or small, plants a seed of hope.</p>
-                <a href="donate.html" class="learn-more-link donate-now-btn" style="font-size: 1.1rem; display: inline-block; margin: 20px 0;">💚 Donate Now 🌳</a>
-                <p style="color: #999; margin-top: 15px;">JalteDiyeFoundation.Org</p>
+                <a href="donate.html" class="learn-more-link donate-now-btn">Donate Now</a>
+                <p class="share-site-note">JalteDiyeFoundation.Org</p>
             </div>
         </section>
 
@@ -390,276 +141,6 @@
     </main>
 
     <script src="js/script.js"></script>
-    <script>
-
-        // Get URL parameters
-        const params = new URLSearchParams(window.location.search);
-        const donorName = params.get('name') || 'Proud Supporter';
-        const campaign = params.get('campaign') || 'Miyawaki Forestation';
-        const donateURL = 'https://jaltediyefoundation.org/donate.html';
-        const sharePageURL = window.location.href;
-        
-        // Update page with donor info
-        document.getElementById('donor-name').textContent = donorName;
-        document.getElementById('campaign-name').textContent = campaign;
-        
-        // Show welcome message if name provided
-        if (params.get('name')) {
-            const welcomeEl = document.getElementById('welcome-message');
-            welcomeEl.textContent = `Welcome, ${donorName}! 🎉`;
-            welcomeEl.classList.remove('hidden');
-        }
-        
-        // Generate QR Code
-        const qrContainer = document.getElementById('qr-code');
-        new QRCode(qrContainer, {
-            text: donateURL,
-            width: 80,
-            height: 80,
-            colorDark: '#064e3b',
-            colorLight: '#ffffff',
-            correctLevel: QRCode.CorrectLevel.M
-        });
-        
-        // Populate social share buttons
-        const shareText = `I just supported Jalte Diye Foundation as ${donorName}. See my support card: ${sharePageURL}`;
-        const encodedShareText = encodeURIComponent(shareText);
-        const encodedShareUrl = encodeURIComponent(sharePageURL);
-
-        async function generateCardBlob() {
-            const card = document.getElementById('share-card');
-            const canvas = await html2canvas(card, {
-                scale: 2,
-                useCORS: true,
-                backgroundColor: null,
-                logging: false
-            });
-
-            const parsedRadius = parseFloat(getComputedStyle(card).borderRadius);
-            const cardRadiusPx = Number.isFinite(parsedRadius) ? parsedRadius : 0;
-            const clippedCanvas = document.createElement('canvas');
-            clippedCanvas.width = canvas.width;
-            clippedCanvas.height = canvas.height;
-
-            const clippedCtx = clippedCanvas.getContext('2d');
-            const scaledRadius = cardRadiusPx * 2;
-
-            clippedCtx.clearRect(0, 0, clippedCanvas.width, clippedCanvas.height);
-            clippedCtx.save();
-            clippedCtx.beginPath();
-            clippedCtx.moveTo(scaledRadius, 0);
-            clippedCtx.lineTo(clippedCanvas.width - scaledRadius, 0);
-            clippedCtx.quadraticCurveTo(clippedCanvas.width, 0, clippedCanvas.width, scaledRadius);
-            clippedCtx.lineTo(clippedCanvas.width, clippedCanvas.height - scaledRadius);
-            clippedCtx.quadraticCurveTo(clippedCanvas.width, clippedCanvas.height, clippedCanvas.width - scaledRadius, clippedCanvas.height);
-            clippedCtx.lineTo(scaledRadius, clippedCanvas.height);
-            clippedCtx.quadraticCurveTo(0, clippedCanvas.height, 0, clippedCanvas.height - scaledRadius);
-            clippedCtx.lineTo(0, scaledRadius);
-            clippedCtx.quadraticCurveTo(0, 0, scaledRadius, 0);
-            clippedCtx.closePath();
-            clippedCtx.clip();
-            clippedCtx.drawImage(canvas, 0, 0);
-            clippedCtx.restore();
-
-            return await new Promise((resolve, reject) => {
-                clippedCanvas.toBlob((blob) => {
-                    if (!blob) {
-                        reject(new Error('Could not generate image blob'));
-                        return;
-                    }
-                    resolve(blob);
-                }, 'image/png');
-            });
-        }
-
-        async function shareCardImage() {
-            const fileName = `jdf-share-card-${donorName.replace(/\s+/g, '-').toLowerCase()}.png`;
-
-            try {
-                const blob = await generateCardBlob();
-                const file = new File([blob], fileName, { type: 'image/png' });
-
-                if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-                    await navigator.share({
-                        files: [file],
-                        title: 'My Jalte Diye Support Card',
-                        text: `I just supported Jalte Diye Foundation as ${donorName}.`
-                    });
-                    return;
-                }
-
-                const link = document.createElement('a');
-                link.download = fileName;
-                link.href = URL.createObjectURL(blob);
-                link.click();
-                URL.revokeObjectURL(link.href);
-                alert('Direct image share is not supported on this browser. The card has been downloaded; you can upload it in your social app.');
-            } catch (err) {
-                console.error(err);
-                alert('Unable to prepare image for sharing. Please try again.');
-            }
-        }
-        
-        const primaryRow = document.getElementById('share-row-primary');
-        const socialRow = document.getElementById('share-row-social');
-
-        const downloadBtn = document.createElement('button');
-        downloadBtn.className = 'download-btn';
-        downloadBtn.textContent = 'Download Share Card';
-        downloadBtn.onclick = downloadCard;
-        primaryRow.appendChild(downloadBtn);
-
-        const imageShareBtn = document.createElement('button');
-        imageShareBtn.className = 'share-btn';
-        imageShareBtn.textContent = 'Share Card Image';
-        imageShareBtn.onclick = async () => {
-            const originalText = imageShareBtn.textContent;
-            imageShareBtn.textContent = 'Preparing Image...';
-            imageShareBtn.disabled = true;
-            await shareCardImage();
-            imageShareBtn.textContent = originalText;
-            imageShareBtn.disabled = false;
-        };
-        primaryRow.appendChild(imageShareBtn);
-        
-        // Copy URL button
-        const copyBtn = document.createElement('button');
-        copyBtn.className = 'share-btn';
-        copyBtn.textContent = 'Copy Link';
-        copyBtn.onclick = () => {
-            navigator.clipboard.writeText(sharePageURL);
-            copyBtn.textContent = '✅ Copied!';
-            setTimeout(() => copyBtn.textContent = '🔗 Copy Link', 2000);
-        };
-        primaryRow.appendChild(copyBtn);
-
-        const socialButtons = [
-            { label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}` },
-            { label: 'Instagram', href: 'https://www.instagram.com/' },
-            { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&quote=${encodedShareText}` },
-            { label: 'X / Twitter', href: `https://twitter.com/intent/tweet?text=${encodedShareText}` }
-        ];
-
-        socialButtons.forEach(btn => {
-            const a = document.createElement('a');
-            a.href = btn.href;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            a.className = 'share-btn';
-            a.textContent = btn.label;
-            socialRow.appendChild(a);
-        });
-        
-        // Download functionality
-        function downloadCard() {
-            const button = document.querySelector('.download-btn');
-            const originalText = button.textContent;
-            button.textContent = '⏳ Generating...';
-            button.disabled = true;
-
-            generateCardBlob().then(blob => {
-                const link = document.createElement('a');
-                link.download = `jdf-share-card-${donorName.replace(/\s+/g, '-').toLowerCase()}.png`;
-                link.href = URL.createObjectURL(blob);
-                link.click();
-                URL.revokeObjectURL(link.href);
-                
-                button.textContent = originalText;
-                button.disabled = false;
-            }).catch(err => {
-                console.error(err);
-                alert('Download failed. Please try screenshot instead.');
-                button.textContent = originalText;
-                button.disabled = false;
-            });
-        }
-        
-        // Confetti animation
-        function fireConfetti() {
-            const end = Date.now() + 2500;
-            const colors = ['#10b981', '#34d399', '#6ee7b7', '#fbbf24', '#f59e0b'];
-            (function frame() {
-                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors });
-                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors });
-                if (Date.now() < end) requestAnimationFrame(frame);
-            })();
-        }
-        
-        // Start confetti after page loads
-        setTimeout(() => fireConfetti(), 600);
-
-        // Testimonial Slider
-        let currentTestimonialIndex = 0;
-        const testimonialItems = document.querySelectorAll('.slider-item');
-        const totalTestimonials = testimonialItems.length;
-        const testimonialContainer = document.getElementById('testimonialContainer');
-        let autoSlideTimeout;
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const swipeThreshold = 40;
-
-        // Create indicators
-        const indicatorsContainer = document.getElementById('indicators');
-        for (let i = 0; i < totalTestimonials; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
-            dot.onclick = () => showTestimonial(i);
-            indicatorsContainer.appendChild(dot);
-        }
-
-        function showTestimonial(index) {
-            // Remove active class from all items and dots
-            testimonialItems.forEach(item => item.classList.remove('active'));
-            document.querySelectorAll('.slider-dot').forEach(dot => dot.classList.remove('active'));
-
-            // Add active class to current item and dot
-            testimonialItems[index].classList.add('active');
-            document.querySelectorAll('.slider-dot')[index].classList.add('active');
-
-            // Clear existing timeout
-            clearTimeout(autoSlideTimeout);
-
-            // Start auto-slide timer
-            autoSlideTimeout = setTimeout(nextTestimonial, 3000);
-        }
-
-        function nextTestimonial() {
-            currentTestimonialIndex = (currentTestimonialIndex + 1) % totalTestimonials;
-            showTestimonial(currentTestimonialIndex);
-        }
-
-        function prevTestimonial() {
-            currentTestimonialIndex = (currentTestimonialIndex - 1 + totalTestimonials) % totalTestimonials;
-            showTestimonial(currentTestimonialIndex);
-        }
-
-        function handleSwipeGesture() {
-            const deltaX = touchEndX - touchStartX;
-            if (Math.abs(deltaX) < swipeThreshold) {
-                return;
-            }
-
-            if (deltaX < 0) {
-                nextTestimonial();
-            } else {
-                prevTestimonial();
-            }
-        }
-
-        if (testimonialContainer) {
-            testimonialContainer.addEventListener('touchstart', (event) => {
-                touchStartX = event.changedTouches[0].screenX;
-            }, { passive: true });
-
-            testimonialContainer.addEventListener('touchend', (event) => {
-                touchEndX = event.changedTouches[0].screenX;
-                handleSwipeGesture();
-            }, { passive: true });
-        }
-
-        // Start initial auto-slide
-        autoSlideTimeout = setTimeout(nextTestimonial, 3000);
-    
-</script>
+    <script src="js/share.js"></script>
 </body>
 </html>

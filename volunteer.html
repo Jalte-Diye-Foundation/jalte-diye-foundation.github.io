@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Volunteer Application - Jalte Diye Foundation. Apply to volunteer and support social education, outreach, and community initiatives.">
+    <link rel="canonical" href="https://jaltediyefoundation.org/volunteer.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Jalte Diye Foundation">
+    <meta property="og:title" content="Volunteer Application - Jalte Diye Foundation">
+    <meta property="og:description" content="Apply to volunteer and support social education, outreach, and community initiatives.">
+    <meta property="og:url" content="https://jaltediyefoundation.org/volunteer.html">
+    <meta property="og:image" content="https://jaltediyefoundation.org/images/logo.png">
+    <meta property="og:image:secure_url" content="https://jaltediyefoundation.org/images/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Jalte Diye Foundation logo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Volunteer Application - Jalte Diye Foundation">
+    <meta name="twitter:description" content="Apply to volunteer and support social education, outreach, and community initiatives.">
+    <meta name="twitter:image" content="https://jaltediyefoundation.org/images/logo.png">
+    <title>Volunteer Application - Jalte Diye Foundation</title>
+    <link rel="icon" href="images/icon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/volunteer.css">
+</head>
+
+<body>
+    <main class="page" id="volunteer">
+        <div id="site-header"></div>
+
+        <section class="section section--tint">
+            <div class="section-title section-title--tight">
+                <hr>
+                <span>Volunteer Application</span>
+                <hr>
+            </div>
+
+            <div class="donate-hero">
+                <h3 align="left">Join Our Volunteer Network</h3>
+                <div class="donate-intro" align="left">
+                    <p class="intro-text"><strong>Fill this form to contribute your skills and time to our initiatives.</strong></p>
+                    <p>We welcome students, professionals, and community members who want to support education, awareness, and social impact programs.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--soft">
+            <div class="volunteer-wrap">
+                <div class="volunteer-form-card">
+                    <form id="volunteerForm" novalidate>
+                        <div class="volunteer-grid">
+                            <div class="volunteer-field">
+                                <label for="fullName">Full Name</label>
+                                <input id="fullName" name="fullName" type="text" required>
+                            </div>
+                            <div class="volunteer-field">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email" required>
+                            </div>
+                            <div class="volunteer-field">
+                                <label for="phone">Phone Number</label>
+                                <input id="phone" name="phone" type="tel" pattern="[0-9+\-\s()]{8,}" required>
+                            </div>
+                            <div class="volunteer-field">
+                                <label for="city">City</label>
+                                <input id="city" name="city" type="text" required>
+                            </div>
+
+                            <div class="volunteer-field">
+                                <label for="availability">Availability</label>
+                                <select id="availability" name="availability" required>
+                                    <option value="">Select availability</option>
+                                    <option value="Weekdays">Weekdays</option>
+                                    <option value="Weekends">Weekends</option>
+                                    <option value="Flexible">Flexible</option>
+                                </select>
+                            </div>
+
+                            <div class="volunteer-field">
+                                <label for="mode">Preferred Mode</label>
+                                <select id="mode" name="mode" required>
+                                    <option value="">Select mode</option>
+                                    <option value="On-ground">On-ground</option>
+                                    <option value="Remote">Remote</option>
+                                    <option value="Both">Both</option>
+                                </select>
+                            </div>
+
+                            <div class="volunteer-field volunteer-field--full">
+                                <label>Interest Areas</label>
+                                <div class="volunteer-checks">
+                                    <label><input type="checkbox" name="areas" value="Field Outreach"> Field Outreach</label>
+                                    <label><input type="checkbox" name="areas" value="Campaign Support"> Campaign Support</label>
+                                    <label><input type="checkbox" name="areas" value="Content and Social Media"> Content and Social Media</label>
+                                    <label><input type="checkbox" name="areas" value="Research and Documentation"> Research and Documentation</label>
+                                    <label><input type="checkbox" name="areas" value="Event Coordination"> Event Coordination</label>
+                                    <label><input type="checkbox" name="areas" value="Fundraising Support"> Fundraising Support</label>
+                                </div>
+                            </div>
+
+                            <div class="volunteer-field volunteer-field--full">
+                                <label for="skills">Skills and Experience</label>
+                                <textarea id="skills" name="skills" placeholder="Tell us briefly about your skills, background, or prior volunteer work." required></textarea>
+                            </div>
+
+                            <div class="volunteer-field volunteer-field--full">
+                                <label for="message">Why do you want to volunteer with us?</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+
+                            <div class="volunteer-field volunteer-field--full">
+                                <label><input id="consent" type="checkbox" required> I agree to be contacted by Jalte Diye Foundation regarding volunteering opportunities.</label>
+                            </div>
+                        </div>
+
+                        <div class="volunteer-actions">
+                            <button class="btn-submit" type="submit">Submit Application</button>
+                        </div>
+
+                        <p class="form-note">This form opens your email app with prefilled details so your application can be sent to us quickly.</p>
+                        <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div id="site-footer"></div>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script src="js/volunteer.js"></script>
+</body>
+
+</html>
