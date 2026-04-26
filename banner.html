@@ -8,6 +8,24 @@
     <title>Banner - Jalte Diye Foundation</title>
     <link rel="icon" href="images/icon.png">
     <link rel="stylesheet" href="css/style.css">
+        <style>
+            /* Strongly enforce light theme for PDF viewer */
+            .pdf-container,
+            .pdf-container iframe,
+            iframe.pdf-container {
+                background: #fff !important;
+                border: 1px solid #ddd !important;
+                color-scheme: light !important;
+                filter: invert(0) !important;
+                color: #222 !important;
+            }
+            /* Remove any dark mode filter from parent containers */
+            html, body, #banner-page, .document-page, .policy-content {
+                background: #fff !important;
+                color: #222 !important;
+                color-scheme: light !important;
+            }
+        </style>
 </head>
 
 <body>
@@ -25,11 +43,6 @@
                 <p>Below is our official banner. You can download or view the full document:</p>
                 <p>
                     <a href="Banner.pdf" download class="learn-more-link">Download Banner PDF</a>
-                </p>
-
-                <p class="pdf-mobile-actions">
-                    <a href="Banner.pdf" target="_blank" rel="noopener" class="btn-secondary">Open PDF</a>
-                    <a href="Banner.pdf" download class="btn-donate">Download PDF</a>
                 </p>
 
                 <iframe class="pdf-container" src="Banner.pdf" data-pdf-src="Banner.pdf" type="application/pdf" title="Banner PDF" loading="lazy"></iframe>

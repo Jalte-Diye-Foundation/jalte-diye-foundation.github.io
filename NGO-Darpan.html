@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NGO Darpan - Jalte Diye Foundation. View and download our official NGO Darpan PDF.">
+    <title>NGO Darpan - Jalte Diye Foundation</title>
+    <link rel="icon" href="images/icon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Strongly enforce light theme for PDF viewer */
+        .pdf-container,
+        .pdf-container iframe,
+        iframe.pdf-container {
+            background: #fff !important;
+            border: 1px solid #ddd !important;
+            color-scheme: light !important;
+            filter: invert(0) !important;
+            color: #222 !important;
+        }
+        /* Remove any dark mode filter from parent containers */
+        html, body, #banner-page, .document-page, .policy-content {
+            background: #fff !important;
+            color: #222 !important;
+            color-scheme: light !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page document-page footer-linked-page" id="banner-page">
+        <div id="site-header"></div>
+
+        <section class="section section--tint">
+            <div class="section-title section-title--tight">
+                <hr>
+                <span>NGO Darpan</span>
+                <hr>
+            </div>
+
+            <div class="policy-content">
+                <p>Below is our official NGO Darpan certificate. You can download or view the full document:</p>
+                <p>
+                    <a href="NGO-Darpan.pdf" download class="learn-more-link">Download NGO Darpan PDF (Last updated July 18, 2025)</a>
+                </p>
+
+                <iframe class="pdf-container" src="NGO-Darpan.pdf" data-pdf-src="NGO-Darpan.pdf" type="application/pdf" title="NGO Darpan PDF" loading="lazy"></iframe>
+
+                <p class="doc-note">
+                    If the PDF does not display above, please <a href="NGO-Darpan.pdf" target="_blank" rel="noopener">open it in a new tab</a>.
+                </p>
+            </div>
+        </section>
+
+        <div id="site-footer"></div>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>

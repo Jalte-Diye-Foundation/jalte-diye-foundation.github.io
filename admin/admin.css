@@ -1,6 +1,20 @@
 body { background: #f4f6f8; }
 .admin-shell { display: flex; flex-direction: column; min-height: 100vh; }
 
+a {
+    color: #0c6d3c;
+    font-weight: 400;
+    font-size: 16px;
+    text-decoration: none;
+    transition: color .2s ease, font-size .2s ease;
+}
+
+a:hover {
+    color: #d1007a;
+    font-size: 17px;
+    text-decoration: none;
+}
+
 .auth-screen {
     display: flex;
     align-items: center;
@@ -107,7 +121,7 @@ body { background: #f4f6f8; }
 .admin-topbar-right a,
 .btn-logout {
     color: rgba(255, 255, 255, .8);
-    font-size: 14px;
+    font-size: 16px;
     text-decoration: none;
     background: none;
     border: none;
@@ -115,7 +129,7 @@ body { background: #f4f6f8; }
     padding: 0;
 }
 .admin-topbar-right a:hover,
-.btn-logout:hover { color: #fff; }
+.btn-logout:hover { color: #d1007a; }
 
 .admin-body { display: flex; flex: 1; overflow: hidden; }
 
