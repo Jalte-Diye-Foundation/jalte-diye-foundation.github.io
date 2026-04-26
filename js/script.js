@@ -526,7 +526,7 @@ const footerFallbackHtml = `
                         <img src="images/yt_icon_red_digital.png" alt="YouTube">
                     </a>
                     <a class="footer-social-link" href="https://wa.me/6376930632" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on WhatsApp">
-                        <img src="images/whatsapp-icon.svg" alt="WhatsApp">
+                        <img src="images/WhatsApp.png" alt="WhatsApp">
                     </a>
                 </span>
                 <span>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</span>

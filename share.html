@@ -91,36 +91,22 @@
             </div>
         </section>
 
-        <section class="section section--tint">
-            <div class="impact-counter">
-                🌳<strong>18 people</strong> have already supported our Miyawaki Forestation project, let's connect.
-            </div>
-        </section>
+        
 
         <section class="section section--soft">
             <h4 class="section-minor-title section-minor-title--center">What Our Supporters Say</h4>
             <div class="testimonial-slider">
                 <div class="testimonial-container" id="testimonialContainer">
-                    <div class="testimonial slider-item active">
-                        <p>"I still remember the last plantation campaign, putting those small plants into the soil. Today, as I work on a forestation project, it feels good to know that these memories have grown into a bigger purpose."</p>
-                        <div class="author">— Deepak Sharma</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
-                    </div>
                     <div class="testimonial slider-item">
-                        <p>"I've seen the Miyawaki project firsthand — it's real, measurable, and inspiring. Proud to support."</p>
-                        <div class="author">— Sweta Mahato</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
-                    </div>
-                    <div class="testimonial slider-item">
-                        <p>"We taken so much from nature, we must give back. Let's do what we can."</p>
-                        <div class="author">— Dr. Jay Pandey</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
-                    </div>
-                    <div class="testimonial slider-item">
-                        <p>"I think, Earth is our mother, and we must protect her. Ek ped maa ke naam se."</p>
-                        <div class="author">— Saniya Tabssum</div>
-                        <a class="learn-more-link post-link" href="https://www.linkedin.com/posts/deepaksharmaa_peace-environment-miyawakiforestation-share-7451631229415890945-AqfL" target="_blank" rel="noopener">View LinkedIn post</a>
-                    </div>
+                            <p>"I still remember the last plantation campaign, putting those small plants into the soil. Today, as I work on a forestation project, it feels good to know that these memories have grown into a bigger purpose."</p>
+                            <div class="author">- Deepak Sharma</div>
+                            <a class="learn-more-link post-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7451631230523187200" target="_blank" rel="noopener">View LinkedIn post</a>
+                        </div>
+                        <div class="testimonial slider-item">
+                            <p>"I felt deep gratitude toward Mother Earth when I contributed to the Miyawaki Forestation Project with Jalte Diye Foundation, believing that this effort will grow into shade, oxygen, and life for future generations. It filled me with peace and gratitude."</p>
+                            <div class="author">- Dr. Jay Pandey</div>
+                            <a class="learn-more-link post-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7452313059982893056" target="_blank" rel="noopener">View LinkedIn post</a>
+                        </div> 
                 </div>
                 <div class="slider-controls">
                     <div class="slider-indicators" id="indicators"></div>
@@ -133,14 +119,32 @@
                 <h3>Support This Cause Today</h3>
                 <p>Every donation, big or small, plants a seed of hope.</p>
                 <a href="donate.html" class="learn-more-link donate-now-btn">Donate Now</a>
-                <p class="share-site-note">JalteDiyeFoundation.Org</p>
             </div>
-        </section>
+        </section>  
+        <section class="section section--tint">
+                <div class="impact-counter" id="impactCounter">
+                    🌳<strong id="impactDonorCount">0 people</strong> have already supported our Miyawaki Forestation project, let's connect.
+                </div>
+            </section>
+            <div id="site-footer"></div>
+        </main>
 
-        <div id="site-footer"></div>
-    </main>
-
-    <script src="js/script.js"></script>
-    <script src="js/share.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/share.js"></script>
+        <script>
+        // Dynamic donor count for share.html (matches donate.html)
+        (function() {
+            const donorCountElement = document.getElementById('impactDonorCount');
+            if (!donorCountElement) return;
+            fetch('donors.json')
+                .then(r => r.ok ? r.json() : null)
+                .then(data => {
+                    if (!data || !Array.isArray(data.donors)) return;
+                    const donors = data.donors.filter(d => d && typeof d.donor_name === 'string' && Number.isFinite(Number(d.amount)) && d.donor_name.trim().length > 0 && Number(d.amount) > 0);
+                    const donorCount = donors.length;
+                    donorCountElement.textContent = donorCount + ' ' + (donorCount === 1 ? 'person' : 'people');
+                });
+        })();
+        </script>
 </body>
 </html>
