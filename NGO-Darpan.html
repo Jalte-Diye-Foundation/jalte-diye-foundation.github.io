@@ -25,6 +25,23 @@
             color: #222 !important;
             color-scheme: light !important;
         }
+        /* Responsive PDF fit-to-width */
+        .pdf-container {
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            min-height: 70vh;
+            aspect-ratio: 16/9;
+            margin: 24px auto 16px auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px 0 rgba(0,0,0,0.04);
+        }
+        @media (max-width: 1000px) {
+            .pdf-container {
+                max-width: 100vw;
+                min-height: 60vw;
+            }
+        }
     </style>
 </head>
 
@@ -45,7 +62,7 @@
                     <a href="NGO-Darpan.pdf" download class="learn-more-link">Download NGO Darpan PDF (Last updated July 18, 2025)</a>
                 </p>
 
-                <iframe class="pdf-container" src="NGO-Darpan.pdf" data-pdf-src="NGO-Darpan.pdf" type="application/pdf" title="NGO Darpan PDF" loading="lazy"></iframe>
+                <iframe class="pdf-container" src="NGO-Darpan.pdf" data-pdf-src="NGO-Darpan.pdf" type="application/pdf" title="NGO Darpan PDF" loading="lazy" style="width:100%;min-height:70vh;background:#fff;border:1px solid #ddd;filter:invert(0);color-scheme:light;"></iframe>
 
                 <p class="doc-note">
                     If the PDF does not display above, please <a href="NGO-Darpan.pdf" target="_blank" rel="noopener">open it in a new tab</a>.
