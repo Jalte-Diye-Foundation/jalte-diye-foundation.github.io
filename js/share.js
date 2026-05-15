@@ -1,5 +1,6 @@
+// Fix: Accept both ?donor= and ?name= for donor name
 const params = new URLSearchParams(window.location.search);
-const donorName = params.get("name") || "Proud Supporter";
+const donorName = params.get("donor") || params.get("name") || "Proud Supporter";
 const campaign = params.get("campaign") || "Miyawaki Forestation";
 const donateURL = "https://jaltediyefoundation.org/donate.html";
 const sharePageURL = window.location.href;
@@ -7,7 +8,7 @@ const sharePageURL = window.location.href;
 document.getElementById("donor-name").textContent = donorName;
 document.getElementById("campaign-name").textContent = campaign;
 
-if (params.get("name")) {
+if (params.get("donor") || params.get("name")) {
     const welcomeEl = document.getElementById("welcome-message");
     welcomeEl.textContent = `Welcome, ${donorName}!`;
     welcomeEl.classList.remove("hidden");
@@ -36,30 +37,15 @@ async function generateCardBlob() {
         logging: false
     });
 
-    const cardRadiusPx = parseFloat(getComputedStyle(card).borderRadius) || 20;
+    // RECTANGULAR: Remove all corner rounding
     const clippedCanvas = document.createElement("canvas");
     clippedCanvas.width = canvas.width;
     clippedCanvas.height = canvas.height;
 
     const clippedCtx = clippedCanvas.getContext("2d");
-    const scaledRadius = cardRadiusPx * 2;
-
     clippedCtx.clearRect(0, 0, clippedCanvas.width, clippedCanvas.height);
-    clippedCtx.save();
-    clippedCtx.beginPath();
-    clippedCtx.moveTo(scaledRadius, 0);
-    clippedCtx.lineTo(clippedCanvas.width - scaledRadius, 0);
-    clippedCtx.quadraticCurveTo(clippedCanvas.width, 0, clippedCanvas.width, scaledRadius);
-    clippedCtx.lineTo(clippedCanvas.width, clippedCanvas.height - scaledRadius);
-    clippedCtx.quadraticCurveTo(clippedCanvas.width, clippedCanvas.height, clippedCanvas.width - scaledRadius, clippedCanvas.height);
-    clippedCtx.lineTo(scaledRadius, clippedCanvas.height);
-    clippedCtx.quadraticCurveTo(0, clippedCanvas.height, 0, clippedCanvas.height - scaledRadius);
-    clippedCtx.lineTo(0, scaledRadius);
-    clippedCtx.quadraticCurveTo(0, 0, scaledRadius, 0);
-    clippedCtx.closePath();
-    clippedCtx.clip();
+    // No clipping path, just draw the full rectangle
     clippedCtx.drawImage(canvas, 0, 0);
-    clippedCtx.restore();
 
     return await new Promise((resolve, reject) => {
         clippedCanvas.toBlob((blob) => {
@@ -187,10 +173,37 @@ function fireConfetti() {
 
 setTimeout(() => fireConfetti(), 600);
 
-initTestimonialSlider({
-    containerId: "testimonialContainer",
-    indicatorsId: "indicators",
-    itemSelector: ".slider-item",
-    autoSlideMs: 3000,
-    swipeThreshold: 40
-});
+// Load testimonials from JSON and render slider
+function loadTestimonials(containerId, indicatorsId) {
+    fetch('testimonials.json')
+        .then(response => response.json())
+        .then(testimonials => {
+            const container = document.getElementById(containerId);
+            const indicators = document.getElementById(indicatorsId);
+            if (!container || !Array.isArray(testimonials)) return;
+            container.innerHTML = '';
+            testimonials.forEach((t, i) => {
+                const div = document.createElement('div');
+                div.className = 'testimonial slider-item' + (i === 0 ? ' active' : '');
+                div.innerHTML = `
+                    <p>"${t.text}"</p>
+                    <div class="author">${t.author}</div>
+                    <a class="learn-more-link post-link" href="${t.link}" target="_blank" rel="noopener">View LinkedIn post</a>
+                `;
+                container.appendChild(div);
+            });
+            if (indicators) indicators.innerHTML = '';
+            // Re-init slider after DOM update
+            if (typeof initTestimonialSlider === 'function') {
+                initTestimonialSlider({
+                    containerId,
+                    indicatorsId,
+                    itemSelector: '.slider-item',
+                    autoSlideMs: 3000,
+                    swipeThreshold: 40
+                });
+            }
+        });
+}
+// On page load, replace static testimonials with dynamic
+loadTestimonials('testimonialContainer', 'indicators');

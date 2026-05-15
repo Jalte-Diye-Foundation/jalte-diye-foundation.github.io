@@ -1,13 +1,20 @@
 .share-card {
     background: linear-gradient(135deg, #0f4c35 0%, #1b6b4a 35%, #0d7a5a 65%, #1a5276 100%);
-    border-radius: var(--radius-xl);
+    border-radius: 0; /* Make rectangular */
     overflow: hidden;
     padding: 30px;
     color: white;
     text-align: center;
-    max-width: 400px;
+    width: 540px;
+    height: 675px;
+    max-width: 100vw;
+    max-height: 100vh;
     margin: 30px auto;
     box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .share-hero {

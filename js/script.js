@@ -25,7 +25,8 @@ const initTestimonialSlider = ({
 }) => {
     const testimonialContainer = document.getElementById(containerId);
     const indicatorsContainer = document.getElementById(indicatorsId);
-    const testimonialItems = document.querySelectorAll(itemSelector);
+    // FIX: Only select items inside the container
+    const testimonialItems = testimonialContainer.querySelectorAll(itemSelector);
 
     if (!testimonialContainer || !indicatorsContainer || testimonialItems.length === 0) return;
 
@@ -36,11 +37,19 @@ const initTestimonialSlider = ({
     let touchEndX = 0;
 
     const showTestimonial = (index) => {
-        testimonialItems.forEach(item => item.classList.remove('active'));
-        document.querySelectorAll('.slider-dot').forEach(dot => dot.classList.remove('active'));
+        testimonialItems.forEach((item, idx) => {
+            item.classList.remove('active');
+            // Disable pointer events and tab for inactive
+            item.style.pointerEvents = (idx === index) ? 'auto' : 'none';
+            // For all links inside testimonial
+            item.querySelectorAll('a').forEach(a => {
+                a.tabIndex = (idx === index) ? 0 : -1;
+            });
+        });
+        indicatorsContainer.querySelectorAll('.slider-dot').forEach(dot => dot.classList.remove('active'));
 
         testimonialItems[index].classList.add('active');
-        document.querySelectorAll('.slider-dot')[index].classList.add('active');
+        indicatorsContainer.querySelectorAll('.slider-dot')[index].classList.add('active');
 
         clearTimeout(autoSlideTimeout);
         autoSlideTimeout = setTimeout(nextTestimonial, autoSlideMs);
@@ -553,16 +562,10 @@ fetch('footer.html')
         injectFooter(footerFallbackHtml);
     });
 
-// Improve inline PDF compatibility on mobile browsers for document pages.
-const initMobilePdfEmbeds = () => {
+// Always use Google Docs Viewer for PDF embeds for best compatibility on all devices.
+const initUniversalPdfEmbeds = () => {
     const pdfFrames = document.querySelectorAll('.document-page iframe.pdf-container');
     if (!pdfFrames.length) return;
-
-    const userAgent = navigator.userAgent || '';
-    const isMobile = window.matchMedia('(max-width: 900px)').matches
-        || /Android|iPhone|iPad|iPod|Windows Phone|Opera Mini|Mobile/i.test(userAgent);
-
-    if (!isMobile) return;
 
     const isLocalPreview = window.location.protocol === 'file:'
         || window.location.hostname === 'localhost'
@@ -578,16 +581,15 @@ const initMobilePdfEmbeds = () => {
         }
 
         const absolutePdfUrl = new URL(rawSrc, window.location.href).toString();
-        const mobileViewerUrl = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(absolutePdfUrl)}`;
-
-        frame.setAttribute('src', mobileViewerUrl);
+        const viewerUrl = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(absolutePdfUrl)}`;
+        frame.setAttribute('src', viewerUrl);
     });
 };
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMobilePdfEmbeds);
+    document.addEventListener('DOMContentLoaded', initUniversalPdfEmbeds);
 } else {
-    initMobilePdfEmbeds();
+    initUniversalPdfEmbeds();
 }
 
 // Keep success-story cards visually uniform by matching the tallest card height.
