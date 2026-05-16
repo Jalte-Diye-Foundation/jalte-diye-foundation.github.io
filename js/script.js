@@ -562,35 +562,8 @@ fetch('footer.html')
         injectFooter(footerFallbackHtml);
     });
 
-// Always use Google Docs Viewer for PDF embeds for best compatibility on all devices.
-const initUniversalPdfEmbeds = () => {
-    const pdfFrames = document.querySelectorAll('.document-page iframe.pdf-container');
-    if (!pdfFrames.length) return;
-
-    const isLocalPreview = window.location.protocol === 'file:'
-        || window.location.hostname === 'localhost'
-        || window.location.hostname === '127.0.0.1';
-
-    pdfFrames.forEach((frame) => {
-        const rawSrc = frame.getAttribute('data-pdf-src') || frame.getAttribute('src');
-        if (!rawSrc) return;
-
-        if (isLocalPreview) {
-            frame.setAttribute('src', rawSrc);
-            return;
-        }
-
-        const absolutePdfUrl = new URL(rawSrc, window.location.href).toString();
-        const viewerUrl = `https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(absolutePdfUrl)}`;
-        frame.setAttribute('src', viewerUrl);
-    });
-};
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initUniversalPdfEmbeds);
-} else {
-    initUniversalPdfEmbeds();
-}
+// Direct PDF embed for maximum compatibility on GitHub Pages.
+// No special logic needed; browser will handle PDF rendering in iframe.
 
 // Keep success-story cards visually uniform by matching the tallest card height.
 const syncSuccessStoryCardHeights = () => {

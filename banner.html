@@ -45,7 +45,8 @@
                     <a href="Banner.pdf" download class="learn-more-link">Download Banner PDF</a>
                 </p>
 
-                <iframe class="pdf-container" src="Banner.pdf" data-pdf-src="Banner.pdf" type="application/pdf" title="Banner PDF" loading="lazy"></iframe>
+                <!-- PDF.js viewer container -->
+                <div id="pdfjs-viewer" class="pdf-container" data-pdf-url="Banner.pdf" style="background:#fff;"></div>
 
                 <p class="doc-note">
                     If the PDF does not display above, please <a href="Banner.pdf" target="_blank" rel="noopener">open it in a new tab</a>.
@@ -56,6 +57,7 @@
         <div id="site-footer"></div>
     </main>
     <script src="js/script.js"></script>
+    <script src="js/pdfjs-viewer.js"></script>
 </body>
 
 </html>

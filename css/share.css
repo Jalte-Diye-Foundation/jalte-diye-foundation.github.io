@@ -1,3 +1,18 @@
+@media (max-width: 600px) {
+    .share-card {
+        width: 98vw;
+        max-width: 400px;
+        height: auto;
+        min-width: 0;
+        min-height: 0;
+        margin: 16px auto;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
 .share-card {
     background: linear-gradient(135deg, #0f4c35 0%, #1b6b4a 35%, #0d7a5a 65%, #1a5276 100%);
     border-radius: 0; /* Make rectangular */
@@ -5,9 +20,9 @@
     padding: 30px;
     color: white;
     text-align: center;
-    width: 540px;
-    height: 675px;
-    max-width: 100vw;
+    width: 95%;
+    max-width: 400px;
+    height: 613px;
     max-height: 100vh;
     margin: 30px auto;
     box-shadow: var(--shadow-lg);

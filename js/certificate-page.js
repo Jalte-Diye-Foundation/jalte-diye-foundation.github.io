@@ -61,18 +61,7 @@
     const pdfSection = cert.hasPdf
         ? `<div class="cert-pdf-panel">
             <h3>Certificate Preview</h3>
-            <div class="cert-pdf-viewer" style="background-color: white !important; color: black !important; color-scheme: light;">
-                <iframe
-                    src="${escapeHtml(pdfPreviewUrl)}"
-                    width="100%"
-                    style="border:none; background-color: white !important; color: black !important; color-scheme: light;"
-                    title="Certificate PDF"
-                >
-                    <p>Your browser cannot display PDFs inline.
-                       <a href="${escapeHtml(pdfUrl)}" download>Download the PDF here</a>.
-                    </p>
-                </iframe>
-            </div>
+            <div id="pdfjs-viewer" class="cert-pdf-viewer pdf-container" data-pdf-url="${escapeHtml(pdfUrl)}" style="background:#fff;"></div>
         </div>`
         : "";
 
@@ -113,6 +102,13 @@
             </div>
             ${pdfSection}
         </div>`;
+    // Call PDF.js viewer if PDF is present
+    if (cert.hasPdf && window.renderPdfWithPdfjs) {
+        const viewer = document.getElementById('pdfjs-viewer');
+        if (viewer && viewer.dataset.pdfUrl) {
+            window.renderPdfWithPdfjs(viewer.dataset.pdfUrl);
+        }
+    }
 })();
 
 function row(label, value) {

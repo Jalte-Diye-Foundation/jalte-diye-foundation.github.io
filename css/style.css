@@ -2583,12 +2583,13 @@ li {
 
 .cert-pdf-viewer {
 	border-radius: 8px;
-	overflow: hidden;
+	overflow: auto;
 	background-color: white !important;
 	color: black !important;
 	color-scheme: light;
-	aspect-ratio: 1 / 1.414;
-	min-height: 620px;
+	min-height: 320px;
+	max-height: 80vh;
+	/* Removed aspect-ratio for better mobile fit */
 }
 
 .cert-pdf-viewer iframe {
@@ -2745,7 +2746,10 @@ li {
 	}
 
 	.cert-pdf-viewer {
-		display: none;
+		min-height: 180px;
+		max-height: 50vh;
+		overflow: auto;
+		border-radius: 6px;
 	}
 
 	.cert-pdf-mobile-fallback {
