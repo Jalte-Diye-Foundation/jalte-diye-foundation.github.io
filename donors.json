@@ -8,7 +8,7 @@
     {
       "donor_name": "Sheela Sharma",
       "amount": 100,
-      "donation_for_cause": "miyawaki forestation"
+      "donation_for_cause": "Administration support"
     },
     {
       "donor_name": "Dr. Chitra Dadheech",
@@ -28,7 +28,7 @@
     {
       "donor_name": "Geeta Sharma",
       "amount": 100,
-      "donation_for_cause": "miyawaki forestation"
+      "donation_for_cause": "Administration support"
     },
     {
       "donor_name": "Dr. Abhiram Dwivedi",
@@ -63,7 +63,7 @@
     {
       "donor_name": "Sunita Sharma",
       "amount": 100,
-      "donation_for_cause": "miyawaki forestation"
+      "donation_for_cause": "Administration support"
     },
     {
       "donor_name": "Dr. Rishi Kumar",
@@ -88,7 +88,7 @@
     {
       "donor_name": "Dr. Rakesh Roshan",
       "amount": 100,
-      "donation_for_cause": "miyawaki forestation"
+      "donation_for_cause": "Administration support"
     },
     {
       "donor_name": "Dr. Devilal Punia",
@@ -113,7 +113,7 @@
     {
       "donor_name": "Vineeta",
       "amount": 15000,
-      "donation_for_cause": "miyawaki forestation"
+      "donation_for_cause": "Administration support"
     },
     {
       "donor_name": "Dr. Pankaj Tak",
@@ -123,7 +123,7 @@
     {
       "donor_name": "Dr. Bharat Sharma",
       "amount": 500,
-      "donation_for_cause": "miyawaki forestation"
+      "donation_for_cause": "Administration support"
     },
     {
       "donor_name": "Dr. Isha Gupta",
@@ -173,12 +173,12 @@
     {
       "donor_name": "Dr. Jay Pandey",
       "amount": 5000,
-      "donation_for_cause": "miyawaki forestation"
+      "donation_for_cause": "Administration support"
     },
     {
       "donor_name": "Alok Upadhyay",
       "amount": 15000,
-      "donation_for_cause": "miyawaki forestation"
+      "donation_for_cause": "Administration support"
     }
   ]
 }
