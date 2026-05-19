@@ -15,17 +15,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate gallery/images.json
+        - name: Generate gallery/images.json (recursive)
         run: |
           cd gallery
-          files=$(ls -1 | grep -iE '\.(jpe?g|png|gif|webp|avif|svg)$' | sort | python3 -c "
-          import sys, json
-          names = [line.rstrip('\n') for line in sys.stdin]
-          print(json.dumps(names, indent=2))
-          ")
-          echo "$files" > images.json
-          echo "Generated images.json:"
-          cat images.json
+          python3 <<'EOF'
+    import os, json
+    result = {}
+    for root, dirs, files in os.walk('.'):
+      section = None
+      if root == '.':
+        continue
+      if root.startswith('./'):
+        section = root[2:]
+      else:
+        section = root
+      images = [os.path.join(section, f).replace('\\', '/') for f in sorted(files) if f.lower().endswith((".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".svg"))]
+      if images:
+        result[section.replace('/', ' ')] = images
+    with open('images.json', 'w', encoding='utf-8') as out:
+      json.dump(result, out, indent=2)
+    print("Generated images.json:")
+    with open('images.json', 'r', encoding='utf-8') as f:
+      print(f.read())
+    EOF
 
       - name: Commit and push if changed
         run: |
