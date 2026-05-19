@@ -1,6 +1,11 @@
 {
   "donors": [
     {
+      "donor_name": "Dr. Pramod Kumar",
+      "amount": 500,
+      "donation_for_cause": "miyawaki forestation"
+    },
+    {
       "donor_name": "Sheela Sharma",
       "amount": 100,
       "donation_for_cause": "miyawaki forestation"

@@ -2659,11 +2659,11 @@ li {
 .team-face {
 	width: 84px;
 	height: 84px;
-	margin: 0 auto 12px;
+	margin: 0 0 12px 0;
 	border-radius: 50%;
 	font-size: 40px;
-	display: grid;
-	place-items: center;
+	display: block;
+	object-fit: cover;
 	background: linear-gradient(145deg, #f7f3ea 0%, #e8f4ee 100%);
 	border: 1px solid rgba(47, 79, 79, 0.12);
 }
@@ -2773,9 +2773,10 @@ li {
 		gap: 14px;
 	}
 
-	.team-card {
-		flex-basis: 100%;
-		min-width: 0;
-		max-width: 100%;
-	}
+	   .team-card {
+		   flex-basis: 100%;
+		   min-width: 0;
+		   max-width: 100%;
+		   text-align: left !important;
+	   }
 }
