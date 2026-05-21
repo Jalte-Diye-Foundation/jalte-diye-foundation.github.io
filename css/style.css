@@ -1,3 +1,87 @@
+/* Add space above summary table heading in financials */
+.financial-summary + h2 {
+	margin-top: 22px;
+}
+/* Add top margin to section title for financial statement pages to match other pages */
+#financial-statement-page > .section-title.section-title--tight {
+	margin-top: 14px;
+}
+.financial-table-wrapper {
+	scrollbar-width: none; /* Firefox */
+}
+.financial-table-wrapper::-webkit-scrollbar {
+	display: none; /* Chrome, Safari, Opera */
+}
+/* Align compliance notes bullet points with text above */
+.compliance ul {
+	margin-left: 0;
+	padding-left: 20px;
+}
+/* Responsive financial table for mobile */
+.financial-table-wrapper {
+	width: 100%;
+	overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+	.financial-table th, .financial-table td {
+		font-size: 12px;
+		min-width: 90px;
+		padding-right: 10px;
+		padding-left: 6px;
+	}
+	.financial-table td:nth-child(2), .financial-table th:nth-child(2) {
+		min-width: 120px;
+	}
+	.financials-center {
+		padding: 12px 2px 12px 2px;
+	}
+}
+.financial-table td:nth-child(2), .financial-table th:nth-child(2) {
+	min-width: 220px;
+}
+.financial-table th, .financial-table td {
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 140px;
+}
+/* Add spacing between financial table cells */
+.financial-table {
+	border-collapse: collapse;
+}
+.financial-table th, .financial-table td {
+	padding-right: 28px;
+	padding-left: 18px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: visible;
+	text-overflow: unset;
+	text-align: left;
+	border: none;
+	border-right: 1.5px solid #e0e0e0;
+	background: none;
+	min-width: 150px;
+}
+.financial-table th:last-child, .financial-table td:last-child {
+	border-right: none;
+}
+.financial-table th {
+	font-weight: 600;
+}
+/* Center financial statement content with margin */
+.financials-center {
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 2px 12px rgba(47, 79, 79, 0.06);
+	padding: 32px 24px 32px 24px;
+}
 /* Justify text for projects page main content */
 #projects .donate-content,
 #projects .donate-section,

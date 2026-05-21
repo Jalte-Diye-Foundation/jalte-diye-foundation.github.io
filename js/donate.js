@@ -74,7 +74,7 @@ fetch('donors.json')
     donors.forEach((donor, i) => {
       const a = document.createElement('a');
       a.textContent = donor.donor_name;
-      a.title = `₹${donor.amount} for ${donor.donation_for_cause}`;
+      a.title = `Supports ${donor.donation_for_cause}`;
       a.style.color = darkColors[i % darkColors.length];
       a.style.fontWeight = 'bold';
       a.style.fontSize = '1em'; // Match normal text size

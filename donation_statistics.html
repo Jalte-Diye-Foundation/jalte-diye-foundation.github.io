@@ -12,8 +12,35 @@
         .donor-table th, .donor-table td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
         .donor-table th { background: #f5f5f5; }
         .donor-table tbody tr:nth-child(even) { background: #fafafa; }
-        .stats-list { margin-bottom: 1.5em; }
-        .stats-list li { margin-bottom: 0.4em; }
+        .stats-list {
+            margin-bottom: 1.5em;
+            padding-left: 1.4em;
+            text-align: left;
+        }
+        .stats-list li {
+            margin-bottom: 0.4em;
+            text-align: left;
+        }
+        /* Responsive histogram container for donation statistics */
+        .histogram-container {
+            max-width: 600px;
+            margin: 0 0 2em 0;
+            padding: 0 12px;
+            text-align: left;
+        }
+        .histogram-container canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #fff;
+            border: 1px solid #eee;
+            box-sizing: border-box;
+        }
+        @media (max-width: 700px) {
+            .histogram-container {
+                padding: 0 2vw;
+            }
+        }
     </style>
 </head>
 <body>
@@ -22,21 +49,14 @@
         <section class="section section--tint">
             <div class="section-title section-title--tight">
                 <hr>
-                <span>Donation Statistics & Donor Transparency</span>
+                <span>Donation Statistics</span>
                 <hr>
             </div>
             <div class="donate-content">
                 <div class="donate-section">
                     <h3>Summary</h3>
-                    <ul class="stats-list">
-                        <li><strong>Total Donations Received:</strong> ₹53,902</li>
-                        <li><strong>Total for Miyawaki Forestation Campaign:</strong> ₹18,002</li>
-                        <li><strong>Total for Other Causes:</strong> ₹35,900</li>
-                        <li><strong>Number of Unique Donors:</strong> 36</li>
-                        <li><strong>Number of Donations:</strong> Miyawaki Forestation (28), Administration Support (8)</li>
-                        <li><strong>Largest Donation:</strong> ₹15,000</li>
-                        <li><strong>Smallest Donation:</strong> ₹50</li>
-                        <li><strong>Average Donation:</strong> ₹1,497.28</li>
+                    <ul class="stats-list" id="stats-list">
+                        <li>Loading...</li>
                     </ul>
                     <h3>Donor List (Name & Cause)</h3>
                     <div style="overflow-x:auto;">
@@ -47,69 +67,79 @@
                                     <th>Cause</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr><td>Dr. Pramod Kumar</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Sheela Sharma</td><td>Administration support</td></tr>
-                                <tr><td>Dr. Chitra Dadheech</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Vaishnavi Sharma</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Sweta Mahato</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Geeta Sharma</td><td>Administration support</td></tr>
-                                <tr><td>Dr. Abhiram Dwivedi</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Ashok Singh Rathore</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Mohit Sharma</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Nupur Madaan</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Saniya Tabssum</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Ravi Nigam</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Sunita Sharma</td><td>Administration support</td></tr>
-                                <tr><td>Dr. Rishi Kumar</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Rajarishi Chakraborty</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Narsingh Lal Sharma</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Vijai Kumar Pathak</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Rakesh Roshan</td><td>Administration support</td></tr>
-                                <tr><td>Dr. Devilal Punia</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Anand Sharma</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Khemraj Deshmukh</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Rachit Srivastava</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Vineeta</td><td>Administration support</td></tr>
-                                <tr><td>Dr. Pankaj Tak</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Bharat Sharma</td><td>Administration support</td></tr>
-                                <tr><td>Dr. Isha Gupta</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Pawan Mishra</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Abhay Dwivedi</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Nazrana Begum</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Deepak Sharma</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Tinku Sharma</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Mohit Garg</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Jithul</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Snehal Kumar</td><td>miyawaki forestation</td></tr>
-                                <tr><td>Dr. Jay Pandey</td><td>Administration support</td></tr>
-                                <tr><td>Alok Upadhyay</td><td>Administration support</td></tr>
+                            <tbody id="donor-table-body">
+                                <tr><td colspan="2">Loading...</td></tr>
                             </tbody>
                         </table>
                     </div>
                     <h3 style="margin-top:2em;">Donation Distribution Histogram</h3>
-                    <div style="max-width:600px; margin: 0 auto 2em auto;">
-                        <canvas id="donationHistogram" width="600" height="300" aria-label="Donation Histogram" style="background:#fff; border:1px solid #eee;"></canvas>
+                    <div class="histogram-container">
+                        <canvas id="donationHistogram" width="600" height="300" aria-label="Donation Histogram"></canvas>
                     </div>
                     <script>
-                        // Histogram data (should match the table above)
-                        const histogramData = [
-                            { range: '50–100', count: 10 },
-                            { range: '101–500', count: 13 },
-                            { range: '501–1000', count: 8 },
-                            { range: '1001–5000', count: 4 },
-                            { range: '5001–15000', count: 3 }
-                        ];
+                    async function loadDonorStats() {
+                        const statsList = document.getElementById('stats-list');
+                        const donorTableBody = document.getElementById('donor-table-body');
                         const canvas = document.getElementById('donationHistogram');
-                        if (canvas && canvas.getContext) {
+                        try {
+                            const response = await fetch('donors.json');
+                            const data = await response.json();
+                            const donors = Array.isArray(data.donors) ? data.donors : [];
+                            if (!donors.length) throw new Error('No donors');
+
+                            // Compute stats
+                            const total = donors.reduce((sum, d) => sum + Number(d.amount), 0);
+                            const byCause = {};
+                            donors.forEach(d => {
+                                const cause = (d.donation_for_cause || 'Other').toLowerCase();
+                                byCause[cause] = (byCause[cause] || 0) + Number(d.amount);
+                            });
+                            const uniqueDonors = new Set(donors.map(d => d.donor_name.trim().toLowerCase())).size;
+                            const numDonations = donors.length;
+                            const largest = Math.max(...donors.map(d => Number(d.amount)));
+                            const smallest = Math.min(...donors.map(d => Number(d.amount)));
+                            const avg = total / numDonations;
+                            const miyawaki = Object.entries(byCause).filter(([k]) => k.includes('miyawaki'));
+                            const admin = Object.entries(byCause).filter(([k]) => k.includes('admin'));
+                            const miyawakiTotal = miyawaki.reduce((sum, [,v]) => sum+v, 0);
+                            const adminTotal = admin.reduce((sum, [,v]) => sum+v, 0);
+
+                            statsList.innerHTML = `
+                                <li><strong>Total Donations Received:</strong> ₹${total.toLocaleString()}</li>
+                                <li><strong>Total for Miyawaki Forestation Campaign:</strong> ₹${miyawakiTotal.toLocaleString()}</li>
+                                <li><strong>Total for Other Causes:</strong> ₹${adminTotal.toLocaleString()}</li>
+                                <li><strong>Number of Unique Donors:</strong> ${uniqueDonors}</li>
+                                <li><strong>Number of Donations:</strong> Miyawaki Forestation (${miyawaki.length ? donors.filter(d=>d.donation_for_cause.toLowerCase().includes('miyawaki')).length : 0}), Administration Support (${admin.length ? donors.filter(d=>d.donation_for_cause.toLowerCase().includes('admin')).length : 0})</li>
+                                <li><strong>Largest Donation:</strong> ₹${largest.toLocaleString()}</li>
+                                <li><strong>Smallest Donation:</strong> ₹${smallest.toLocaleString()}</li>
+                                <li><strong>Average Donation:</strong> ₹${avg.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</li>
+                            `;
+
+                            // Donor table
+                            donorTableBody.innerHTML = donors.map(d => `<tr><td>${d.donor_name}</td><td>${d.donation_for_cause}</td></tr>`).join('');
+
+                            // Histogram
+                            const bins = [
+                                { range: '50–100', min: 50, max: 100 },
+                                { range: '101–500', min: 101, max: 500 },
+                                { range: '501–1000', min: 501, max: 1000 },
+                                { range: '1001–5000', min: 1001, max: 5000 },
+                                { range: '5001–15000', min: 5001, max: 15000 }
+                            ];
+                            bins.forEach(b => b.count = 0);
+                            donors.forEach(d => {
+                                const amt = Number(d.amount);
+                                for (const b of bins) {
+                                    if (amt >= b.min && amt <= b.max) { b.count++; break; }
+                                }
+                            });
                             const ctx = canvas.getContext('2d');
                             const width = canvas.width;
                             const height = canvas.height;
                             const padding = 40;
                             const barWidth = 70;
                             const gap = 30;
-                            const maxCount = Math.max(...histogramData.map(d => d.count));
-                            // Draw axes
+                            const maxCount = Math.max(...bins.map(b => b.count), 1);
                             ctx.clearRect(0, 0, width, height);
                             ctx.strokeStyle = '#888';
                             ctx.beginPath();
@@ -117,20 +147,17 @@
                             ctx.lineTo(padding, height - padding);
                             ctx.lineTo(width - padding, height - padding);
                             ctx.stroke();
-                            // Draw bars
-                            histogramData.forEach((d, i) => {
+                            bins.forEach((b, i) => {
                                 const x = padding + gap + i * (barWidth + gap);
-                                const barHeight = Math.round((d.count / maxCount) * (height - 2 * padding - 20));
+                                const barHeight = Math.round((b.count / maxCount) * (height - 2 * padding - 20));
                                 ctx.fillStyle = '#4a90e2';
                                 ctx.fillRect(x, height - padding - barHeight, barWidth, barHeight);
-                                // Bar labels
                                 ctx.fillStyle = '#222';
                                 ctx.font = '14px sans-serif';
                                 ctx.textAlign = 'center';
-                                ctx.fillText(d.range, x + barWidth / 2, height - padding + 18);
-                                ctx.fillText(d.count, x + barWidth / 2, height - padding - barHeight - 8);
+                                ctx.fillText(b.range, x + barWidth / 2, height - padding + 18);
+                                ctx.fillText(b.count, x + barWidth / 2, height - padding - barHeight - 8);
                             });
-                            // Y-axis label
                             ctx.save();
                             ctx.translate(10, height / 2);
                             ctx.rotate(-Math.PI / 2);
@@ -139,7 +166,12 @@
                             ctx.fillStyle = '#444';
                             ctx.fillText('Number of Donations', 0, 0);
                             ctx.restore();
+                        } catch (e) {
+                            statsList.innerHTML = '<li>Unable to load donor statistics.</li>';
+                            donorTableBody.innerHTML = '<tr><td colspan="2">Unable to load donor data.</td></tr>';
                         }
+                    }
+                    window.addEventListener('DOMContentLoaded', loadDonorStats);
                     </script>
                     <h3 style="margin-top:2em;">Donation Amount Ranges & Causes</h3>
                     <div style="overflow-x:auto;">
