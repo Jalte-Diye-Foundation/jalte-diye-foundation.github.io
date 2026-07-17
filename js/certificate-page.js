@@ -51,9 +51,12 @@
         document.getElementById("certLookupForm").addEventListener("submit", function (e) {
             e.preventDefault();
             const val = document.getElementById("certLookupId").value.trim();
-            if (val) {
-                window.location.href = "certificate.html?id=" + encodeURIComponent(val);
+            if (!val) {
+                showLookupForm("Please enter a Certificate ID.");
+                document.getElementById("certLookupId").focus();
+                return;
             }
+            window.location.href = "certificate.html?id=" + encodeURIComponent(val);
         });
     }
 
