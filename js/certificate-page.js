@@ -32,7 +32,7 @@
                                 spellcheck="false"
                                 maxlength="30"
                                 aria-required="true"
-                                value="${rawId ? escapeHtml(rawId) : ''}"
+                                value=""
                             >
                             <button type="submit" class="btn-verify">View</button>
                         </div>
@@ -44,6 +44,10 @@
                 </div>
             </div>`;
         paramErrEl.hidden = false;
+
+        const input = document.getElementById("certLookupId");
+        if (input && rawId) input.value = String(rawId).slice(0, 30);
+
         document.getElementById("certLookupForm").addEventListener("submit", function (e) {
             e.preventDefault();
             const val = document.getElementById("certLookupId").value.trim();
