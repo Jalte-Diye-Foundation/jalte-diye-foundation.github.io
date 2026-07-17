@@ -121,9 +121,7 @@
     paramErrEl.hidden = true;
     contentEl.hidden = false;
     contentEl.innerHTML = `
-        <div class="section-title section-title--tight">
-            <hr><span>Certificate of Participation</span><hr>
-        </div>
+
         <div class="cert-view-wrapper${cert.hasPdf ? " cert-view-wrapper--with-pdf" : ""}">
             <div class="cert-meta-panel">
                 <div class="cert-valid-badge-large" aria-label="Certificate verified">
