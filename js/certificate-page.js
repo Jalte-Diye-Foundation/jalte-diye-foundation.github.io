@@ -6,12 +6,51 @@
     const errorEl = document.getElementById("certViewError");
     const paramErrEl = document.getElementById("certParamError");
 
-    function showParamError(msg) {
+    function showLookupForm(errorMsg) {
         loadingEl.hidden = true;
         contentEl.hidden = true;
         errorEl.hidden = true;
-        paramErrEl.textContent = msg;
+        paramErrEl.removeAttribute("role");
+        paramErrEl.className = "";
+        paramErrEl.innerHTML = `
+            <div class="cert-verify-wrapper">
+                <div class="cert-verify-card">
+                    <div class="cert-verify-icon" aria-hidden="true">📜</div>
+                    <h3>View a Certificate</h3>
+                    <p class="cert-verify-desc">
+                        Enter the Certificate ID printed on the certificate to view its details and download the PDF.
+                    </p>
+                    <form class="cert-verify-form" id="certLookupForm" novalidate>
+                        <label for="certLookupId">Certificate ID</label>
+                        <div class="cert-input-row">
+                            <input
+                                type="text"
+                                id="certLookupId"
+                                name="certId"
+                                placeholder="e.g. JDF-FDC-CE01"
+                                autocomplete="off"
+                                spellcheck="false"
+                                maxlength="30"
+                                aria-required="true"
+                                value="${rawId ? escapeHtml(rawId) : ''}"
+                            >
+                            <button type="submit" class="btn-verify">View</button>
+                        </div>
+                        <p class="cert-input-hint">
+                            Certificate IDs follow the format <strong>JDF-{EVENT}-CE{NUMBER}</strong> and are printed at the bottom of your certificate.
+                        </p>
+                    </form>
+                    ${errorMsg ? `<div class="cert-form-error" role="alert">${escapeHtml(errorMsg)}</div>` : ''}
+                </div>
+            </div>`;
         paramErrEl.hidden = false;
+        document.getElementById("certLookupForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const val = document.getElementById("certLookupId").value.trim();
+            if (val) {
+                window.location.href = "certificate.html?id=" + encodeURIComponent(val);
+            }
+        });
     }
 
     function showError(html) {
@@ -27,13 +66,13 @@
     }
 
     if (!rawId || rawId.trim() === "") {
-        showParamError("Please enter a Certificate ID. Open the verify page and submit an ID to continue.");
+        showLookupForm(null);
         return;
     }
 
     const id = rawId.trim().toUpperCase();
     if (!/^JDF-[A-Z0-9]+-CE\d{2,}$/i.test(id)) {
-        showParamError("That does not look like a valid Certificate ID. Expected format: JDF-FDC-CE01");
+        showLookupForm("That does not look like a valid Certificate ID. Expected format: JDF-FDC-CE01");
         return;
     }
 

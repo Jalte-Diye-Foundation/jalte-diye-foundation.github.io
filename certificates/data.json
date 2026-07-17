@@ -49,7 +49,46 @@
       "dateOfIssue": "2026-04-12",
       "hasPdf": true,
       "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-PS1-CE06",
+      "name": "Anjali Menta",
+      "eventName": "BITS Practice School (PS1) 2026",
+      "eventCode": "PS1",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-07-17",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation (JDF)"
+    },
+    {
+      "id": "JDF-PS1-CE07",
+      "name": "Soham Sawant",
+      "eventName": "BITS Practice School (PS1) 2026",
+      "eventCode": "PS1",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-07-17",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation (JDF)"
+    },
+    {
+      "id": "JDF-PS1-CE08",
+      "name": "Utkarsh Saxena",
+      "eventName": "BITS Practice School (PS1) 2026",
+      "eventCode": "PS1",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-07-17",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation (JDF)"
+    },
+    {
+      "id": "JDF-PS1-CE09",
+      "name": "Risshit Gupta",
+      "eventName": "BITS Practice School (PS1) 2026",
+      "eventCode": "PS1",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-07-17",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation (JDF)"
     }
-
   ]
 }
