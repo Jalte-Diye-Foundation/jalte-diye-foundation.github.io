@@ -25,19 +25,47 @@
 </head>
 
 <body>
-    <main class="page" id="certificate-view">
+    <main class="page footer-linked-page" id="certificate-view">
         <div id="site-header"></div>
 
         <section class="section section--tint" id="certSection">
+            <div class="section-title section-title--tight">
+                <hr>
+                <span>View Certificate</span>
+                <hr>
+            </div>
+
             <div id="certViewLoading" class="cert-page-loading" role="status">
                 <p>Loading certificate&hellip;</p>
             </div>
-            <div id="certParamError" class="cert-form-error" hidden role="alert"></div>
+            <div id="certParamError" hidden></div>
             <div id="certViewContent" hidden>
                 <!-- Injected by JS -->
             </div>
             <div id="certViewError" hidden>
                 <!-- Injected by JS -->
+            </div>
+        </section>
+
+        <section class="section section--soft">
+            <div class="cert-info-cards-wrapper">
+                <div class="cert-info-cards">
+                    <div class="cert-info-card">
+                        <span class="cert-info-icon" aria-hidden="true">📜</span>
+                        <h3>How to use this page</h3>
+                        <p style="text-align: justify;">Enter the Certificate ID in the box/URL above, or use the link from your certificate email to view and download your PDF.</p>
+                    </div>
+                    <div class="cert-info-card">
+                        <span class="cert-info-icon" aria-hidden="true">🏆</span>
+                        <h3>What is a Certificate ID?</h3>
+                        <p style="text-align: justify;">A unique identifier in the format JDF-{EVENT}-CE{NUMBER} printed on every certificate we issue.</p>
+                    </div>
+                    <div class="cert-info-card">
+                        <span class="cert-info-icon" aria-hidden="true">📧</span>
+                        <h3>Certificate not found?</h3>
+                        <p>If your ID is not recognised, please contact us at <a href="mailto:contact@jaltediyefoundation.org">contact@jaltediyefoundation.org</a></p>
+                    </div>
+                </div>
             </div>
         </section>
 
