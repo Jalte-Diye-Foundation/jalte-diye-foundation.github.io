@@ -2477,7 +2477,7 @@ li {
 	border-radius: var(--radius-lg);
 	padding: 24px 22px;
 	box-shadow: var(--shadow-sm);
-	text-align: center;
+	text-align: left;
 }
 
 .cert-info-icon {
