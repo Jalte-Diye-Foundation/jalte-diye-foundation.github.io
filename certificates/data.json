@@ -58,7 +58,7 @@
       "role": "Summer intern at JDF",
       "dateOfIssue": "2026-07-17",
       "hasPdf": true,
-      "issuedBy": "Jalte Diye Foundation (JDF)"
+      "issuedBy": "Jalte Diye Foundation"
     },
     {
       "id": "JDF-PS1-CE07",
@@ -68,7 +68,7 @@
       "role": "Summer intern at JDF",
       "dateOfIssue": "2026-07-17",
       "hasPdf": true,
-      "issuedBy": "Jalte Diye Foundation (JDF)"
+      "issuedBy": "Jalte Diye Foundation"
     },
     {
       "id": "JDF-PS1-CE08",
@@ -78,7 +78,7 @@
       "role": "Summer intern at JDF",
       "dateOfIssue": "2026-07-17",
       "hasPdf": true,
-      "issuedBy": "Jalte Diye Foundation (JDF)"
+      "issuedBy": "Jalte Diye Foundation"
     },
     {
       "id": "JDF-PS1-CE09",
@@ -88,7 +88,87 @@
       "role": "Summer intern at JDF",
       "dateOfIssue": "2026-07-17",
       "hasPdf": true,
-      "issuedBy": "Jalte Diye Foundation (JDF)"
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-WiSTEM-CE10",
+      "name": "Riddhi Sharma",
+      "eventName": "Women in STEM",
+      "eventCode": "WiSTEM@JDF 2026",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-08-07",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-WiSTEM-CE11",
+      "name": "Nupur Madaan",
+      "eventName": "Women in STEM",
+      "eventCode": "WiSTEM@JDF 2026",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-08-07",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-WiSTEM-CE13",
+      "name": "Suruchi Suman",
+      "eventName": "Women in STEM",
+      "eventCode": "WiSTEM@JDF 2026",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-08-07",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-WiSTEM-CE14",
+      "name": "Vandana Kumari",
+      "eventName": "Women in STEM",
+      "eventCode": "WiSTEM@JDF 2026",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-08-07",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-WiSTEM-CE15",
+      "name": "Komal Khatod",
+      "eventName": "Women in STEM",
+      "eventCode": "WiSTEM@JDF 2026",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-08-07",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-WiSTEM-CE16",
+      "name": "Yashvi Khatri",
+      "eventName": "Women in STEM",
+      "eventCode": "WiSTEM@JDF 2026",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-08-07",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-WiSTEM-CE17",
+      "name": "Purvi Singhal",
+      "eventName": "Women in STEM",
+      "eventCode": "WiSTEM@JDF 2026",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-08-07",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-WiSTEM-CE18",
+      "name": "Yogita Kaswan",
+      "eventName": "Women in STEM",
+      "eventCode": "WiSTEM@JDF 2026",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-08-07",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
     }
   ]
 }
