@@ -169,6 +169,16 @@
       "dateOfIssue": "2026-08-07",
       "hasPdf": true,
       "issuedBy": "Jalte Diye Foundation"
+    },
+    {
+      "id": "JDF-WiSTEM-CE22",
+      "name": "Aarti Pansari",
+      "eventName": "Women in STEM",
+      "eventCode": "WiSTEM@JDF 2026",
+      "role": "Summer intern at JDF",
+      "dateOfIssue": "2026-08-07",
+      "hasPdf": true,
+      "issuedBy": "Jalte Diye Foundation"
     }
   ]
 }
