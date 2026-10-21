@@ -1257,6 +1257,35 @@ li {
 	margin-bottom: 16px;
 }
 
+.about-intro {
+	width: 92%;
+	margin: 0 auto 8px;
+	padding: 4px 24px 8px;
+	text-align: justify;
+}
+
+.about-intro p {
+	margin: 0 0 10px;
+	font-size: 1.05rem;
+	line-height: 1.7;
+	color: var(--text-muted);
+}
+
+.about-intro .learn-more-link {
+	font-weight: 600;
+}
+
+@media (max-width: 480px) {
+	.about-intro {
+		padding: 0 16px 6px;
+	}
+
+	.about-intro p {
+		font-size: 0.98rem;
+		line-height: 1.6;
+	}
+}
+
 .donate-content {
 	max-width: var(--narrow-width);
 	margin: 0 auto;
@@ -1762,7 +1791,7 @@ li {
 	}
 
 	.tagline {
-		font-size: 14px;
+		font-size: 15px;
 		margin: 14px 0 0 0;
 		font-style: italic;
 	}
@@ -1810,7 +1839,7 @@ li {
 
 	.tagline {
 		text-align: left;
-		font-size: 12px;
+		font-size: 15px;
 		margin: 15px 0 0 0;
 		padding: 0;
 		grid-column: 2;
@@ -1922,7 +1951,7 @@ li {
 	.tagline {
 		grid-column: 2;
 		grid-row: 2;
-		font-size: 11px;
+		font-size: 15px;
 		margin: 2px 0 0 0;
 		text-align: left;
 	}
@@ -2165,11 +2194,11 @@ li {
     }
 }
 
-/* ═══════════════════════════════════════════════════
-   CERTIFICATE SYSTEM — verify.html & certificate.html
-═══════════════════════════════════════════════════ */
+/* ---------------------------------------------------
+   CERTIFICATE SYSTEM � verify.html & certificate.html
+--------------------------------------------------- */
 
-/* ── Verify page wrapper ── */
+/* -- Verify page wrapper -- */
 .cert-verify-wrapper {
 	display: flex;
 	flex-direction: column;
@@ -2214,7 +2243,7 @@ li {
 	margin-bottom: 24px;
 }
 
-/* ── Verify form ── */
+/* -- Verify form -- */
 .cert-verify-form {
 	text-align: left;
 }
@@ -2284,7 +2313,7 @@ li {
 	text-align: left;
 }
 
-/* ── Result containers ── */
+/* -- Result containers -- */
 .cert-result {
 	width: 100%;
 }
@@ -2344,7 +2373,7 @@ li {
 	font-weight: 400;
 }
 
-/* ── Valid result ── */
+/* -- Valid result -- */
 .cert-valid-header {
 	display: flex;
 	flex-direction: column;
@@ -2376,7 +2405,7 @@ li {
 	color: var(--text-muted);
 }
 
-/* ── Certificate detail grid (verify page result) ── */
+/* -- Certificate detail grid (verify page result) -- */
 .cert-details-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -2412,7 +2441,7 @@ li {
 	letter-spacing: 0.04em;
 }
 
-/* ── Result action buttons ── */
+/* -- Result action buttons -- */
 .cert-result-actions {
 	display: flex;
 	gap: 12px;
@@ -2455,7 +2484,7 @@ li {
 	background: rgba(47, 79, 79, 0.06);
 }
 
-/* ── Info cards section (bottom of verify page) ── */
+/* -- Info cards section (bottom of verify page) -- */
 .cert-info-cards-wrapper {
 	padding: 30px 20px;
 }
@@ -2512,9 +2541,9 @@ li {
 	text-decoration: none;
 }
 
-/* ═══════════════════════════════════════════════════
-   CERTIFICATE VIEW PAGE — certificate.html
-═══════════════════════════════════════════════════ */
+/* ---------------------------------------------------
+   CERTIFICATE VIEW PAGE � certificate.html
+--------------------------------------------------- */
 
 .cert-page-loading {
 	text-align: center;
@@ -2542,7 +2571,7 @@ li {
 	margin-bottom: 20px;
 }
 
-/* ── Certificate view layout ── */
+/* -- Certificate view layout -- */
 .cert-view-wrapper {
 	max-width: 1000px;
 	margin: 0 auto;
@@ -2575,7 +2604,7 @@ li {
 	margin-bottom: 20px;
 }
 
-/* ── Detail rows on certificate view page ── */
+/* -- Detail rows on certificate view page -- */
 .cert-details-list {
 	display: flex;
 	flex-direction: column;
@@ -2617,7 +2646,7 @@ li {
 	letter-spacing: 0.04em;
 }
 
-/* ── Certificate view action buttons ── */
+/* -- Certificate view action buttons -- */
 .cert-view-actions {
 	display: flex;
 	flex-direction: column;
@@ -2648,7 +2677,7 @@ li {
 	margin-bottom: 6px;
 }
 
-/* ── PDF panel ── */
+/* -- PDF panel -- */
 .cert-pdf-panel {
 	background: var(--surface-base);
 	border-radius: var(--radius-lg);
@@ -2783,7 +2812,7 @@ li {
 	text-decoration: none;
 }
 
-/* ── Responsive ── */
+/* -- Responsive -- */
 @media (max-width: 860px) {
 	.cert-view-wrapper--with-pdf {
 		grid-template-columns: 1fr;

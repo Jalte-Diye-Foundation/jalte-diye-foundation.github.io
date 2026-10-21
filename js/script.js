@@ -455,8 +455,8 @@ if (donorWall) {
 // Shared header loader
 const headerFallbackHtml = `
 <header class="site-header">
-    <img class="logo" src="images/logo.png" alt="Logo Of Our NGO">
-    <h1>Jalte Diye Foundation</h1>
+    <img class="logo" src="images/logo.png"     alt="Jalte Diye Foundation (JDF) logo">
+        <h1>Jalte Diye Foundation (JDF)</h1>
     <p class="tagline">Empowering individuals through holistic social education to achieve global peace</p>
     <nav class="main-nav" aria-label="Primary">
         <a href="index.html">About Us</a>
@@ -489,24 +489,30 @@ const injectHeader = (html) => {
     markActiveNavLink();
 };
 
-fetch('header.html')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Header request failed');
-        }
-        return response.text();
-    })
-    .then(injectHeader)
-    .catch(() => {
-        // Fallback keeps header visible when opened directly from file://
-        injectHeader(headerFallbackHtml);
-    });
+if (document.getElementById('site-header')) {
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Header request failed');
+            }
+            return response.text();
+        })
+        .then(injectHeader)
+        .catch(() => {
+            // Fallback keeps header visible when opened directly from file://
+            injectHeader(headerFallbackHtml);
+        });
+} else {
+    // Header is pre-rendered in the page HTML
+    markActiveNavLink();
+}
 
 // Shared footer loader
 const footerFallbackHtml = `
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-links">
+            <a href="about-jdf.html">About JDF</a>
             <a href="work-policy.html">Work Policy</a>
             <a href="merchandise.html">Merchandise</a>
             <a href="privacy-policy.html">Privacy Policy</a>
@@ -534,11 +540,14 @@ const footerFallbackHtml = `
                     <a class="footer-social-link" href="https://www.youtube.com/@JalteDiyeNPO" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on YouTube">
                         <img src="images/yt_icon_red_digital.png" alt="YouTube">
                     </a>
+                    <a class="footer-social-link" href="https://github.com/Jalte-Diye-Foundation" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on GitHub">
+                        <img src="images/github-mark.svg" alt="GitHub">
+                    </a>
                     <a class="footer-social-link" href="https://wa.me/6376930632" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on WhatsApp">
                         <img src="images/WhatsApp.png" alt="WhatsApp">
                     </a>
                 </span>
-                <span>&copy; 2025 <span>Jalte Diye Foundation</span>. All Rights Reserved.</span>
+                <span>&copy; 2025 <span>Jalte Diye Foundation (JDF)</span>. All Rights Reserved.</span>
             </p>
         </div>
     </div>
@@ -549,18 +558,20 @@ const injectFooter = (html) => {
     if (placeholder) placeholder.outerHTML = html;
 };
 
-fetch('footer.html')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Footer request failed');
-        }
-        return response.text();
-    })
-    .then(injectFooter)
-    .catch(() => {
-        // Fallback keeps footer visible when opened directly from file://
-        injectFooter(footerFallbackHtml);
-    });
+if (document.getElementById('site-footer')) {
+    fetch('footer.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Footer request failed');
+            }
+            return response.text();
+        })
+        .then(injectFooter)
+        .catch(() => {
+            // Fallback keeps footer visible when opened directly from file://
+            injectFooter(footerFallbackHtml);
+        });
+}
 
 // Direct PDF embed for maximum compatibility on GitHub Pages.
 // No special logic needed; browser will handle PDF rendering in iframe.
