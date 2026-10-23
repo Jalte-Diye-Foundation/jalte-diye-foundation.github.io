@@ -1,7 +1,13 @@
 const IMAGE_EXTS = /\.(jpe?g|png|gif|webp|avif|svg)$/i;
 
 const miyawakiContainer = document.getElementById("gallery-miyawaki");
+const gvanContainer = document.getElementById("gallery-gvan");
+const cogenticContainer = document.getElementById("gallery-cogentic");
+const healthContainer = document.getElementById("gallery-health");
 const womenStemContainer = document.getElementById("gallery-women-stem");
+const cleanlinessContainer = document.getElementById("gallery-cleanliness");
+const lakshmangarhContainer = document.getElementById("gallery-lakshmangarh");
+const ps1Container = document.getElementById("gallery-ps1-wistem");
 const emptyMsg = document.getElementById("gallery-empty-msg");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
@@ -93,6 +99,31 @@ fetch("gallery/images.json")
         allImages = allImages.concat(miyawakiImages);
         offset += miyawakiImages.length;
 
+        // GVan Section
+        const gvanList = Array.isArray(sections["GVan Forestation Drive"]) ? sections["GVan Forestation Drive"] : [];
+        const gvanImages = gvanList
+            .filter((name) => IMAGE_EXTS.test(name) || /^https?:\/\//i.test(name))
+            .map((name) => ({ src: /^https?:\/\//i.test(name) ? name : "gallery/" + encodeURI(name) }));
+        renderSectionGallery(gvanImages, gvanContainer, offset);
+        allImages = allImages.concat(gvanImages);
+        offset += gvanImages.length;
+
+        [
+            ["Cleanliness Drive", cleanlinessContainer],
+            ["Lakshmangarh Plantation", lakshmangarhContainer],
+            ["PS1 WiSTEM", ps1Container],
+            ["Cogentic", cogenticContainer],
+            ["Health", healthContainer],
+        ].forEach(([key, container]) => {
+            const list = Array.isArray(sections[key]) ? sections[key] : [];
+            const imgs = list
+                .filter((name) => IMAGE_EXTS.test(name) || /^https?:\/\//i.test(name))
+                .map((name) => ({ src: /^https?:\/\//i.test(name) ? name : "gallery/" + encodeURI(name) }));
+            renderSectionGallery(imgs, container, offset);
+            allImages = allImages.concat(imgs);
+            offset += imgs.length;
+        });
+
         // Women in STEM Section
         const womenStemList = Array.isArray(sections["Women in STEM Talk at DROID7.0"]) ? sections["Women in STEM Talk at DROID7.0"] : [];
         const womenStemImages = womenStemList
@@ -114,7 +145,7 @@ fetch("gallery/images.json")
     });
 
 
-[miyawakiContainer, womenStemContainer].forEach((sectionContainer) => {
+[miyawakiContainer, gvanContainer, cogenticContainer, healthContainer, cleanlinessContainer, lakshmangarhContainer, ps1Container, womenStemContainer].forEach((sectionContainer) => {
     if (!sectionContainer) return;
     sectionContainer.addEventListener("click", (e) => {
         const card = e.target.closest(".gallery-item");
@@ -125,7 +156,7 @@ fetch("gallery/images.json")
 });
 
 
-[miyawakiContainer, womenStemContainer].forEach((sectionContainer) => {
+[miyawakiContainer, gvanContainer, cogenticContainer, healthContainer, cleanlinessContainer, lakshmangarhContainer, ps1Container, womenStemContainer].forEach((sectionContainer) => {
     if (!sectionContainer) return;
     sectionContainer.addEventListener("keydown", (e) => {
         if (e.key !== "Enter" && e.key !== " ") return;

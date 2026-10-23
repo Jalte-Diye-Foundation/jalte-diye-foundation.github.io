@@ -936,6 +936,64 @@ li {
 	color: #4d5e5a;
 }
 
+.story-journey {
+	margin: 14px 0;
+	padding-top: 12px;
+	border-top: 1px dashed var(--border-soft);
+}
+
+.story-journey h4 {
+	font-size: 17px;
+	margin-bottom: 10px;
+	color: #1b3a33;
+}
+
+.story-journey-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.story-journey-grid figure {
+	margin: 0;
+}
+
+.story-journey-grid img {
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	border-radius: 8px;
+	display: block;
+}
+
+.story-journey-grid figcaption {
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--text-muted);
+	margin-top: 6px;
+}
+
+.story-journey-grid figcaption strong {
+	display: block;
+	color: #1b3a33;
+	font-size: 14px;
+}
+
+.story-journey-grid .story-action-link {
+	display: block;
+	margin-top: 6px;
+}
+
+.story-journey p {
+	margin-top: 10px;
+}
+
+@media (max-width: 640px) {
+	.story-journey-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
 .contact-inline-form {
 	margin-top: 16px;
 	display: grid;
@@ -2195,7 +2253,7 @@ li {
 }
 
 /* ---------------------------------------------------
-   CERTIFICATE SYSTEM — verify.html & certificate.html
+   CERTIFICATE SYSTEM ï¿½ verify.html & certificate.html
 --------------------------------------------------- */
 
 /* -- Verify page wrapper -- */
@@ -2542,7 +2600,7 @@ li {
 }
 
 /* ---------------------------------------------------
-   CERTIFICATE VIEW PAGE — certificate.html
+   CERTIFICATE VIEW PAGE ï¿½ certificate.html
 --------------------------------------------------- */
 
 .cert-page-loading {
