@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JDF Overview presentation - Jalte Diye Foundation. Present in full screen or download the PDF.">
+    <link rel="canonical" href="https://jaltediyefoundation.org/presentation.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Jalte Diye Foundation">
+    <meta property="og:title" content="JDF Overview Presentation - Jalte Diye Foundation">
+    <meta property="og:description" content="JDF Overview presentation - Jalte Diye Foundation. Present in full screen or download the PDF.">
+    <meta property="og:url" content="https://jaltediyefoundation.org/presentation.html">
+    <meta property="og:image" content="https://jaltediyefoundation.org/images/logo.png">
+    <meta name="twitter:card" content="summary">
+    <title>JDF Overview Presentation - Jalte Diye Foundation</title>
+    <link rel="icon" href="images/icon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        html, body, #presentation-page, .document-page, .policy-content {
+            background: #fff !important;
+            color: #222 !important;
+            color-scheme: light !important;
+        }
+        .deck { position: relative; background: #000; margin: 0 auto; width: 100%; max-width: 1100px; }
+        .deck-stage { display: flex; align-items: center; justify-content: center; width: 100%; aspect-ratio: 16 / 9; background: #000; position: relative; cursor: pointer; }
+        .deck canvas { max-width: 100%; max-height: 100%; display: block; }
+        .deck-status { position: absolute; color: #fff; font-size: 1rem; text-align: center; padding: 1rem; }
+        .deck-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; padding: 10px; background: #f3f3f3; }
+        .deck-controls button { padding: 8px 16px; border: 1px solid #888; border-radius: 6px; background: #fff; color: #222; font-size: 1rem; cursor: pointer; }
+        .deck-controls button.primary { background: #0a7d3c; border-color: #0a7d3c; color: #fff; font-weight: 600; }
+        .deck-controls button:disabled { opacity: .5; cursor: default; }
+        .deck-counter { min-width: 80px; text-align: center; font-weight: 600; }
+        .deck:fullscreen { max-width: none; width: 100vw; height: 100vh; display: flex; flex-direction: column; background: #000; }
+        .deck:fullscreen .deck-stage { aspect-ratio: auto; flex: 1; min-height: 0; }
+        .deck:fullscreen .deck-controls { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,.65); opacity: 0; transition: opacity .25s; }
+        .deck:fullscreen.show-controls .deck-controls { opacity: 1; }
+        .deck:fullscreen.hide-cursor .deck-stage { cursor: none; }
+        .deck-hint { font-size: .9rem; color: #555; text-align: center; margin-top: 8px; }
+    </style>
+</head>
+
+<body>
+    <main class="page document-page footer-linked-page" id="presentation-page">
+        <!-- shared-header:start -->
+<header class="site-header">
+    <img class="logo" src="images/logo.png"     alt="Jalte Diye Foundation (JDF) logo">
+        <h1>Jalte Diye Foundation (JDF)</h1>
+    <p class="tagline">Empowering individuals through holistic social education to achieve global peace</p>
+    <nav class="main-nav" aria-label="Primary">
+        <a href="index.html">About Us</a>
+        <a href="projects.html">Projects</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="transparency.html">Transparency</a>
+        <a href="team.html">People</a>
+        <a href="blog.html">Blog</a>
+        <a href="donate.html">Donate</a>
+    </nav>
+</header>
+<!-- shared-header:end -->
+
+        <section class="section section--tint">
+            <div class="section-title section-title--tight">
+                <hr>
+                <span>JDF Overview Presentation</span>
+                <hr>
+            </div>
+
+            <div class="policy-content">
+                <p>Our foundation overview, ready to present. Click <strong>Present Full Screen</strong> to start.</p>
+                <p>
+                    <a href="Jalte_Diye_Foundation_JDF_Overview.pdf" download class="learn-more-link">Download Presentation PDF</a>
+                </p>
+
+                <div class="deck" id="deck" data-pdf-url="Jalte_Diye_Foundation_JDF_Overview.pdf">
+                    <div class="deck-stage" id="deck-stage" title="Click to go to the next slide">
+                        <div class="deck-status" id="deck-status">Loading presentation…</div>
+                        <canvas id="deck-canvas" hidden></canvas>
+                    </div>
+                    <div class="deck-controls">
+                        <button type="button" id="deck-prev" aria-label="Previous slide" disabled>&#9664; Prev</button>
+                        <span class="deck-counter" id="deck-counter" aria-live="polite">–</span>
+                        <button type="button" id="deck-next" aria-label="Next slide" disabled>Next &#9654;</button>
+                        <button type="button" id="deck-present" class="primary" disabled>Present Full Screen</button>
+                    </div>
+                </div>
+                <p class="deck-hint">Keys: &rarr; / Space / PageDown = next &middot; &larr; / PageUp = previous &middot; Home / End = first / last &middot; F = full screen &middot; Esc = exit</p>
+
+                <p class="doc-note">
+                    If the presentation does not display above, please <a href="Jalte_Diye_Foundation_JDF_Overview.pdf" target="_blank" rel="noopener">open the PDF in a new tab</a>.
+                </p>
+            </div>
+        </section>
+
+        <!-- shared-footer:start -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="about-jdf.html">About JDF</a>
+            <a href="work-policy.html">Work Policy</a>
+            <a href="merchandise.html">Merchandise</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-use.html">Terms of Use</a>
+            <a href="social-media-guide.html">Social Media Guide</a>
+            <a href="team.html">Team</a>
+            <a href="volunteer.html">Volunteer</a>
+            <a href="banner.html">Banner</a>
+            <a href="presentation.html">Presentation</a>
+            <a href="NGO-Darpan.html">NGO Darpan</a>
+            <a href="verify.html">Verify Certificate</a>
+        </div>
+
+        <div class="footer-section">
+            <p class="footer-signature">
+                <span class="footer-social" aria-label="Social media links">
+                    <a class="footer-social-link" href="https://www.facebook.com/JalteDiyeFoundation/" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on Facebook">
+                        <img src="images/Facebook_Logo_Primary.png" alt="Facebook">
+                    </a>
+                    <a class="footer-social-link" href="https://www.instagram.com/jalte_diye_foundation/" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on Instagram">
+                        <img src="images/Instagram_Glyph_Gradient.png" alt="Instagram">
+                    </a>
+                    <a class="footer-social-link" href="https://www.linkedin.com/company/jalte-diye-foundation/" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on LinkedIn">
+                        <img src="images/LI-In-Bug.png" alt="LinkedIn">
+                    </a>
+                    <a class="footer-social-link" href="https://x.com/JalteDiyeNPO" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on X">
+                        <img src="images/logo-black.png" alt="X">
+                    </a>
+                    <a class="footer-social-link" href="https://www.youtube.com/@JalteDiyeNPO" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on YouTube">
+                        <img src="images/yt_icon_red_digital.png" alt="YouTube">
+                    </a>
+                    <a class="footer-social-link" href="https://github.com/Jalte-Diye-Foundation" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on GitHub">
+                        <img src="images/github-mark.svg" alt="GitHub">
+                    </a>
+                    <a class="footer-social-link" href="https://wa.me/6376930632" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on WhatsApp">
+                        <img src="images/WhatsApp.png" alt="WhatsApp">
+                    </a>
+                </span>
+                <span class="footer-signature-line">&copy; 2025 <span>Jalte Diye Foundation (JDF)</span>. All Rights Reserved.</span>
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- shared-footer:end -->
+    </main>
+    <script src="js/script.js"></script>
+    <script src="js/presentation.js"></script>
+</body>
+
+</html>

@@ -520,6 +520,7 @@ const footerFallbackHtml = `
             <a href="social-media-guide.html">Social Media Guide</a>
             <a href="team.html">Team</a>
             <a href="banner.html">Banner</a>
+            <a href="presentation.html">Presentation</a>
             <a href="verify.html">Verify Certificate</a>
         </div>
         <div class="footer-section">
