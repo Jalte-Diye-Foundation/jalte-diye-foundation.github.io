@@ -107,3 +107,142 @@
 .slider-dot.active {
     background: var(--accent-green);
 }
+
+.fundraising-document {
+    display: flex;
+    width: max-content;
+    gap: 12px;
+}
+
+.fundraising-carousel {
+    display: grid;
+    grid-template-columns: 50px minmax(0, 1fr) 50px;
+    align-items: center;
+    gap: 12px;
+    max-width: 960px;
+    margin: 12px auto 0;
+}
+
+.fundraising-document-viewport {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.fundraising-document canvas {
+    display: block;
+    flex: 0 0 282px;
+    width: 282px;
+    height: auto;
+}
+
+.fundraising-carousel-button {
+    padding: 0;
+}
+
+.fundraising-carousel-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+    box-shadow: none;
+}
+
+.fundraising-document-counter {
+    grid-column: 1 / -1;
+    margin: 0;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .fundraising-carousel {
+        grid-template-columns: 40px minmax(0, 1fr) 40px;
+        gap: 6px;
+    }
+
+    .fundraising-document canvas {
+        flex-basis: 204px;
+        width: 204px;
+    }
+
+    .fundraising-carousel-button {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+#donate .donate-content,
+#donate .donate-section,
+#donate .donate-hero {
+    text-align: left;
+}
+
+#donate .donate-section,
+#donate .donate-qr-section {
+    margin-bottom: 0;
+}
+
+#donate .donate-section h3,
+#donate .donate-qr-section h3,
+#donate .donate-hero h3 {
+    margin: 0 0 10px;
+    line-height: 1.3;
+}
+
+#donate h1,
+#donate h2,
+#donate h3,
+#donate h4,
+#donate .section-title {
+    line-height: 1.3;
+}
+
+#donate .section p {
+    margin: 0 0 10px;
+    line-height: 1.5;
+}
+
+#donate .section p:last-child {
+    margin-bottom: 0;
+}
+
+#donate .section li,
+#donate .impact-counter,
+#donate .testimonial,
+#donate .testimonial .author,
+#donate .donor-wall {
+    line-height: 1.5;
+}
+
+#donate .donate-section > p,
+#donate .donate-qr-section > p,
+#donate .donate-intro p {
+    text-align: left;
+}
+
+#donate .upi-details {
+    gap: 12px;
+}
+
+#donate .upi-details > p {
+    margin: 0;
+}
+
+#donate .upi-info p {
+    margin: 0;
+}
+
+#donate .upi-info p + p {
+    margin-top: 8px;
+}
+
+#donate .section-minor-title {
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+#donate .testimonial-slider {
+    margin: 0;
+}
+
+#donate .donor-wall {
+    line-height: 1.5;
+}

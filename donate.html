@@ -78,6 +78,22 @@
             </div>
         </section>
 
+        <section class="section section--tint" aria-labelledby="fundraising-document-title">
+            <div class="donate-content">
+                <div class="donate-section">
+                    <h3 id="fundraising-document-title">Fundraising Document</h3>
+                    <div class="fundraising-carousel">
+                        <button class="carousel-btn fundraising-carousel-button" id="fundraisingDocumentPrev" type="button" aria-label="Previous fundraising pages" aria-controls="fundraisingDocument" disabled><svg class="carousel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                        <div class="fundraising-document-viewport" id="fundraisingDocument" data-pdf-url="donation_doc.pdf" aria-label="Fundraising document pages">
+                            <div class="fundraising-document" id="fundraisingDocumentSlides" role="status">Loading fundraising document...</div>
+                        </div>
+                        <button class="carousel-btn fundraising-carousel-button" id="fundraisingDocumentNext" type="button" aria-label="Next fundraising pages" aria-controls="fundraisingDocument" disabled><svg class="carousel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                        <p class="fundraising-document-counter" id="fundraisingDocumentCounter" aria-live="polite"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="section section--tint">
             <div class="donate-content">
                 <div class="donate-qr-section">
@@ -240,6 +256,7 @@
     </main>
     <script src="js/script.js"></script>
     <script src="js/donate.js"></script>
+    <script src="js/donation-carousel.js"></script>
 </body>
 
 </html>

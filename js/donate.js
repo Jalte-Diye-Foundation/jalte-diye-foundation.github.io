@@ -91,7 +91,7 @@ fetch('donors.json')
       }
     });
     donorWall.style.whiteSpace = 'pre-wrap';
-    donorWall.style.lineHeight = '1.7';
+    donorWall.style.lineHeight = '1.5';
     donorWall.style.textAlign = 'left'; // Left alignment
   })
   .catch(() => {
