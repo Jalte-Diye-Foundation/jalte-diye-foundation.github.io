@@ -1376,13 +1376,38 @@ li {
 	color: var(--accent-green);
 	text-decoration: none;
 	display: inline-block;
-	font-weight: 400;
-	transition: color 0.3s ease, font-size 0.2s ease;
+	font-size: inherit;
+	font-weight: inherit;
+	transition: color 0.3s ease;
+}
+
+.project-figure {
+	margin: 0 0 18px;
+}
+
+.project-image {
+	display: block;
+	width: 100%;
+	aspect-ratio: 2 / 1;
+	object-fit: cover;
+	object-position: center;
+	border-radius: 10px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.project-caption {
+	margin-top: 8px;
+	font-size: 14px;
+	font-style: italic;
+	line-height: 1.5;
+	text-align: center;
+	color: var(--text-muted);
 }
 
 .project-title-link:hover,
 .project-title-link:focus-visible {
 	color: #5e0338;
+	font-size: inherit;
 	text-decoration: none;
 }
 
@@ -2950,4 +2975,92 @@ li {
 		   max-width: 100%;
 		   text-align: left !important;
 	   }
+}
+
+
+/* Blog index */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+}
+
+.blog-controls {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 12px 0;
+}
+
+.blog-controls input,
+.blog-controls select {
+	flex: 1 1 220px;
+	padding: 9px 12px;
+	font: inherit;
+	border: 1px solid #bbb;
+	border-radius: 6px;
+	background: #fff;
+}
+
+.blog-status {
+	font-size: 14px;
+	color: var(--text-muted);
+}
+
+.blog-card {
+	padding: 14px 16px;
+	margin-bottom: 12px;
+	background: #fff;
+	border: 1px solid #e2e2e2;
+	border-left: 4px solid var(--accent-green);
+	border-radius: 8px;
+	text-align: left;
+}
+
+.blog-meta {
+	margin-bottom: 4px;
+	font-size: 13px;
+	color: var(--text-muted);
+}
+
+.blog-title {
+	font-size: 18px;
+	margin-bottom: 6px;
+	color: var(--text-main);
+}
+
+.blog-excerpt {
+	margin-bottom: 8px;
+	font-size: 15px;
+	color: var(--text-muted);
+}
+.blog-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 16px;
+}
+
+.blog-share-btn {
+	padding: 5px 14px;
+	font: inherit;
+	font-size: 14px;
+	color: var(--accent-green);
+	background: #fff;
+	border: 1px solid var(--accent-green);
+	border-radius: 999px;
+	cursor: pointer;
+}
+
+.blog-share-btn:hover {
+	color: #fff;
+	background: var(--accent-green);
+}
+
+.blog-card--linked {
+	background: #f1f8f4;
+	box-shadow: 0 0 0 2px var(--accent-green);
 }

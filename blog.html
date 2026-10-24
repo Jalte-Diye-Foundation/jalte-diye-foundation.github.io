@@ -74,24 +74,17 @@
         <section class="section section--soft">
             <div class="donate-content">
                 <div class="donate-section">
-                        <h3>Latest Posts</h3>
-                        <article>
-                            <h3>Miyawaki Forestation Awareness Talk</h3>
-                            <p><strong>Date:</strong> April 18, 2026</p>
-                            <p>Our team organized a Miyawaki plantation drive and awareness session, mobilizing local volunteers and restoring green cover. See the <a href="gallery.html#gallery-miyawaki">gallery</a> for photos and <a href="success-story.html">success stories</a> for impact details.</p>
-                        </article>
-
-                        <article>
-                            <h3>Women in STEM: Welfare Partnership Launched</h3>
-                            <p><strong>Date:</strong> April 12, 2026</p>
-                            <p>We launched a new partnership to support women in STEM, providing mentorship and technical learning opportunities. Read more in our <a href="success-story.html">success stories</a> and see highlights in the <a href="gallery.html#gallery-women-stem">gallery</a>.</p>
-                        </article>
-
-                        <article>
-                            <h3>Spring Donation Drive: Thank You!</h3>
-                            <p><strong>Date:</strong> March 30, 2026</p>
-                            <p>Thanks to our supporters, our spring donation drive exceeded its goal! Your contributions are powering new education and outreach programs. <a href="donate.html">Continue supporting</a> or <a href="transparency.html">see how funds are used</a>.</p>
-                        </article>
+                    <h3>Latest Posts</h3>
+                    <p>An index of our posts on <a href="https://www.linkedin.com/company/jalte-diye-foundation/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, newest first. Open a post to read it in full.</p>
+                    <div class="blog-controls">
+                        <label for="blog-search" class="sr-only">Search posts</label>
+                        <input type="search" id="blog-search" placeholder="Search posts">
+                        <label for="blog-category" class="sr-only">Filter by category</label>
+                        <select id="blog-category"><option value="">All categories</option></select>
+                    </div>
+                    <p id="blog-status" class="blog-status" role="status" aria-live="polite"></p>
+                    <div id="blog-list" class="blog-list"></div>
+                    <noscript><p>Please enable JavaScript to view our post index, or visit our <a href="https://www.linkedin.com/company/jalte-diye-foundation/">LinkedIn page</a>.</p></noscript>
                 </div>
             </div>
         </section>
@@ -162,6 +155,7 @@
 <!-- shared-footer:end -->
     </main>
     <script src="js/script.js"></script>
+    <script src="js/blog.js"></script>
 </body>
 
 </html>
