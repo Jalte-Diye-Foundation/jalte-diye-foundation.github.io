@@ -180,6 +180,12 @@
     margin-bottom: 0;
 }
 
+#donate .donate-section + .donate-section,
+#donate .donate-section + .donate-qr-section,
+#donate .donate-qr-section + .donate-section {
+    margin-top: 24px;
+}
+
 #donate .donate-section h3,
 #donate .donate-qr-section h3,
 #donate .donate-hero h3 {
