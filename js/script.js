@@ -487,6 +487,7 @@ const injectHeader = (html) => {
     if (!placeholder) return;
     placeholder.outerHTML = html;
     markActiveNavLink();
+    document.dispatchEvent(new Event('site-header-loaded'));
 };
 
 if (document.getElementById('site-header')) {
@@ -556,7 +557,10 @@ const footerFallbackHtml = `
 
 const injectFooter = (html) => {
     const placeholder = document.getElementById('site-footer');
-    if (placeholder) placeholder.outerHTML = html;
+    if (placeholder) {
+        placeholder.outerHTML = html;
+        document.dispatchEvent(new Event('site-footer-loaded'));
+    }
 };
 
 if (document.getElementById('site-footer')) {

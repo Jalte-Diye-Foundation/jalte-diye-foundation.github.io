@@ -4,6 +4,7 @@
   var ZMIN = 80;
   var ZMAX = 160;
   var ZSTEP = 10;
+  var ZDEFAULT = 100;
   var root = document.documentElement;
 
   function stored() {
@@ -16,7 +17,23 @@
 
   function apply(theme) {
     root.setAttribute("data-theme", theme);
-    var btns = document.querySelectorAll(".theme-toggle button");
+    var logo = document.querySelector(".site-header img.logo");
+    if (logo) {
+      logo.setAttribute(
+        "src",
+        theme === "dark" ? "images/logo-dark.png" : "images/logo.png",
+      );
+    }
+    var xIcons = document.querySelectorAll(
+      'img[src="images/logo-black.png"], img[src="images/logo-white.png"]',
+    );
+    for (var j = 0; j < xIcons.length; j++) {
+      xIcons[j].setAttribute(
+        "src",
+        theme === "dark" ? "images/logo-white.png" : "images/logo-black.png",
+      );
+    }
+    var btns = document.querySelectorAll(".theme-toggle button[data-set]");
     for (var i = 0; i < btns.length; i++) {
       btns[i].setAttribute(
         "aria-pressed",
@@ -28,9 +45,9 @@
   function storedZoom() {
     try {
       var z = parseInt(localStorage.getItem(ZKEY), 10);
-      return z >= ZMIN && z <= ZMAX ? z : 100;
+      return z >= ZMIN && z <= ZMAX ? z : ZDEFAULT;
     } catch (e) {
-      return 100;
+      return ZDEFAULT;
     }
   }
 
@@ -39,19 +56,20 @@
   // CSS zoom scales px- and rem-based text alike; the control counter-zooms to stay constant.
   function applyZoom(z) {
     zoom = Math.max(ZMIN, Math.min(ZMAX, z));
-    root.style.zoom = zoom === 100 ? "" : String(zoom / 100);
+    root.style.zoom = zoom === ZDEFAULT ? "" : String(zoom / 100);
     try {
       localStorage.setItem(ZKEY, String(zoom));
     } catch (e) {}
     var wrap = document.querySelector(".theme-toggle");
     if (wrap) {
-      wrap.style.zoom = zoom === 100 ? "" : String(100 / zoom);
+      wrap.style.zoom = zoom === ZDEFAULT ? "" : String(100 / zoom);
       wrap.querySelector(".tt-zout").disabled = zoom <= ZMIN;
       wrap.querySelector(".tt-zin").disabled = zoom >= ZMAX;
+      wrap.querySelector(".tt-zreset").disabled = zoom === ZDEFAULT;
     }
   }
 
-  if (zoom !== 100) root.style.zoom = String(zoom / 100);
+  if (zoom !== ZDEFAULT) root.style.zoom = String(zoom / 100);
 
   var initial =
     stored() ||
@@ -74,11 +92,19 @@
     ".theme-toggle .tt-light{background:#fff}.theme-toggle .tt-dark{background:#000}";
   document.head.appendChild(style);
 
+  document.addEventListener("site-header-loaded", function () {
+    apply(root.getAttribute("data-theme"));
+  });
+
+  document.addEventListener("site-footer-loaded", function () {
+    apply(root.getAttribute("data-theme"));
+  });
+
   document.addEventListener("DOMContentLoaded", function () {
     var wrap = document.createElement("div");
     wrap.className = "theme-toggle";
     wrap.setAttribute("role", "group");
-    wrap.setAttribute("aria-label", "Theme");
+    wrap.setAttribute("aria-label", "Theme and text size");
     [
       ["light", "Light theme"],
       ["dark", "Dark theme"],
@@ -99,6 +125,7 @@
     });
     [
       ["tt-zout", "A\u2212", "Decrease text size", -ZSTEP],
+      ["tt-zreset", "100%", "Reset text size to default", null],
       ["tt-zin", "A+", "Increase text size", ZSTEP],
     ].forEach(function (z) {
       var b = document.createElement("button");
@@ -108,7 +135,7 @@
       b.setAttribute("aria-label", z[2]);
       b.title = z[2];
       b.addEventListener("click", function () {
-        applyZoom(zoom + z[3]);
+        applyZoom(z[3] === null ? ZDEFAULT : zoom + z[3]);
       });
       wrap.appendChild(b);
     });
