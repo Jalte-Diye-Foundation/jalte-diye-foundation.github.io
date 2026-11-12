@@ -1,29 +1,22 @@
-const upiDonationForm = document.getElementById('upiDonationForm');
-const donationAmount = document.getElementById('donationAmount');
+const copyUpiId = document.getElementById('copyUpiId');
+const donationUpiId = document.getElementById('donationUpiId');
+const copyUpiStatus = document.getElementById('copyUpiStatus');
 
-upiDonationForm.querySelector('button[type="submit"]').disabled = false;
-donationAmount.addEventListener('input', function () {
-    donationAmount.setCustomValidity('');
-});
-upiDonationForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const amount = donationAmount.value;
-    if (!/[1-9]/.test(amount)) {
-        donationAmount.setCustomValidity('Enter an amount greater than zero.');
-        donationAmount.reportValidity();
+copyUpiId.disabled = false;
+copyUpiId.addEventListener('click', async function () {
+    copyUpiStatus.hidden = false;
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        copyUpiStatus.textContent = 'Unable to copy automatically. Please select and copy the UPI ID above.';
         return;
     }
 
-    const parts = amount.split('.');
-    const whole = parts[0].replace(/^0+(?=\d)/, '');
-    const decimal = (parts[1] || '').padEnd(2, '0');
-    const params = new URLSearchParams({
-        pa: '9602431619@hdfc',
-        pn: 'Jalte Diye Foundation',
-        am: whole + '.' + decimal,
-        cu: 'INR'
-    });
-    window.location.href = 'upi://pay?' + params.toString();
+    try {
+        await navigator.clipboard.writeText(donationUpiId.textContent.trim());
+        copyUpiStatus.textContent = 'UPI ID copied. Paste it into your UPI app.';
+    } catch (error) {
+        console.error('Unable to copy UPI ID:', error);
+        copyUpiStatus.textContent = 'Unable to copy automatically. Please select and copy the UPI ID above.';
+    }
 });
 
 initTestimonialSlider({

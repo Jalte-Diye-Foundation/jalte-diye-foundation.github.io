@@ -55,7 +55,7 @@
             <div class="donate-hero">
                 <h3 align="left">Let's work together</h3>
                 <div class="donate-intro" align="left">
-                    <p class="intro-text"><strong>Fill this form to apply to the program in which you are interested.</strong></p>
+                    <p class="intro-text"><strong>Choose how you would like to apply.</strong></p>
                     <p>We welcome students, professionals, and community members who want to support education, awareness, and social impact programs.</p>
                 </div>
             </div>
@@ -63,8 +63,11 @@
 
         <section class="section section--soft">
             <div class="volunteer-wrap">
-                <div class="volunteer-form-card">
+                <a class="volunteer-option volunteer-google-option" href="https://forms.gle/cfjkxXnJpQQz5X328" target="_blank" rel="noopener noreferrer" aria-label="Apply using Google Form (opens in a new tab)">Apply using Google Form</a>
+                <details class="volunteer-form-card">
+                    <summary class="volunteer-option">Apply via email client (e.g., Thunderbird or Outlook)</summary>
                     <form id="volunteerForm" novalidate>
+                        <p class="form-note volunteer-form-intro">Complete this form to open your email app with your application. Google Form applications must be filled out separately.</p>
                         <div class="volunteer-grid">
                             <div class="volunteer-field">
                                 <label for="fullName">Full Name</label>
@@ -139,13 +142,13 @@
                         </div>
 
                         <div class="volunteer-actions">
-                            <button class="btn-submit" type="submit">Submit Application</button>
+                            <button class="btn-submit" type="submit">Apply via email client</button>
                         </div>
 
-                        <p class="form-note">This form opens your email app with prefilled details so your application can be sent to us quickly.</p>
+                        <p class="form-note">This form opens your email app with prefilled details. Please send the email to complete your application.</p>
                         <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
                     </form>
-                </div>
+                </details>
             </div>
         </section>
 

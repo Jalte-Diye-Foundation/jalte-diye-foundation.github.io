@@ -4,12 +4,71 @@
     padding: 8px 20px 40px;
 }
 
+#volunteer .donate-hero {
+    max-width: var(--content-width);
+    padding: 0 45px;
+}
+
+.volunteer-google-option,
 .volunteer-form-card {
     background: var(--surface-base);
     border: 1px solid var(--border-soft);
     border-radius: var(--radius-lg);
-    padding: 24px;
     box-shadow: var(--shadow-sm);
+}
+
+.volunteer-google-option {
+    margin-bottom: 12px;
+    text-decoration: none;
+}
+
+.volunteer-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 24px;
+    color: var(--text-main);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+summary.volunteer-option {
+    list-style: none;
+}
+
+summary.volunteer-option::-webkit-details-marker {
+    display: none;
+}
+
+.volunteer-google-option::after {
+    content: "\2197";
+}
+
+summary.volunteer-option::after {
+    content: "+";
+}
+
+details[open] > summary.volunteer-option::after {
+    content: "\2212";
+}
+
+.volunteer-option:hover {
+    color: var(--accent-green);
+}
+
+.volunteer-option:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+.volunteer-form-card form {
+    border-top: 1px solid var(--border-soft);
+    padding: 24px;
+}
+
+.volunteer-form-intro {
+    margin: 0 0 16px;
 }
 
 .volunteer-grid {
@@ -71,6 +130,7 @@
 }
 
 .btn-submit {
+    display: inline-block;
     border: none;
     border-radius: var(--radius-md);
     background: var(--accent-green);
@@ -78,6 +138,7 @@
     font-weight: 700;
     padding: 10px 16px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .btn-submit:hover {

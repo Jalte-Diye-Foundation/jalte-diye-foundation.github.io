@@ -105,25 +105,24 @@
                     <p>
                         <a href="https://www.linkedin.com/posts/jalte-diye-foundation_donation-drive-for-miyawaki-forestation-project-activity-7440238127006478337-1Gk8" class="learn-more-link">Learn more about the forestation project on LinkedIn</a>
                     </p>
-                    <form id="upiDonationForm" class="upi-donation-form">
-                        <label for="donationAmount">Donation amount (INR)</label>
-                        <div class="upi-donation-input">
-                            <input id="donationAmount" type="text" inputmode="decimal" pattern="[0-9]+([.][0-9]{1,2})?" aria-describedby="donationAmountHelp" required>
-                            <button type="submit" class="btn-donate" title="Opens a UPI app on your phone. On desktop, scan the QR code if no app opens." aria-describedby="upiPaymentHelp" disabled>Pay with UPI</button>
-                        </div>
-                        <p id="donationAmountHelp">Enter an amount greater than zero, with up to two decimal places.</p>
-                        <p id="upiPaymentHelp">This button opens a UPI app on your phone. On desktop, scan the QR code below if no app opens. Check the recipient and amount in your UPI app before paying.</p>
-                        <noscript><p>JavaScript is required to open a UPI app. Please use the QR code below.</p></noscript>
-                    </form>
                     <div class="upi-details">
                         <div class="upi-info">
-                            <p><strong>UPI ID:</strong>20250302</p>
+                            <p><strong>UPI ID:</strong> <span id="donationUpiId">20250302</span></p>
                             <p>Dr. NarSingh Lal Sharma
                             <br>Director & Treasurer, For Jalte Diye Foundation</p>
                         </div>
+                        <p><strong>Please note:</strong> Your UPI app may show Dr. NarSingh Lal Sharma, our Director, as the recipient. The account belongs to Jalte Diye Foundation.</p>
+                        <button type="button" class="btn-donate upi-copy-button" id="copyUpiId" disabled>Copy UPI ID</button>
+                        <p id="copyUpiStatus" role="status" hidden></p>
+                        <p>Paste the UPI ID into your UPI app and enter the amount there. Check the recipient before paying.</p>
+                        <noscript><p>JavaScript is required to copy the UPI ID with the button. You can select and copy it manually.</p></noscript>
                         <p>Scan the QR code below to complete your donation securely through your UPI app.</p>
-                        <div class="qr-code-container"">
-                            <img width="60%" src="images/QR_for_donation.png" alt="UPI QR Code for Donation">
+                        <div class="qr-code-container">
+                            <div class="donation-qr-card">
+                                <span class="donation-qr-label">Scan to donate</span>
+                                <img src="images/QR_for_donation.png" alt="UPI QR Code for Donation">
+                                <span class="donation-qr-caption">Thank you for your support</span>
+                            </div>
                         </div>
                     </div>
                 </div>

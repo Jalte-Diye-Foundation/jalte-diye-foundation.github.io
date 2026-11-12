@@ -228,41 +228,73 @@
     gap: 12px;
 }
 
-#donate .upi-donation-form {
-    margin: 20px 0;
-}
-
-.upi-donation-form label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-
-.upi-donation-input {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    align-items: center;
-    max-width: 300px;
-    margin-bottom: 8px;
-}
-
-.upi-donation-input input,
-.upi-donation-input button {
+#donate .qr-code-container {
     width: 100%;
-    height: 40px;
-    font: inherit;
+    margin: 8px 0 0;
+}
+
+.donation-qr-card {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    background: radial-gradient(circle at center, #fff 0%, #dedede 100%);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+
+.donation-qr-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 4px;
+    border-radius: 10px;
+    background: #d3d3d3;
+}
+
+html[data-theme="dark"] .donation-qr-card {
+    background: radial-gradient(circle at center, #fff 50%, #555 55%, #000000 100%);
+    border-color: #444;
+    filter: invert(1) hue-rotate(180deg);
+}
+
+html[data-theme="dark"] .donation-qr-card img {
+    filter: none;
+    mask-image: linear-gradient(to right, transparent, #000 3.5%, #000 96.5%, transparent),
+        linear-gradient(to bottom, transparent, #000 3.5%, #000 96.5%, transparent);
+    mask-composite: intersect;
+}
+
+html[data-theme="dark"] .donation-qr-label,
+html[data-theme="dark"] .donation-qr-caption {
+    color: #fff;
+}
+
+.donation-qr-label,
+.donation-qr-caption {
+    display: block;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.donation-qr-label {
+    margin-bottom: 10px;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.donation-qr-caption {
+    margin-top: 10px;
     font-size: 14px;
 }
 
-.upi-donation-input input {
-    min-width: 0;
-    padding: 8px;
-    border: 1px solid #888;
-    border-radius: var(--radius-md);
-}
-
-.upi-donation-input button {
+.upi-copy-button {
+    width: 145px;
+    height: 40px;
+    font: inherit;
+    font-size: 14px;
     border: 0;
     cursor: pointer;
     margin: 0;
@@ -270,12 +302,12 @@
     transition: background 0.2s ease, color 0.2s ease, font-size 0.2s ease;
 }
 
-.upi-donation-input button:hover {
+.upi-copy-button:hover {
     font-size: 16px;
     transform: none;
 }
 
-.upi-donation-input button:disabled {
+.upi-copy-button:disabled {
     cursor: not-allowed;
     opacity: 0.5;
 }

@@ -24,10 +24,6 @@ new QRCode(qrContainer, {
     correctLevel: QRCode.CorrectLevel.M
 });
 
-const shareText = `I just supported Jalte Diye Foundation as ${donorName}. See my support card: ${sharePageURL}`;
-const encodedShareText = encodeURIComponent(shareText);
-const encodedShareUrl = encodeURIComponent(sharePageURL);
-
 async function generateCardBlob() {
     const card = document.getElementById("share-card");
     const canvas = await html2canvas(card, {
@@ -87,7 +83,6 @@ async function shareCardImage() {
 }
 
 const primaryRow = document.getElementById("share-row-primary");
-const socialRow = document.getElementById("share-row-social");
 
 const downloadBtn = document.createElement("button");
 downloadBtn.className = "download-btn";
@@ -119,23 +114,6 @@ copyBtn.onclick = () => {
     }, 2000);
 };
 primaryRow.appendChild(copyBtn);
-
-const socialButtons = [
-    { label: "LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}` },
-    { label: "Instagram", href: "https://www.instagram.com/" },
-    { label: "Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&quote=${encodedShareText}` },
-    { label: "X / Twitter", href: `https://twitter.com/intent/tweet?text=${encodedShareText}` }
-];
-
-socialButtons.forEach((btn) => {
-    const a = document.createElement("a");
-    a.href = btn.href;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.className = "share-btn";
-    a.textContent = btn.label;
-    socialRow.appendChild(a);
-});
 
 function downloadCard() {
     const button = document.querySelector(".download-btn");

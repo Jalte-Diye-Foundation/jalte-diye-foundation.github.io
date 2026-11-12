@@ -49,7 +49,7 @@ if (volunteerForm && formStatus) {
         window.location.href =
             "mailto:contact@jaltediyefoundation.org?subject=" + subject + "&body=" + body;
         formStatus.textContent =
-            "Thank you for applying! Your application is complete. Your email app should open now. If it does not, please email contact@jaltediyefoundation.org manually.";
+            "Your email app should open with your application. Please send the email to complete your application. If it does not open, please email contact@jaltediyefoundation.org manually.";
         formStatus.style.color = '#207c2f';
         formStatus.style.fontWeight = 'bold';
     });
