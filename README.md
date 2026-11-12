@@ -15,7 +15,7 @@ This repository hosts a static website focused on peace education, social welfar
 - LinkedIn: https://www.linkedin.com/company/jalte-diye-foundation
 - Facebook: https://www.facebook.com/JalteDiyeFoundation
 - Instagram: https://www.instagram.com/jalte_diye_foundation
-- YouTube: https://www.youtube.com/@JalteDiyeNPO
+- YouTube: https://www.youtube.com/@JalteDiyeFoundation
 - WhatsApp: https://wa.me/message/XSTSJ3NR7SL6E1
 
 ## Project Vision

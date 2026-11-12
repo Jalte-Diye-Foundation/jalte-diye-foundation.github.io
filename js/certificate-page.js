@@ -150,6 +150,7 @@
     if (cert.hasPdf && window.renderPdfWithPdfjs) {
         const viewer = document.getElementById('pdfjs-viewer');
         if (viewer && viewer.dataset.pdfUrl) {
+            if (window.addPdfThemeToggle) window.addPdfThemeToggle(viewer);
             window.renderPdfWithPdfjs(viewer.dataset.pdfUrl);
         }
     }

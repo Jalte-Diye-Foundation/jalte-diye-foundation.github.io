@@ -6,6 +6,7 @@
   var ZSTEP = 10;
   var ZDEFAULT = 100;
   var root = document.documentElement;
+  var wrap;
 
   function stored() {
     try {
@@ -53,16 +54,13 @@
 
   var zoom = storedZoom();
 
-  // CSS zoom scales px- and rem-based text alike; the control counter-zooms to stay constant.
   function applyZoom(z) {
     zoom = Math.max(ZMIN, Math.min(ZMAX, z));
     root.style.zoom = zoom === ZDEFAULT ? "" : String(zoom / 100);
     try {
       localStorage.setItem(ZKEY, String(zoom));
     } catch (e) {}
-    var wrap = document.querySelector(".theme-toggle");
     if (wrap) {
-      wrap.style.zoom = zoom === ZDEFAULT ? "" : String(100 / zoom);
       wrap.querySelector(".tt-zout").disabled = zoom <= ZMIN;
       wrap.querySelector(".tt-zin").disabled = zoom >= ZMAX;
       wrap.querySelector(".tt-zreset").disabled = zoom === ZDEFAULT;
@@ -83,16 +81,56 @@
     // Dark mode inverts the whole page, then re-inverts media so it looks natural.
     'html[data-theme="dark"]{background:#fff;filter:invert(1) hue-rotate(180deg)}' +
     'html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"] canvas,html[data-theme="dark"] iframe,html[data-theme="dark"] .theme-toggle{filter:invert(1) hue-rotate(180deg)}' +
-    ".theme-toggle{position:fixed;right:12px;bottom:12px;z-index:2147483000;display:flex;gap:6px;padding:5px;border-radius:999px;background:rgba(128,128,128,.25);backdrop-filter:blur(4px)}" +
+    'html[data-theme="dark"] .contact-map iframe,html[data-theme="dark"] .pdf-container canvas,html[data-theme="dark"] .fundraising-document-viewport canvas,html[data-theme="dark"] #deck-canvas{filter:none}' +
+    'html[data-theme="dark"] #deck:fullscreen #deck-canvas{filter:invert(1) hue-rotate(180deg)}' +
+    'html[data-theme="dark"] #deck:-webkit-full-screen #deck-canvas{filter:invert(1) hue-rotate(180deg)}' +
+    'html[data-theme="dark"] .pdf-container[data-pdf-light="true"] canvas,html[data-theme="dark"] .fundraising-document-viewport[data-pdf-light="true"] canvas,html[data-theme="dark"] #deck[data-pdf-light="true"] #deck-canvas{filter:invert(1) hue-rotate(180deg)}' +
+    'html[data-theme="dark"] #deck[data-pdf-light="true"]:fullscreen #deck-canvas{filter:none}' +
+    'html[data-theme="dark"] #deck[data-pdf-light="true"]:-webkit-full-screen #deck-canvas{filter:none}' +
+    '.pdf-theme-toggle{margin:8px 0;padding:6px 12px;border:1px solid #888;border-radius:6px;background:#fff;color:#222;font:600 14px/1.4 sans-serif;cursor:pointer}' +
+    '.pdf-theme-toggle[aria-pressed="true"]{border-color:#1d684c;box-shadow:0 0 0 1px #1d684c}' +
+    'html:not([data-theme="dark"]) .pdf-theme-toggle{display:none}' +
+    ".theme-toggle{grid-column:2;grid-row:4;justify-self:start;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:100%;margin:12px 0 0}" +
     ".theme-toggle button{width:18px;height:18px;padding:0;border-radius:50%;border:2px solid #888;cursor:pointer;opacity:.7}" +
     ".theme-toggle button:hover,.theme-toggle button[aria-pressed=true]{opacity:1}" +
     ".theme-toggle button[aria-pressed=true]{border-color:#1d684c}" +
     ".theme-toggle button.tt-z{width:auto;min-width:22px;height:18px;padding:0 4px;border-radius:9px;border-color:#888;background:#fff;color:#222;font:600 11px/1 sans-serif}" +
     ".theme-toggle button:disabled{opacity:.3;cursor:default}" +
-    ".theme-toggle .tt-light{background:#fff}.theme-toggle .tt-dark{background:#000}";
+    ".theme-toggle .tt-light{background:#fff}.theme-toggle .tt-dark{background:#000}" +
+    "@media(max-width:768px){.theme-toggle{grid-column:1 / -1;justify-self:center}}";
   document.head.appendChild(style);
 
+  function attachControls() {
+    var header = document.querySelector(".site-header");
+    if (header && wrap) header.appendChild(wrap);
+  }
+
+  window.addPdfThemeToggle = function (viewer) {
+    if (viewer.dataset.pdfThemeToggle) return;
+    viewer.dataset.pdfThemeToggle = "true";
+
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "pdf-theme-toggle";
+    button.textContent = "Read the PDF in light theme";
+    button.setAttribute("aria-pressed", "false");
+    if (viewer.id) button.setAttribute("aria-controls", viewer.id);
+    button.addEventListener("click", function () {
+      var light = viewer.dataset.pdfLight !== "true";
+      viewer.dataset.pdfLight = String(light);
+      button.setAttribute("aria-pressed", String(light));
+    });
+
+    if (viewer.id === "deck") {
+      viewer.querySelector(".deck-controls").appendChild(button);
+    } else {
+      var anchor = viewer.closest(".fundraising-carousel") || viewer;
+      anchor.parentNode.insertBefore(button, anchor);
+    }
+  };
+
   document.addEventListener("site-header-loaded", function () {
+    attachControls();
     apply(root.getAttribute("data-theme"));
   });
 
@@ -101,7 +139,7 @@
   });
 
   document.addEventListener("DOMContentLoaded", function () {
-    var wrap = document.createElement("div");
+    wrap = document.createElement("div");
     wrap.className = "theme-toggle";
     wrap.setAttribute("role", "group");
     wrap.setAttribute("aria-label", "Theme and text size");
@@ -139,8 +177,12 @@
       });
       wrap.appendChild(b);
     });
-    document.body.appendChild(wrap);
+    attachControls();
+    if (!wrap.isConnected && !document.getElementById("site-header")) {
+      console.error("Unable to place theme controls: site header not found.");
+    }
     applyZoom(zoom);
     apply(root.getAttribute("data-theme"));
+    document.querySelectorAll("[data-pdf-url]").forEach(window.addPdfThemeToggle);
   });
 })();

@@ -1,3 +1,31 @@
+const upiDonationForm = document.getElementById('upiDonationForm');
+const donationAmount = document.getElementById('donationAmount');
+
+upiDonationForm.querySelector('button[type="submit"]').disabled = false;
+donationAmount.addEventListener('input', function () {
+    donationAmount.setCustomValidity('');
+});
+upiDonationForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const amount = donationAmount.value;
+    if (!/[1-9]/.test(amount)) {
+        donationAmount.setCustomValidity('Enter an amount greater than zero.');
+        donationAmount.reportValidity();
+        return;
+    }
+
+    const parts = amount.split('.');
+    const whole = parts[0].replace(/^0+(?=\d)/, '');
+    const decimal = (parts[1] || '').padEnd(2, '0');
+    const params = new URLSearchParams({
+        pa: '9602431619@hdfc',
+        pn: 'Jalte Diye Foundation',
+        am: whole + '.' + decimal,
+        cu: 'INR'
+    });
+    window.location.href = 'upi://pay?' + params.toString();
+});
+
 initTestimonialSlider({
     containerId: "testimonialContainer",
     indicatorsId: "indicators",

@@ -228,6 +228,58 @@
     gap: 12px;
 }
 
+#donate .upi-donation-form {
+    margin: 20px 0;
+}
+
+.upi-donation-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.upi-donation-input {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    align-items: center;
+    max-width: 300px;
+    margin-bottom: 8px;
+}
+
+.upi-donation-input input,
+.upi-donation-input button {
+    width: 100%;
+    height: 40px;
+    font: inherit;
+    font-size: 14px;
+}
+
+.upi-donation-input input {
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid #888;
+    border-radius: var(--radius-md);
+}
+
+.upi-donation-input button {
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    padding: 8px;
+    transition: background 0.2s ease, color 0.2s ease, font-size 0.2s ease;
+}
+
+.upi-donation-input button:hover {
+    font-size: 16px;
+    transform: none;
+}
+
+.upi-donation-input button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
 #donate .upi-details > p {
     margin: 0;
 }

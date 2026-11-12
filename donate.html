@@ -98,15 +98,23 @@
         <section class="section section--tint">
             <div class="donate-content">
                 <div class="donate-qr-section">
-                    <h3>Donation Method (QR Code)</h3>
-                    <p>Please contribute by scanning our official donation QR code.
-                    </p>
+                    <h3>Donation Methods</h3>
                     <p>
                         Currently fundraising for Miyawaki forestation project. Your support will help us plant more trees and create a greener environment.
                     </p>
                     <p>
                         <a href="https://www.linkedin.com/posts/jalte-diye-foundation_donation-drive-for-miyawaki-forestation-project-activity-7440238127006478337-1Gk8" class="learn-more-link">Learn more about the forestation project on LinkedIn</a>
                     </p>
+                    <form id="upiDonationForm" class="upi-donation-form">
+                        <label for="donationAmount">Donation amount (INR)</label>
+                        <div class="upi-donation-input">
+                            <input id="donationAmount" type="text" inputmode="decimal" pattern="[0-9]+([.][0-9]{1,2})?" aria-describedby="donationAmountHelp" required>
+                            <button type="submit" class="btn-donate" title="Opens a UPI app on your phone. On desktop, scan the QR code if no app opens." aria-describedby="upiPaymentHelp" disabled>Pay with UPI</button>
+                        </div>
+                        <p id="donationAmountHelp">Enter an amount greater than zero, with up to two decimal places.</p>
+                        <p id="upiPaymentHelp">This button opens a UPI app on your phone. On desktop, scan the QR code below if no app opens. Check the recipient and amount in your UPI app before paying.</p>
+                        <noscript><p>JavaScript is required to open a UPI app. Please use the QR code below.</p></noscript>
+                    </form>
                     <div class="upi-details">
                         <div class="upi-info">
                             <p><strong>UPI ID:</strong>20250302</p>
@@ -238,7 +246,7 @@
                     <a class="footer-social-link" href="https://x.com/JalteDiyeNPO" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on X">
                         <img src="images/logo-black.png" alt="X">
                     </a>
-                    <a class="footer-social-link" href="https://www.youtube.com/@JalteDiyeNPO" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on YouTube">
+                    <a class="footer-social-link" href="https://www.youtube.com/@JalteDiyeFoundation" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on YouTube">
                         <img src="images/yt_icon_red_digital.png" alt="YouTube">
                     </a>
                     <a class="footer-social-link" href="https://github.com/Jalte-Diye-Foundation" target="_blank" rel="noopener" aria-label="Jalte Diye Foundation on GitHub">
