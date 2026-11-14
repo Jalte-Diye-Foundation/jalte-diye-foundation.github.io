@@ -8,6 +8,7 @@ const womenStemContainer = document.getElementById("gallery-women-stem");
 const cleanlinessContainer = document.getElementById("gallery-cleanliness");
 const lakshmangarhContainer = document.getElementById("gallery-lakshmangarh");
 const ps1Container = document.getElementById("gallery-ps1-wistem");
+const convergenceContainer = document.getElementById("gallery-convergence");
 const emptyMsg = document.getElementById("gallery-empty-msg");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
@@ -42,11 +43,11 @@ function renderSectionGallery(images, container, sectionOffset) {
         card.className = "gallery-item " + getGalleryVariantClass(index);
         card.setAttribute("tabindex", "0");
         card.setAttribute("role", "button");
-        card.setAttribute("aria-label", "Gallery photo " + (sectionOffset + index + 1));
+        card.setAttribute("aria-label", item.alt || "Gallery photo " + (sectionOffset + index + 1));
         card.dataset.galleryIndex = String(sectionOffset + index);
         const img = document.createElement("img");
         img.src = item.src;
-        img.alt = "Gallery photo " + (sectionOffset + index + 1);
+        img.alt = item.alt || "Gallery photo " + (sectionOffset + index + 1);
         img.loading = "lazy";
         img.decoding = "async";
         card.appendChild(img);
@@ -58,7 +59,7 @@ function openLightbox(index) {
     currentIndex = index;
     const item = galleryImages[index];
     lightboxImg.src = item.src;
-    lightboxImg.alt = "Gallery photo " + (index + 1);
+    lightboxImg.alt = item.alt || "Gallery photo " + (index + 1);
     lightbox.classList.add("active");
     document.body.style.overflow = "hidden";
 }
@@ -89,6 +90,17 @@ fetch("gallery/images.json")
         if (!sections || typeof sections !== "object") throw new Error("Invalid gallery data");
         let allImages = [];
         let offset = 0;
+
+        const convergenceList = Array.isArray(sections["Convergence 2026"]) ? sections["Convergence 2026"] : [];
+        const convergenceImages = convergenceList
+            .filter((name) => IMAGE_EXTS.test(name) || /^https?:\/\//i.test(name))
+            .map((name, index) => ({
+                src: /^https?:\/\//i.test(name) ? name : "gallery/" + encodeURI(name),
+                alt: "Convergence 2026 image " + (index + 1),
+            }));
+        renderSectionGallery(convergenceImages, convergenceContainer, offset);
+        allImages = allImages.concat(convergenceImages);
+        offset += convergenceImages.length;
 
         // Miyawaki Section
         const miyawakiList = Array.isArray(sections["Miyawaki Awareness Talk"]) ? sections["Miyawaki Awareness Talk"] : [];
@@ -145,7 +157,7 @@ fetch("gallery/images.json")
     });
 
 
-[miyawakiContainer, gvanContainer, cogenticContainer, healthContainer, cleanlinessContainer, lakshmangarhContainer, ps1Container, womenStemContainer].forEach((sectionContainer) => {
+[convergenceContainer, miyawakiContainer, gvanContainer, cogenticContainer, healthContainer, cleanlinessContainer, lakshmangarhContainer, ps1Container, womenStemContainer].forEach((sectionContainer) => {
     if (!sectionContainer) return;
     sectionContainer.addEventListener("click", (e) => {
         const card = e.target.closest(".gallery-item");
@@ -156,7 +168,7 @@ fetch("gallery/images.json")
 });
 
 
-[miyawakiContainer, gvanContainer, cogenticContainer, healthContainer, cleanlinessContainer, lakshmangarhContainer, ps1Container, womenStemContainer].forEach((sectionContainer) => {
+[convergenceContainer, miyawakiContainer, gvanContainer, cogenticContainer, healthContainer, cleanlinessContainer, lakshmangarhContainer, ps1Container, womenStemContainer].forEach((sectionContainer) => {
     if (!sectionContainer) return;
     sectionContainer.addEventListener("keydown", (e) => {
         if (e.key !== "Enter" && e.key !== " ") return;

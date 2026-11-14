@@ -63,6 +63,10 @@
     filter: brightness(0.85);
 }
 
+html[data-theme="dark"] .gallery-item:hover img {
+    filter: invert(1) hue-rotate(180deg);
+}
+
 .gallery-item:hover::after {
     background: rgba(0, 0, 0, 0.1);
 }

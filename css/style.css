@@ -1411,6 +1411,186 @@ li {
 	text-decoration: none;
 }
 
+.convergence-page .site-brand-name {
+	grid-column: 2;
+	grid-row: 1;
+	margin: 0 0 12px;
+	color: var(--text-main);
+	font-size: clamp(2.2rem, 3vw, 2.6rem);
+	font-weight: 700;
+	line-height: 1.3;
+	letter-spacing: -0.01em;
+}
+
+.convergence-breadcrumb {
+	padding: 12px 40px 0;
+}
+
+.convergence-breadcrumb ol {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	list-style: none;
+	font-size: 14px;
+}
+
+.convergence-breadcrumb li + li::before {
+	content: "/";
+	margin-right: 8px;
+	color: var(--text-light);
+}
+
+.convergence-hero {
+	padding: 38px 20px;
+	border-bottom: 1px solid var(--border-soft);
+}
+
+.convergence-hero-content,
+.convergence-content {
+	max-width: var(--narrow-width);
+	margin: 0 auto;
+}
+
+.convergence-hero-content {
+	padding: 0 20px;
+}
+
+.convergence-eyebrow {
+	margin-bottom: 8px;
+	color: var(--accent-green);
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.convergence-hero h1 {
+	margin-bottom: 8px;
+	font-size: clamp(2.4rem, 6vw, 4rem);
+	color: var(--text-heading);
+}
+
+.convergence-lead {
+	margin-bottom: 4px;
+	font-size: clamp(1.25rem, 2.8vw, 1.7rem);
+	font-weight: 700;
+	color: var(--text-main);
+}
+
+.convergence-date {
+	margin-bottom: 18px;
+	color: var(--text-muted);
+	font-weight: 600;
+}
+
+.convergence-hero-content > p:not(.convergence-eyebrow, .convergence-lead, .convergence-date) {
+	max-width: 760px;
+	margin-bottom: 22px;
+	color: var(--text-muted);
+	font-size: 18px;
+}
+
+.convergence-cta {
+	display: inline-block;
+	padding: 11px 20px;
+	border-radius: 999px;
+	background: var(--accent-green);
+	color: #fff;
+	font-weight: 700;
+}
+
+.convergence-cta:hover {
+	background: var(--accent-green-dark);
+	color: #fff;
+}
+
+.convergence-content h2 {
+	margin-bottom: 14px;
+	color: var(--text-heading);
+	font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.convergence-content p {
+	margin-bottom: 14px;
+	color: var(--text-muted);
+}
+
+.convergence-discipline-list,
+.convergence-update-list {
+	margin: 0 0 16px;
+	padding-left: 24px;
+	color: var(--text-muted);
+}
+
+.convergence-discipline-list li,
+.convergence-update-list li {
+	margin-bottom: 4px;
+}
+
+.convergence-figure {
+	margin: 0 0 18px;
+}
+
+.convergence-figure img {
+	display: block;
+	width: 100%;
+	max-height: 420px;
+	object-fit: cover;
+	border-radius: 10px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.convergence-figure figcaption {
+	margin-top: 8px;
+	color: var(--text-muted);
+	font-size: 14px;
+	font-style: italic;
+	text-align: center;
+}
+
+.convergence-details {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.convergence-details div {
+	padding: 14px 16px;
+	border: 1px solid var(--border-soft);
+	border-radius: var(--radius-md);
+	background: var(--surface-base);
+}
+
+.convergence-details dt {
+	color: var(--text-main);
+	font-weight: 700;
+}
+
+.convergence-details dd {
+	color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+	.convergence-page .site-brand-name {
+		margin: 20px 0 0;
+		font-size: 22px;
+	}
+
+	.convergence-breadcrumb {
+		padding: 12px 20px 0;
+	}
+
+	.convergence-hero {
+		padding: 28px 0;
+	}
+
+	.convergence-hero-content > p:not(.convergence-eyebrow, .convergence-lead, .convergence-date) {
+		font-size: 16px;
+	}
+
+	.convergence-details {
+		grid-template-columns: 1fr;
+	}
+}
+
 .donate-section p {
 	margin-bottom: 12px;
 	color: var(--text-muted);
