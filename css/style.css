@@ -1504,6 +1504,7 @@ li {
 
 .convergence-content h2 {
 	margin-bottom: 14px;
+	text-align: left;
 	color: var(--text-heading);
 	font-size: clamp(1.5rem, 3vw, 2rem);
 }
