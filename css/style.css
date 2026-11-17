@@ -897,6 +897,7 @@ li {
 #success-story .story-grid {
 	grid-template-columns: 1fr;
 	max-width: 900px;
+	gap: 0;
 }
 
 .story-card {
